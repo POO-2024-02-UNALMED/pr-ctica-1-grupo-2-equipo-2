@@ -2,8 +2,9 @@ package nuevaSucursal;
 
 import java.util.Scanner;
 
+
 public class Administrativo {
-	
+
 	private static Administrativo[] admins = null;
 	private long contrasena;
 	private String nombre;
@@ -25,8 +26,8 @@ public class Administrativo {
 			adicion[cantidad] = this;
 		}
 	}
-	
-	static {new Administrativo("Puto de Mierda", 12345, 4488123);}
+
+	static {new Administrativo("Pepito", 12345, 4488123);}
 	
 	private boolean verificarCodigo() {
 		Scanner scanner = new Scanner(System.in);

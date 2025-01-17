@@ -1,9 +1,11 @@
 package nuevaSucursal;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public abstract class Empresa {
-	private static Sucursal[] sucursales;
+	private static ArrayList<Sucursal> sucursales = new ArrayList<>();
 	private static double deudas = 12000000;
 	private static double renta = 8000000;
 	private static double gastoRecursos;

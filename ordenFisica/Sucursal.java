@@ -17,7 +17,6 @@ public class Sucursal {
 		this.inventario=inventario;
 		this.empleados=empleados;
 	}
-	
     public int getId() {
         return id;
     }

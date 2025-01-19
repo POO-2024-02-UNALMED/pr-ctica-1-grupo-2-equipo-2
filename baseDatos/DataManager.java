@@ -20,6 +20,8 @@ public class DataManager implements Serializable {
     private AtomicInteger nextIncidenciaId;
     private List<Domicilio> domicilios;
     private List<Administrativo> admins;
+    private List<Sucursal> sucursales;
+    private final Barrio[] ciudad = new Barrio[16];
 
     public DataManager() {
         this.clientes = new ArrayList<>();
@@ -32,6 +34,7 @@ public class DataManager implements Serializable {
         this.admins = new ArrayList<>();
         this.nextPedidoId = new AtomicInteger(1);
         this.nextIncidenciaId = new AtomicInteger(1);
+        this.sucursales = new ArrayList<Sucursal>();
         cargarDatosPrueba();
     }
 
@@ -64,6 +67,41 @@ public class DataManager implements Serializable {
 
         // Admins de prueba
         admins.add(new Administrativo("Pepito", 12345, 4488123));
+
+        // Sucursales de prueba nuevaSucusal
+        int[] x = {-3,-3};
+        int [] y = {};
+        sucursales.add(new Sucursal(1, "Cisneros", 35, x));
+        sucursales.add(new Sucursal(2, "Robledo", 30, x));
+        Barrio barrio = Barrio.getBarrio(9);
+        barrio.setSucursal(true);
+        barrio = Barrio.getBarrio(4);
+        barrio.setSucursal(true);
+
+
+
+        // Barrios habilitados
+        int[] a = {-8, -4};
+        int[] b = {-4 , 0};
+        int[] c = {0, 4};
+        int[] d = {4, 8};
+        ciudad[0] = new Barrio("La Estrella", a, d);
+        ciudad[1] = new Barrio("Sabaneta", b, d);
+        ciudad[2] = new Barrio("Itagüí", c, d);
+        ciudad[3] = new Barrio("Envigado", d, d);
+        ciudad[4] = new Barrio("Robledo", d, c);
+        ciudad[5] = new Barrio("Bello", c, c);
+        ciudad[6] = new Barrio("Poblado", b, c);
+        ciudad[7] = new Barrio("Niquía", a, c);
+        ciudad[8] = new Barrio("Alpujarra", a, b);
+        ciudad[9] = new Barrio("Cisneros", b, b);
+        ciudad[10] = new Barrio("San Antonio", c, b);
+        ciudad[11] = new Barrio("Berrío", d, b);
+        ciudad[12] = new Barrio("Prado", d, a);
+        ciudad[13] = new Barrio("Caribe", c, a);
+        ciudad[14] = new Barrio("Acevedo", b, a);
+        ciudad[15] = new Barrio("Madera", a, a);
+
     }
 
     // Métodos para gestionar clientes
@@ -258,4 +296,6 @@ public class DataManager implements Serializable {
     public List<Administrativo> getAdmins(){
         return admins;
     }
+
+    public List<Sucursal> getSucursales(){return sucursales;}
 }

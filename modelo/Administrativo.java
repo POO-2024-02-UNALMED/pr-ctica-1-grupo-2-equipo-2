@@ -1,33 +1,23 @@
 package modelo;
 
 import java.util.Scanner;
+import baseDatos.DataManager;
+import java.util.List;
+import java.util.InputMismatchException;
 
 
 public class Administrativo {
 
-	private static Administrativo[] admins = null;
 	private long contrasena;
 	private String nombre;
 	private long cedula;
 
-	private Administrativo(String nombre, long cedula, long clave){
+	public Administrativo(String nombre, long cedula, long clave){
 		this.nombre = nombre;
 		this.cedula = cedula;
 		this.contrasena = clave;
-		if (admins == null) {
-			admins = new Administrativo[1];
-			admins[0] = this;
-		}else {
-			int cantidad = admins.length;
-			Administrativo[] adicion = new Administrativo[cantidad + 1];
-			for (int i = 0; i == cantidad-1; i++) {
-				adicion[i] = admins[i];
-			}
-			adicion[cantidad] = this;
-		}
 	}
 
-	static {new Administrativo("Pepito", 12345, 4488123);}
 	
 	private boolean verificarCodigo() {
 		Scanner scanner = new Scanner(System.in);
@@ -49,9 +39,10 @@ public class Administrativo {
 		return false;
 	}
 	
-	public static boolean verificarAdmin(long cedula) {
+	public static boolean verificarAdmin(long cedula, DataManager dataManager) {
 		Scanner scanner;
 		Administrativo tu = null;
+		List<Administrativo> admins = dataManager.getAdmins();
 		for (Administrativo i: admins) {
 			if (i.cedula == cedula) {
 				tu = i;
@@ -69,7 +60,9 @@ public class Administrativo {
 		}
 	}
 	
-	public static Administrativo getAdmin(long cedula) {
+	public static Administrativo getAdmin(long cedula, DataManager dataManager) {
+
+		List<Administrativo> admins = dataManager.getAdmins();
 		for (Administrativo i: admins) {
 			if (i.cedula == cedula) {
 				return i;
@@ -79,7 +72,7 @@ public class Administrativo {
 	}
 
 
-	
+	/*
 	public void menuAdmin() {
 		System.out.println("Bienvenid@ admin. " + nombre);
 		boolean salir = false;
@@ -106,4 +99,12 @@ public class Administrativo {
 		}
 		return;
 	}
+*/
+	public void saludo(){
+		System.out.println("Bienvenid@ admin. " + nombre);
+	}
+	public long getCedula(){return cedula;}
+	public long getClave(){return contrasena;}
+	public String getNombre(){return nombre;}
 }
+

@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public enum Esquina {
     CLL1_CRR1("CLL1_CR1", -8, 8),
     CLL1_CRR2("CLL1_CR2", -8, 7),
@@ -312,6 +314,62 @@ public enum Esquina {
     private final int[] coordenadas = new int[2];
     private String direccion;
 
+    public static Esquina fromDireccion(String direccion) {
+        for(Esquina esquina: values()) {
+            if (direccion.equals(esquina.direccion)) {
+                return esquina;
+            }
+        }
+        System.out.println("Esa dirección no está disponible en nuestra zona");
+        return null;
+    }
+    public static Esquina fromCoo(int x, int y) {
+        for(Esquina esquina: values()) {
+            int x1 = esquina.coordenadas[0];
+            int y1 = esquina.coordenadas[1];
+            if (x == x1) {
+                if (y == y1) {
+                    return esquina;
+                }
+            }
+        }
+        System.out.println("Esa dirección no está disponible en nuestra zona");
+        return null;
+    }
 
+    public static Esquina fromCoo(int[] coordenadas) {
+        for(Esquina esquina: values()) {
+            int x1 = esquina.coordenadas[0];
+            int y1 = esquina.coordenadas[1];
+            if (coordenadas[0] == x1) {
+                if (coordenadas[1] == y1) {
+                    return esquina;
+                }
+            }
+        }
+        System.out.println("Esa dirección no está disponible en nuestra zona");
+        return null;
+    }
+
+    public static ArrayList<Esquina> determinarZona(int[] x, int[] y) {
+        ArrayList<Esquina> esquinas = new ArrayList<Esquina>();
+        for (Esquina punto: values()) {
+            if (punto.coordenadas[0] >= x[0] && punto.coordenadas[0] <= x[1]) {
+                if (punto.coordenadas[1] >= y[0] && punto.coordenadas[1] <= y[1]) {
+                    if (x[1] == 0 && punto.direccion.contains("CLL10")) {continue;}
+                    if (x[0] == 0 && punto.direccion.contains("CLL9")) {continue;}
+                    esquinas.add(punto);
+                }
+            }
+        }
+        return esquinas;
+    }
+
+    public String toString() {
+        return this.direccion;
+    }
 }
+
+
+
 

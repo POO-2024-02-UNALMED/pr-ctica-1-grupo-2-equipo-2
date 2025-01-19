@@ -1,6 +1,10 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import baseDatos.DataManager;
 import baseDatos.Persistencia;
+import modelo.Administrativo;
+import modelo.Empresa;
+
 
 public class Main {
     private static DataManager dataManager;
@@ -16,7 +20,7 @@ public class Main {
 
         while (running) {
             System.out.println("\n=== Menú Principal ===");
-            System.out.println("1. Funcionalidad 1");
+            System.out.println("1. Ver sucursales");
             System.out.println("2. Funcionalidad 2");
             System.out.println("3. Funcionalidad 3");
             System.out.println("4. Pedir Domicilio");
@@ -28,8 +32,24 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    System.out.println("Funcionalidad 1 en desarrollo.");
-                    break;
+                    System.out.println("Escriba su número de cédula");
+                    Scanner scanner1 = new Scanner(System.in);
+                    long cedula;
+                    try {
+                        cedula = scanner1.nextLong();
+                        scanner.nextLine(); // Limpiar buffer
+                    } catch (InputMismatchException e) {
+                        System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                        scanner.nextLine(); // Limpiar el buffer
+                        continue;
+                    }
+                    if (Administrativo.verificarAdmin(cedula,dataManager) == true) {
+                        Administrativo admin = Administrativo.getAdmin(cedula, dataManager);
+                        admin.saludo();
+                        Empresa.menuFinanzas();
+                    }else{
+                        break;
+                    }
                 case 2:
                     System.out.println("Funcionalidad 2 en desarrollo.");
                     break;

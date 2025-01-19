@@ -1,5 +1,7 @@
 package ordenFisica;
 
+import modelo.Sucursal;
+
 public class Mesa {
 	private int id;
 	private int capacidad;

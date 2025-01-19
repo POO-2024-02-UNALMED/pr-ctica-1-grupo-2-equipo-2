@@ -4,6 +4,7 @@ import modelo.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ public class DataManager implements Serializable {
     private AtomicInteger nextPedidoId;
     private AtomicInteger nextIncidenciaId;
     private List<Domicilio> domicilios;
+    private List<Administrativo> admins;
 
     public DataManager() {
         this.clientes = new ArrayList<>();
@@ -27,6 +29,7 @@ public class DataManager implements Serializable {
         this.zonas = new ArrayList<>();
         this.incidencias = new ArrayList<>();
         this.domicilios = new ArrayList<>();
+        this.admins = new ArrayList<>();
         this.nextPedidoId = new AtomicInteger(1);
         this.nextIncidenciaId = new AtomicInteger(1);
         cargarDatosPrueba();
@@ -58,6 +61,9 @@ public class DataManager implements Serializable {
         productos.add(new Producto(3, "Ensalada César", 7.99, 10));
         productos.add(new Producto(4, "Pasta Alfredo", 10.99, 12));
         productos.add(new Producto(5, "Refresco", 2.99, 50));
+
+        // Admins de prueba
+        admins.add(new Administrativo("Pepito", 12345, 4488123));
     }
 
     // Métodos para gestionar clientes
@@ -249,5 +255,7 @@ public class DataManager implements Serializable {
                 .filter(Repartidor::isDisponible)
                 .collect(Collectors.toList());
     }
-
+    public List<Administrativo> getAdmins(){
+        return admins;
+    }
 }

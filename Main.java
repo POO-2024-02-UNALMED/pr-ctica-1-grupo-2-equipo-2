@@ -46,7 +46,7 @@ public class Main {
                     if (Administrativo.verificarAdmin(cedula,dataManager) == true) {
                         Administrativo admin = Administrativo.getAdmin(cedula, dataManager);
                         admin.saludo();
-                        Empresa.menuFinanzas();
+                        Empresa.menuFinanzas(dataManager);
                     }else{
                         break;
                     }

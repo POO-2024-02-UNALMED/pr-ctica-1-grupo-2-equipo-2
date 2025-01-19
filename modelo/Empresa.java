@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 
 public abstract class Empresa {
@@ -62,14 +63,21 @@ public abstract class Empresa {
 			System.out.println("5. Cerrar sucursal");
 			System.out.println("6. Salir");
 			Scanner scanner = new Scanner(System.in);
-			int eleccion = scanner.nextInt();
+			int eleccion;
+			try {
+				eleccion = scanner.nextInt();
+				scanner.nextLine(); // Limpiar buffer
+			} catch (InputMismatchException e) {
+				System.out.println("Entrada no válida. Por favor, ingrese un número.");
+				scanner.nextLine(); // Limpiar el buffer
+				continue;
+			}
 			switch(eleccion) {
 			case 1:
 				verFinanzas();
 				break;
 			case 4:
 				double presupuesto = pedirPrestamo();
-				System.out.println("se dió");
 				break;
 			case 6:
 				salir = true;

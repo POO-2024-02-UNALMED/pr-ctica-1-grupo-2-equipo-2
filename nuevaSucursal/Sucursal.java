@@ -1,7 +1,7 @@
 package nuevaSucursal;
 
-import ordenFisica.Mesa;
-import ordenFisica.Mesero;
+import modelo.Mesa;
+import modelo.Mesero;
 
 public class Sucursal {
 	private int id;

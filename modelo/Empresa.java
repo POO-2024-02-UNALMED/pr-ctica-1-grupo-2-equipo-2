@@ -1,5 +1,7 @@
 package modelo;
 
+import baseDatos.DataManager;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
@@ -52,7 +54,7 @@ public abstract class Empresa {
 		System.out.println("Se han añadido $" + deuda/1000000 + "M a su deuda");
 	}
 	
-	public static void menuFinanzas() {
+	public static void menuFinanzas(DataManager dataManager) {
 		boolean salir = false;
 		while (salir == false) {
 			System.out.println("¿Qué acción desea realizar");
@@ -78,6 +80,7 @@ public abstract class Empresa {
 				break;
 			case 4:
 				double presupuesto = pedirPrestamo();
+				Sucursal.comprarTerreno(presupuesto, dataManager.getSucursales());
 				break;
 			case 6:
 				salir = true;

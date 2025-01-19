@@ -1,5 +1,7 @@
 package ordenFisica;
 
+import modelo.Mesa;
+import modelo.Mesero;
 import modelo.Sucursal;
 
 public class PedidoFisico extends OrdenFisica {

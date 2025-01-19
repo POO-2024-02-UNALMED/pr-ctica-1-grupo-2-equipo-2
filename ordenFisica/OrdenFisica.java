@@ -1,5 +1,7 @@
 package ordenFisica;
 
+import modelo.Sucursal;
+
 public class OrdenFisica {
 	private Mesa mesa;
 	private Cliente cliente;

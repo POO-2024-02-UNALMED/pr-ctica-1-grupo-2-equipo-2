@@ -1,5 +1,6 @@
 package ordenFisica;
 
+import modelo.Empleado;
 import modelo.Sucursal;
 
 public class Chef extends Empleado {

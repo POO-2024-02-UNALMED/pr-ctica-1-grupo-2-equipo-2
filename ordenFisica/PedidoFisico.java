@@ -1,11 +1,13 @@
 package ordenFisica;
 
+import modelo.Sucursal;
+
 public class PedidoFisico extends OrdenFisica {
 	private int numeroDePersonas;
 	private Chef chef;
 	private Plato[] pedido;
 	
-	public PedidoFisico(Mesa mesa, Cliente cliente,Mesero mesero,Sucursal sucursal,int N_D_P,Chef chef,Plato[] pedido) {
+	public PedidoFisico(Mesa mesa, Cliente cliente, Mesero mesero, Sucursal sucursal, int N_D_P, Chef chef, Plato[] pedido) {
 		super(mesa,cliente,mesero,sucursal);
 		this.numeroDePersonas=N_D_P;
 		this.chef=chef;

@@ -57,7 +57,9 @@ public class Barrio {
 
          ArrayList<Esquina> locales = barrio.getEsquinas();
          int i = 0;
+         Esquina[] espacios = new Esquina[16];
          for (Esquina local : locales) {
+             espacios[i] = local;
              System.out.println((i + 1) + ". " + local);
              i++;
          }
@@ -69,6 +71,8 @@ public class Barrio {
             scanner = new Scanner(System.in);
             eleccion = scanner.nextInt();
         }
+        Esquina local = espacios[eleccion - 1];
+        System.out.println(local);
         boolean correcto = false;
         while (correcto == false) {
 

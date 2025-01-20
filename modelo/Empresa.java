@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 
+
 public abstract class Empresa {
 	private static ArrayList<Sucursal> sucursales = new ArrayList<>();
 	private static double deudas = 12000000;
@@ -80,7 +81,7 @@ public abstract class Empresa {
 				break;
 			case 4:
 				double presupuesto = pedirPrestamo();
-				Sucursal.comprarTerreno(presupuesto, dataManager.getSucursales());
+				Barrio.comprarTerreno(presupuesto, dataManager.getSucursales(), dataManager.getCiudad());
 				break;
 			case 6:
 				salir = true;

@@ -21,7 +21,7 @@ public class DataManager implements Serializable {
     private List<Domicilio> domicilios;
     private List<Administrativo> admins;
     private List<Sucursal> sucursales;
-    private final Barrio[] ciudad = new Barrio[16];
+    private final Barrio[] ciudad;
 
     public DataManager() {
         this.clientes = new ArrayList<>();
@@ -35,6 +35,7 @@ public class DataManager implements Serializable {
         this.nextPedidoId = new AtomicInteger(1);
         this.nextIncidenciaId = new AtomicInteger(1);
         this.sucursales = new ArrayList<Sucursal>();
+        this.ciudad = new Barrio[16];
         cargarDatosPrueba();
     }
 
@@ -49,7 +50,7 @@ public class DataManager implements Serializable {
         repartidor1.setCalificacionPromedio(4.5);
         repartidor1.getZonasAsignadas().add(zonas.get(0));
         repartidor1.getZonasAsignadas().add(zonas.get(1));
-        
+
         Repartidor repartidor2 = new Repartidor(2, "María García", true);
         repartidor2.setCalificacionPromedio(4.8);
         repartidor2.getZonasAsignadas().add(zonas.get(1));
@@ -68,21 +69,9 @@ public class DataManager implements Serializable {
         // Admins de prueba
         admins.add(new Administrativo("Pepito", 12345, 4488123));
 
-        // Sucursales de prueba nuevaSucusal
-        int[] x = {-3,-3};
-        int [] y = {};
-        sucursales.add(new Sucursal(1, "Cisneros", 35, x));
-        sucursales.add(new Sucursal(2, "Robledo", 30, x));
-        Barrio barrio = Barrio.getBarrio(9);
-        barrio.setSucursal(true);
-        barrio = Barrio.getBarrio(4);
-        barrio.setSucursal(true);
-
-
-
         // Barrios habilitados
         int[] a = {-8, -4};
-        int[] b = {-4 , 0};
+        int[] b = {-4, 0};
         int[] c = {0, 4};
         int[] d = {4, 8};
         ciudad[0] = new Barrio("La Estrella", a, d);
@@ -102,7 +91,18 @@ public class DataManager implements Serializable {
         ciudad[14] = new Barrio("Acevedo", b, a);
         ciudad[15] = new Barrio("Madera", a, a);
 
+        // Sucursales de prueba nuevaSucusal
+        int[] x = {-3, -3};
+        int[] y = {5, 3};
+        int[] z = {2, 6};
+        sucursales.add(new Sucursal(1, "Cisneros", 35, x));
+        sucursales.add(new Sucursal(2, "Robledo", 30, y));
+        sucursales.add(new Sucursal(3, "Sabaneta", 30, z));
+        ciudad[9].setSucursal(true);
+        ciudad[4].setSucursal(true);
+        ciudad[1].setSucursal(true);
     }
+    
 
     // Métodos para gestionar clientes
     public void agregarCliente(Cliente cliente) {
@@ -298,4 +298,6 @@ public class DataManager implements Serializable {
     }
 
     public List<Sucursal> getSucursales(){return sucursales;}
+
+    public Barrio[] getCiudad(){return ciudad;}
 }

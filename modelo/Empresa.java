@@ -58,6 +58,7 @@ public abstract class Empresa {
 	public static void menuFinanzas(DataManager dataManager) {
 		boolean salir = false;
 		while (salir == false) {
+			System.out.println("=== Menú Finanzas ===");
 			System.out.println("¿Qué acción desea realizar");
 			System.out.println("1. Ver finanzas generales");
 			System.out.println("2. Calcular finanzas");

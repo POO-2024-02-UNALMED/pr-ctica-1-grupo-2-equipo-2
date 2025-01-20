@@ -102,7 +102,7 @@ public class DataManager implements Serializable {
         ciudad[4].setSucursal(true);
         ciudad[1].setSucursal(true);
     }
-    
+
 
     // Métodos para gestionar clientes
     public void agregarCliente(Cliente cliente) {

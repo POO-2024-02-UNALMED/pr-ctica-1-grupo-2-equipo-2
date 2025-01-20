@@ -35,6 +35,10 @@ public class Sucursal {
         this.direccion = direccion;
     }
 
+    public void calcularDistancia(int[] coordenadas){
+
+    }
+
     public void setId(int id) {
         this.id = id;
     }

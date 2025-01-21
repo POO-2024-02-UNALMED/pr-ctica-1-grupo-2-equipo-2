@@ -368,6 +368,8 @@ public enum Esquina {
     public String toString() {
         return this.direccion;
     }
+
+    public int[] getCoordenadas(){return coordenadas;}
 }
 
 

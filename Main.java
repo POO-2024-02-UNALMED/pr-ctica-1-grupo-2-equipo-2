@@ -43,7 +43,7 @@ public class Main {
                         scanner.nextLine(); // Limpiar el buffer
                         continue;
                     }
-                    if (Administrativo.verificarAdmin(cedula,dataManager) == true) {
+                    if (Administrativo.verificarAdmin(cedula,dataManager)) {
                         Administrativo admin = Administrativo.getAdmin(cedula, dataManager);
                         admin.saludo();
                         Empresa.menuFinanzas(dataManager);

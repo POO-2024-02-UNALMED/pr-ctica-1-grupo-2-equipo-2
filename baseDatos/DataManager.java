@@ -300,4 +300,6 @@ public class DataManager implements Serializable {
     public List<Sucursal> getSucursales(){return sucursales;}
 
     public Barrio[] getCiudad(){return ciudad;}
+
+    public void addSucursal(Sucursal sucursal){sucursales.add(sucursal);}
 }

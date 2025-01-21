@@ -82,7 +82,13 @@ public abstract class Empresa {
 				break;
 			case 4:
 				double presupuesto = pedirPrestamo();
-				Barrio.comprarTerreno(presupuesto, dataManager.getSucursales(), dataManager.getCiudad());
+				if(presupuesto == 0){
+					System.out.println("No se ha concretado ningún préstamo");
+					break;
+				}
+				Sucursal newSucursal = Barrio.comprarTerreno(presupuesto, dataManager.getSucursales(), dataManager.getCiudad());
+				dataManager.addSucursal(newSucursal);
+				System.out.println(newSucursal);
 				break;
 			case 6:
 				salir = true;

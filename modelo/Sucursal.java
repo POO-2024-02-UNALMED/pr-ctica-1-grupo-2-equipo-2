@@ -35,8 +35,21 @@ public class Sucursal {
         this.direccion = direccion;
     }
 
-    public void calcularDistancia(int[] coordenadas){
-
+    public static boolean calcularDistancia(int[] coordenadas, List<Sucursal> sucursales){
+        boolean suficiente = true;
+        int x = coordenadas[0];
+        int y = coordenadas[1];
+        for(Sucursal sucursal: sucursales){
+            int x1 = sucursal.direccion[0];
+            int y1 = sucursal.direccion[1];
+            double distancia = Math.sqrt((x * x1) + (y * y1));
+            if(distancia < 4){
+                suficiente = false;
+                break;
+            }
+            return suficiente;
+        }
+        return false;
     }
 
     public void setId(int id) {
@@ -74,5 +87,6 @@ public class Sucursal {
     public void setEmpleado(Empleado[] empleados) {
     	this.empleados=empleados;
     }
-	
+
+    
 }

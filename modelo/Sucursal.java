@@ -1,7 +1,6 @@
 package modelo;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import error.Entrada;
 import ordenFisica.Ingrediente;
 import java.util.List;
 

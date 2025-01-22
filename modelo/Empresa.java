@@ -3,12 +3,11 @@ package modelo;
 import baseDatos.DataManager;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.InputMismatchException;
+import error.Entrada;
 
 
 
-public abstract class Empresa {
+public class Empresa {
 	private static ArrayList<Sucursal> sucursales = new ArrayList<>();
 	private static double deudas = 12000000;
 	private static double renta = 8000000;
@@ -66,16 +65,9 @@ public abstract class Empresa {
 			System.out.println("4. Abrir sucursal");
 			System.out.println("5. Cerrar sucursal");
 			System.out.println("6. Salir");
-			Scanner scanner = new Scanner(System.in);
-			int eleccion;
-			try {
-				eleccion = scanner.nextInt();
-				scanner.nextLine(); // Limpiar buffer
-			} catch (InputMismatchException e) {
-				System.out.println("Entrada no válida. Por favor, ingrese un número.");
-				scanner.nextLine(); // Limpiar el buffer
-				continue;
-			}
+
+			int eleccion = Entrada.input();
+
 			switch(eleccion) {
 			case 1:
 				verFinanzas();

@@ -1,7 +1,7 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import baseDatos.DataManager;
 import baseDatos.Persistencia;
+import error.Entrada;
 import modelo.Administrativo;
 import modelo.Empresa;
 
@@ -33,16 +33,7 @@ public class Main {
             switch (opcion) {
                 case 1:
                     System.out.println("Escriba su número de cédula");
-                    Scanner scanner1 = new Scanner(System.in);
-                    long cedula;
-                    try {
-                        cedula = scanner1.nextLong();
-                        scanner.nextLine(); // Limpiar buffer
-                    } catch (InputMismatchException e) {
-                        System.out.println("Entrada no válida. Por favor, ingrese un número.");
-                        scanner.nextLine(); // Limpiar el buffer
-                        continue;
-                    }
+                    int cedula = Entrada.input();
                     if (Administrativo.verificarAdmin(cedula,dataManager)) {
                         Administrativo admin = Administrativo.getAdmin(cedula, dataManager);
                         admin.saludo();

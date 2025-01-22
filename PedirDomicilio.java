@@ -28,7 +28,7 @@ public class PedirDomicilio {
             opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiar el buffer
         } catch (InputMismatchException e) {
-            System.out.println("Entrada no válida. Por favor, ingrese un número.");
+            System.out.println("error.Entrada no válida. Por favor, ingrese un número.");
             scanner.nextLine(); // Limpiar el buffer
             return;
         }
@@ -97,7 +97,7 @@ public class PedirDomicilio {
                 opcion = scanner.nextInt();
                 scanner.nextLine(); // Limpiar buffer
             } catch (InputMismatchException e) {
-                System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                System.out.println("error.Entrada no válida. Por favor, ingrese un número.");
                 scanner.nextLine(); // Limpiar el buffer
                 continue;
             }

@@ -1,9 +1,10 @@
 package modelo;
 
-import java.util.Scanner;
+
 import baseDatos.DataManager;
+import error.Entrada;
 import java.util.List;
-import java.util.InputMismatchException;
+
 
 
 public class Administrativo {
@@ -20,8 +21,7 @@ public class Administrativo {
 
 	
 	private boolean verificarCodigo() {
-		Scanner scanner = new Scanner(System.in);
-		long clave = scanner.nextLong();
+		long clave = Entrada.input();
 		int i = 0;
 		while (i < 3) {
 			if (clave == contrasena) {
@@ -29,8 +29,7 @@ public class Administrativo {
 			}else {
 				System.out.println("Contraseña incorrecta");
 				System.out.println("Igrésela nuevamente");
-				scanner = new Scanner(System.in);
-				clave = scanner.nextLong();
+				clave = Entrada.input();
 				i ++;
 			}
 		}
@@ -40,7 +39,6 @@ public class Administrativo {
 	}
 	
 	public static boolean verificarAdmin(long cedula, DataManager dataManager) {
-		Scanner scanner;
 		Administrativo tu = null;
 		List<Administrativo> admins = dataManager.getAdmins();
 		for (Administrativo i: admins) {

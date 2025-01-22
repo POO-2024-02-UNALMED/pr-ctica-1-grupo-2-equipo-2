@@ -1,7 +1,6 @@
 package modelo;
 
-import java.util.Scanner;
-
+import error.Entrada;
 
 public class Banco {
 	final static private Banco[] bancos = {
@@ -66,8 +65,7 @@ public class Banco {
 				System.out.println(i);
 			}
 			System.out.println("Escoja que banco le interesa más");
-			Scanner scanner = new Scanner(System.in);
-			eleccion = scanner.nextInt();
+			eleccion = Entrada.input();
 			if (eleccion <=0 || eleccion > bancos.length) {
 				System.out.println("No ha escogido ninguna opción");
 				return 0;
@@ -86,8 +84,7 @@ public class Banco {
 				boolean correcto = false;
 				while (correcto == false) {
 					System.out.println("Escriba la cantidad de años que desea de préstamo");
-					scanner = new Scanner(System.in);
-					anos = scanner.nextInt();
+					anos = Entrada.input();
 					if (anos <= 0 || anos > 10) {
 						System.out.println("No se va a aceptar un plazo de esa cantidad de años");
 					}else {

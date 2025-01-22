@@ -2,9 +2,8 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import error.Entrada;
 import baseDatos.DataManager;
-import java.util.InputMismatchException;
 
 public class Barrio {
     private boolean sucursal;
@@ -56,13 +55,11 @@ public class Barrio {
             }
             System.out.println((i + 1) + ". " + noHay[i]);
         }
-        Scanner scanner = new Scanner(System.in);
-        int eleccion = scanner.nextInt();
+        int eleccion = Entrada.input();
         while (eleccion > no) {
             System.out.println("Opción no disponible");
             System.out.println("Escoja otra opción");
-            scanner = new Scanner(System.in);
-            eleccion = scanner.nextInt();
+            eleccion = Entrada.input();
         }
         Barrio barrio = noHay[eleccion - 1];
         ArrayList<Esquina> locales = barrio.getEsquinas();
@@ -70,19 +67,21 @@ public class Barrio {
         Esquina[] espacios = new Esquina[25];
         System.out.println("Escoja la ubicación");
         for (Esquina local : locales) {
-            if(local == null){break;}
-            if(!Sucursal.calcularDistancia(local.getCoordenadas(),sucursales)){continue;}
+            if (local == null) {
+                break;
+            }
+            if (!Sucursal.calcularDistancia(local.getCoordenadas(), sucursales)) {
+                continue;
+            }
             espacios[i] = local;
             System.out.println((i + 1) + ". " + local);
             i++;
         }
-        scanner = new Scanner(System.in);
-        eleccion = scanner.nextInt();
+        eleccion = Entrada.input();
         while (eleccion > i) {
             System.out.println("Opción no disponible");
             System.out.println("Escoja otra opción");
-            scanner = new Scanner(System.in);
-            eleccion = scanner.nextInt();
+            eleccion = Entrada.input();
         }
         Esquina local = espacios[eleccion - 1];
 

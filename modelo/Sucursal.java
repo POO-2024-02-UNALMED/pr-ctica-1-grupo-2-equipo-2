@@ -1,5 +1,6 @@
 package modelo;
 
+import baseDatos.DataManager;
 import error.Entrada;
 import ordenFisica.Ingrediente;
 import java.util.List;
@@ -100,7 +101,16 @@ public class Sucursal {
     public String toString(){
         return "*Sucursal de " + ubicacion + ": \n" +
                 "Cantidad de mesas: " + getEspacio() + "\n" +
-                "Presupuesto: " + Math.round(presupuesto)/1000000 + "M";
+                "Presupuesto: $" + Math.round(presupuesto)/1000000 + "M";
     }
-
+    public void comprarMesas(double presupuesto, int cantidad){
+        int compradas = 0;
+        while(compradas < cantidad/2) {
+            System.out.println("¿Qué tipo de mesa desea adquirir");
+            System.out.println("1. Pequeña: 4/ $500.000");
+            System.out.println("2. Mediana: 6/ $800.000");
+            System.out.println("3. Grande: 8/ $1.200.000");
+            int eleccion = Entrada.input();
+        }
+    }
 }

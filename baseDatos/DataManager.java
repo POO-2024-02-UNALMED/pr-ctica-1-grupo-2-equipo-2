@@ -67,7 +67,9 @@ public class DataManager implements Serializable {
         productos.add(new Producto(5, "Refresco", 2.99, 50));
 
         // Admins de prueba
-        admins.add(new Administrativo("Pepito", 12345, 4488123));
+        admins.add(new Administrativo("Lionel Messi", 12345, 4488123));
+        admins.add(new Administrativo("Elena Nito", 10453, 4488123));
+        admins.add(new Administrativo("Alma Marcela Gozo", 42012, 4488123));
 
         // Barrios habilitados
         int[] a = {-8, -4};
@@ -85,7 +87,7 @@ public class DataManager implements Serializable {
         ciudad[8] = new Barrio("Alpujarra", a, b);
         ciudad[9] = new Barrio("Cisneros", b, b);
         ciudad[10] = new Barrio("San Antonio", c, b);
-        ciudad[11] = new Barrio("Berrío", d, b);
+        ciudad[11] = new Barrio("Parque Berrío", d, b);
         ciudad[12] = new Barrio("Prado", d, a);
         ciudad[13] = new Barrio("Caribe", c, a);
         ciudad[14] = new Barrio("Acevedo", b, a);
@@ -95,9 +97,9 @@ public class DataManager implements Serializable {
         int[] x = {-3, -3};
         int[] y = {5, 3};
         int[] z = {2, 6};
-        sucursales.add(new Sucursal(1, "Cisneros", 35, x));
-        sucursales.add(new Sucursal(2, "Robledo", 30, y));
-        sucursales.add(new Sucursal(3, "Sabaneta", 30, z));
+        sucursales.add(new Sucursal(1, "Cisneros", 35, x, 57000000));
+        sucursales.add(new Sucursal(2, "Robledo", 30, y, 48000000));
+        sucursales.add(new Sucursal(3, "Sabaneta", 30, z, 44000000));
         ciudad[9].setSucursal(true);
         ciudad[4].setSucursal(true);
         ciudad[1].setSucursal(true);

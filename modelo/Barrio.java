@@ -108,7 +108,7 @@ public class Barrio {
         System.out.println("Escoja cuál de los locales disponibles le parece más interesante:");
         for(int n = 0; n < esqPer; n++){
             valor[n] = Math.random()*(presupuesto/2)+100000000;
-            System.out.print((n+1) + ". Precio: ");
+            System.out.print((n+1) + ". Precio: $");
             System.out.print(Math.round(valor[n])/1000000 + "M");
             double r = Math.random()*(presupuesto/(1.5*10000000))+15;
             int s = 0;

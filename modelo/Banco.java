@@ -26,7 +26,7 @@ public class Banco {
 	private double aceptar(double solvencia, double deudas) {
 		int tolerancia = 10 - exigencia;
 		double capacidad = (solvencia - 1) * 10;
-		/*if (deudas >= 10000000 * tolerancia || solvencia < 1.1) {
+		if (deudas >= 10000000 * tolerancia || solvencia < 1.1) {
 			return 0;
 		}else {
 			if (capacidad < exigencia) {
@@ -34,7 +34,7 @@ public class Banco {
 				System.out.println(exigencia);
 				return 0;
 			}
-		}*/
+		}
 		double valorAgregado = prestamoMin * ((capacidad - exigencia)/10);
 		return prestamoMin + valorAgregado;
 	}

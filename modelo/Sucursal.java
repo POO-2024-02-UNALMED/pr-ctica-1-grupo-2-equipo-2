@@ -111,6 +111,32 @@ public class Sucursal {
             System.out.println("2. Mediana: 6/ $800.000");
             System.out.println("3. Grande: 8/ $1.200.000");
             int eleccion = Entrada.input();
+            switch(eleccion) {
+                case 1:
+                    System.out.println("¿Cuántas desea comprar?");
+                    int numero = 0;
+                    while (numero > cantidad || numero < 1) {
+                        numero = Entrada.input();
+                        if (numero > cantidad || numero < 1) {
+                            System.out.println("No es posible comprar esa cantidad");
+                        }
+                    }
+                    if(presupuesto < 500000 * numero){
+                        System.out.println("No hay suficiente dinero");
+                        break;
+                    }else{
+                        presupuesto -= 500000 * numero;
+                        int j = 0;
+                        for(Mesa mesa: mesas){
+                            j++;
+                            if(mesa == null){break;}
+                        }
+                        for(int i = 0; i < numero; i++){
+                            mesas[i] = new Mesa(j, 4,this);
+                            j++;
+                        }
+                    }
+            }
         }
     }
 }

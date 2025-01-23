@@ -35,6 +35,23 @@ public class Barrio {
         x = Math.round(x);
 
     }
+    private static int esquinasPer(int [] direccion){
+        int x = direccion[0];
+        int y = direccion[1];
+        if(x == 0 && (y == 1 || y == -1)){return 1;}
+        if((x == 8 || x== -8) && (y == 8 || y == -8)){return 1;}
+        if(x == 0 && (y == 7 || y == -7)){return 1;}
+        if(y == 0 && (x == 8 || x == -8)){return 1;}
+        if((x == 4 || x ==-4) && (y == 4 || y == -4)){return 1;}
+        if((x == 4 || x == -4) && (y == 0 || y == 8 || y == -8)){return 1;}
+        if((y == 4 || y == -4) && (x == 0 || x == 8 || x == -8)){return 1;}
+        if(x == 0 || y == 0){return 2;}
+        if(x == -4 || y == -4){return 2;}
+        if(x == -8 || y == -8){return 2;}
+        if(x == 4 || y == 4){return 2;}
+        if(x == 8 || y == 8){return 2;}
+        return 4;
+    }
 
     public static Sucursal comprarTerreno(double presupuesto, List<Sucursal> sucursales, Barrio[] ciudad) {
         Barrio[] candidatos = ciudad;
@@ -83,18 +100,39 @@ public class Barrio {
             System.out.println("Escoja otra opción");
             eleccion = Entrada.input();
         }
-        Esquina local = espacios[eleccion - 1];
-
-        int[] direccion = local.getCoordenadas();
+        Esquina esquina = espacios[eleccion - 1];
+        int[] direccion = esquina.getCoordenadas();
+        int esqPer = esquinasPer(direccion);
+        double[] valor = new double[esqPer];
+        int[] cantidad = new int[esqPer];
+        System.out.println("Escoja cuál de los locales disponibles le parece más interesante:");
+        for(int n = 0; n < esqPer; n++){
+            valor[n] = Math.random()*(presupuesto/2)+100000000;
+            System.out.print((n+1) + ". Precio: ");
+            System.out.print(Math.round(valor[n])/1000000 + "M");
+            double r = Math.random()*(presupuesto/(1.5*10000000))+15;
+            int s = 0;
+            while(s < r){s++;}
+            if(s > 50){
+                cantidad[n] = 50;
+            }else{
+                cantidad[n] = s;
+            }
+            System.out.println(", Capacidad: " + cantidad[n] + " mesas");
+        }
+        int este = 5;
+        while (este > cantidad.length || este < 1){
+            este = Entrada.input();
+            if(este > cantidad.length || este < 1){
+                System.out.println("Esa opción no está disponible");
+            }
+        }
+        int espacio = cantidad[este - 1];
+        presupuesto -= valor[este - 1];
+        presupuesto -= 10000000;
         String nombre = barrio.nombre;
-        int j = 0;
-        for(Sucursal sucursal: sucursales){j++;}
-        double x = Math.random()*50+1;
-        x = Math.round(x);
-        int cantidad = 0;
-        while(cantidad < x){cantidad++;}
+        int j = sucursales.size();
         barrio.setSucursal(true);
-        Sucursal restaurante = new Sucursal(j, nombre, cantidad, direccion);
-        return restaurante;
+        return new Sucursal(j, nombre, espacio, direccion, presupuesto);
     }
 }

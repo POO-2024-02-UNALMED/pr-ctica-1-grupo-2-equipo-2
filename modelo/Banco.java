@@ -4,10 +4,10 @@ import error.Entrada;
 
 public class Banco {
 	final static private Banco[] bancos = {
-			new Banco("Bancolombia", 7, 600000000),
-			new Banco("B. Bogotá", 9,1000000000),
-			new Banco("Avevillas", 3,200000000),
-			new Banco("Davivienda", 5, 500000000)};
+			new Banco("Bancolombia", 7, 900000000),
+			new Banco("B. Bogotá", 9,1300000000),
+			new Banco("Avevillas", 3,400000000),
+			new Banco("Davivienda", 5, 700000000)};
 	final private String nombre;
 	final private int exigencia;
 	final private double prestamoMin;

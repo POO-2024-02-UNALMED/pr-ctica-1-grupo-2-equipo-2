@@ -1,14 +1,12 @@
 package modelo;
 
 import baseDatos.DataManager;
-
-import java.util.ArrayList;
 import error.Entrada;
 
+import java.util.ArrayList;
 
 
 public class Empresa {
-	private static ArrayList<Sucursal> sucursales = new ArrayList<>();
 	private static double deudas = 12000000;
 	private static double renta = 8000000;
 	private static double gastoRecursos;
@@ -26,7 +24,7 @@ public class Empresa {
 				"Capital neto: " + deudas + "\n" +
 				"Solvencia: " + solvencia());
 	}
-	
+
 	
 	private static void calcularFinanzas(){
 	}
@@ -53,7 +51,12 @@ public class Empresa {
 		deudas += deuda;
 		System.out.println("Se han añadido $" + deuda/1000000 + "M a su deuda");
 	}
-	
+
+	private static void verSucursales(DataManager dataManager) {
+		for (Sucursal sucursal : dataManager.getSucursales()) {
+			System.out.println(sucursal);
+		}
+	}
 	public static void menuFinanzas(DataManager dataManager) {
 		boolean salir = false;
 		while (salir == false) {
@@ -69,25 +72,28 @@ public class Empresa {
 			int eleccion = Entrada.input();
 
 			switch(eleccion) {
-			case 1:
-				verFinanzas();
-				break;
-			case 4:
-				double presupuesto = pedirPrestamo();
-				if(presupuesto == 0){
-					System.out.println("No se ha concretado ningún préstamo");
+				case 1:
+					verFinanzas();
 					break;
-				}
-				Sucursal newSucursal = Barrio.comprarTerreno(presupuesto, dataManager.getSucursales(), dataManager.getCiudad());
-				dataManager.addSucursal(newSucursal);
-				System.out.println(newSucursal);
-				break;
-			case 6:
-				salir = true;
-				break;
-			default:
-				System.out.println("Opción no disponible");
-				break;
+				case 3:
+					verSucursales(dataManager);
+					break;
+				case 4:
+					double presupuesto = pedirPrestamo();
+					if(presupuesto == 0){
+						System.out.println("No se ha concretado ningún préstamo");
+						break;
+					}
+					Sucursal newSucursal = Barrio.comprarTerreno(presupuesto, dataManager.getSucursales(), dataManager.getCiudad());
+					dataManager.addSucursal(newSucursal);
+					System.out.println(newSucursal);
+					break;
+				case 6:
+					salir = true;
+					break;
+				default:
+					System.out.println("Opción no disponible");
+					break;
 			}
 		}
 	}

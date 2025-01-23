@@ -7,14 +7,14 @@ import java.util.List;
 public class Sucursal {
 	private int id;
 	private String ubicacion;
-	private int presupuesto;
+	private double presupuesto;
 	private Ingrediente[] inventario;
 	private Empleado[] empleados;
     private Mesero[] meseros;
     private Mesa[] mesas;
     private int[] direccion;
-	
-	
+
+
 	public Sucursal(int id, String ubicacion,int presupuesto,Ingrediente[] inventario,Empleado[] empleados) {
 		this.id=id;
 		this.ubicacion=ubicacion;
@@ -26,12 +26,13 @@ public class Sucursal {
         return id;
     }
 
-    public Sucursal(int id, String nombre, int cantidad, int[] direccion){
+    public Sucursal(int id, String nombre, int cantidad, int[] direccion, double presupuesto){
         this.id = id;
         this.ubicacion = nombre;
         this.mesas = new Mesa[cantidad];
         this.meseros = new Mesero[cantidad];
         this.direccion = direccion;
+        this.presupuesto = presupuesto;
     }
 
     public static boolean calcularDistancia(int[] coordenadas, List<Sucursal> sucursales){
@@ -51,6 +52,15 @@ public class Sucursal {
         return false;
     }
 
+    public int getEspacio(){
+        int i = 0;
+        for(Mesa mesa: mesas){
+            if(mesa == null){break;}
+            i++;
+        }
+        return i;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -63,7 +73,7 @@ public class Sucursal {
     	this.ubicacion=ubicacion;
     }
     
-    public int getPresupuesto() {
+    public double getPresupuesto() {
     	return presupuesto;
     }
     
@@ -87,5 +97,10 @@ public class Sucursal {
     	this.empleados=empleados;
     }
 
+    public String toString(){
+        return "*Sucursal de " + ubicacion + ": \n" +
+                "Cantidad de mesas: " + getEspacio() + "\n" +
+                "Presupuesto: " + Math.round(presupuesto)/1000000 + "M";
+    }
 
 }

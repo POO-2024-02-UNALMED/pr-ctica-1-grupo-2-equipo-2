@@ -108,7 +108,7 @@ public class Sucursal implements Serializable{
     }
     public void comprarMesas(double presupuesto, int cantidad){
         int compradas = 0;
-        while(compradas < cantidad/2) {
+        while(compradas < cantidad) {
             System.out.println("¿Qué tipo de mesa desea adquirir");
             System.out.println("1. Pequeña: 4/ $500.000");
             System.out.println("2. Mediana: 6/ $800.000");
@@ -118,11 +118,11 @@ public class Sucursal implements Serializable{
                 case 1:
                     System.out.println("¿Cuántas desea comprar?");
                     int numero = 0;
-                    while (numero > cantidad || numero < 1) {
+                    while (numero > cantidad - compradas || numero < 1) {
                         numero = Entrada.input();
-                        if (numero > cantidad || numero < 1) {
-                            System.out.println("No es posible comprar esa cantidad");
-                        }
+                        if (numero < 1) {System.out.println("No es posible comprar esa cantidad");}
+                        if (numero > cantidad - compradas) {System.out.println("No hay suficiente espacio para comprar esa cantidad");}
+                        System.out.println("Escoja otra");
                     }
                     if(presupuesto < 500000 * numero){
                         System.out.println("No hay suficiente dinero");
@@ -134,12 +134,90 @@ public class Sucursal implements Serializable{
                             j++;
                             if(mesa == null){break;}
                         }
-                        for(int i = 0; i < numero; i++){
-                            mesas[i] = new Mesa(j, 4,this);
+                        int i = 0;
+                        while (i < numero ){
+                            mesas[j - 1] = new Mesa(j, 4,this);
+                            compradas++;
                             j++;
+                            i++;
                         }
                     }
+                    break;
+                case 2:
+                    System.out.println("¿Cuántas desea comprar?");
+                    numero = 0;
+                    while (numero > cantidad - compradas || numero < 1) {
+                        numero = Entrada.input();
+                        if (numero < 1) {System.out.println("No es posible comprar esa cantidad");}
+                        if (numero > cantidad - compradas) {System.out.println("No hay suficiente espacio para comprar esa cantidad");}
+                        System.out.println("Escoja otra");
+                    }
+                    if(presupuesto < 800000 * numero){
+                        System.out.println("No hay suficiente dinero");
+                        break;
+                    }else{
+                        presupuesto -= 800000 * numero;
+                        int j = 0;
+                        for(Mesa mesa: mesas){
+                            j++;
+                            if(mesa == null){break;}
+                        }
+                        int i = 0;
+                        while (i < numero ){
+                            mesas[j - 1] = new Mesa(j, 6,this);
+                            compradas++;
+                            j++;
+                            i++;
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.println("¿Cuántas desea comprar?");
+                    numero = 0;
+                    while (numero > cantidad - compradas || numero < 1) {
+                        numero = Entrada.input();
+                        if (numero < 1) {System.out.println("No es posible comprar esa cantidad");}
+                        if (numero > cantidad - compradas) {System.out.println("No hay suficiente espacio para comprar esa cantidad");}
+                        System.out.println("Escoja otra");
+                    }
+                    if(presupuesto < 1200000 * numero){
+                        System.out.println("No hay suficiente dinero");
+                        break;
+                    }else{
+                        presupuesto -= 1200000 * numero;
+                        int j = 0;
+                        for(Mesa mesa: mesas){
+                            j++;
+                            if(mesa == null){break;}
+                        }
+                        int i = 0;
+                        while (i < numero ){
+                            mesas[j - 1] = new Mesa(j, 8,this);
+                            compradas++;
+                            j++;
+                            i++;
+                        }
+                    }
+                    break;
             }
+        }
+    }
+
+    public void mesasAuto(){
+        int mitad = mesas.length/2;
+        int tercio = mesas.length/3;
+        int i = 0;
+        while(i < mitad){
+            mesas[i] = new Mesa(i+1,4,this);
+            i++;
+        }
+        while(i < (mitad + tercio)) {
+            mesas[i] = new Mesa(i + 1, 6, this);
+            i++;
+        }
+        while(i < mesas.length){
+            mesas[i] = new Mesa(i+1,8,this);
+            i++;
         }
     }
 }

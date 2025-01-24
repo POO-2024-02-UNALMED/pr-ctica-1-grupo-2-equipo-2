@@ -38,6 +38,26 @@ public class Sucursal implements Serializable{
         this.direccion = direccion;
         this.presupuesto = presupuesto;
     }
+    public Sucursal(int id, String nombre, int cantidad, int[] direccion, double presupuesto, String auto){
+        this(id,nombre,cantidad,direccion,presupuesto);
+        int mitad = mesas.length/2;
+        int tercio = mesas.length/3;
+        int i = 0;
+        while(i < mitad){
+            mesas[i] = new Mesa(i+1,4,this);
+            System.out.println(mesas[i]);
+            i++;
+        }
+        while(i < (mitad + tercio)) {
+            mesas[i] = new Mesa(i + 1, 6, this);
+            i++;
+        }
+        while(i < mesas.length){
+            mesas[i] = new Mesa(i+1,8,this);
+            i++;
+        }
+
+    }
 
     public static boolean calcularDistancia(int[] coordenadas, List<Sucursal> sucursales){
         boolean suficiente = true;
@@ -57,12 +77,7 @@ public class Sucursal implements Serializable{
     }
 
     public int getEspacio(){
-        int i = 0;
-        for(Mesa mesa: mesas){
-            if(mesa == null){break;}
-            i++;
-        }
-        return i;
+        return mesas.length;
     }
 
     public void setId(int id) {
@@ -103,7 +118,7 @@ public class Sucursal implements Serializable{
 
     public String toString(){
         return "*Sucursal de " + ubicacion + ": \n" +
-                "Cantidad de mesas: " + getEspacio() + "\n" +
+                "Cantidad de mesas: " + mesas[1] + "\n" +
                 "Presupuesto: $" + Math.round(presupuesto)/1000000 + "M";
     }
     public void comprarMesas(double presupuesto, int cantidad){

@@ -1,11 +1,13 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import error.Entrada;
 import baseDatos.DataManager;
 
-public class Barrio {
+public class Barrio implements Serializable{
+    private static final long serialVersionUID = 1L;
     private boolean sucursal;
     private String nombre;
     private ArrayList<Esquina> esquinas;

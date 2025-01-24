@@ -1,17 +1,15 @@
 package ordenFisica;
 
-public class Cliente {
+import java.io.Serializable;
 
-
+public class Cliente implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     private int id;
     private String nombre;
     private String direccion;
     private String telefono;
     private int puntos;
- 
-
-
 
     public Cliente(int id, String nombre, String direccion, String telefono,int puntos) {
         this.id = id;

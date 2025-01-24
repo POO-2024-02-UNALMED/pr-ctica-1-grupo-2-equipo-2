@@ -3,9 +3,12 @@ package modelo;
 import baseDatos.DataManager;
 import error.Entrada;
 import ordenFisica.Ingrediente;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Sucursal {
+public class Sucursal implements Serializable{
+    private static final long serialVersionUID = 1L;
 	private int id;
 	private String ubicacion;
 	private double presupuesto;

@@ -4,11 +4,13 @@ package modelo;
 import baseDatos.DataManager;
 import error.Entrada;
 import java.util.List;
+import java.io.Serializable;
 
 
 
-public class Administrativo {
-
+public class Administrativo implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private long contrasena;
 	private String nombre;
 	private long cedula;

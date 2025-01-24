@@ -3,10 +3,12 @@ package modelo;
 import baseDatos.DataManager;
 import error.Entrada;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Empresa {
+public class Empresa implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private static double deudas = 12000000;
 	private static double renta = 8000000;
 	private static double gastoRecursos;

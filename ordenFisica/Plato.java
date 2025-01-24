@@ -1,8 +1,9 @@
 package ordenFisica;
 
+import java.io.Serializable;
 
-
-public class Plato {
+public class Plato implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private float precio;
 	private  Ingrediente[] ingredientesNecesarios;
 	

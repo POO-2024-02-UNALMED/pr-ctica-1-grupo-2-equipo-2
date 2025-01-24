@@ -50,8 +50,10 @@ public class Empleado implements Serializable{
     public void setEdad(int edad) {
         this.edad = edad;
     }
-    
 
+    protected final static String generarNombre(){
+        
+    }
     
     
 }

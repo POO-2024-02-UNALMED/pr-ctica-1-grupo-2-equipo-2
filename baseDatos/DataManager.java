@@ -97,12 +97,13 @@ public class DataManager implements Serializable {
         int[] x = {-3, -3};
         int[] y = {5, 3};
         int[] z = {2, 6};
-        sucursales.add(new Sucursal(1, "Cisneros", 35, x, 57000000));
-        sucursales.add(new Sucursal(2, "Robledo", 30, y, 48000000));
-        sucursales.add(new Sucursal(3, "Sabaneta", 30, z, 44000000));
+        sucursales.add(new Sucursal(1, "Cisneros", 35, x, 57000000, "auto"));
+        sucursales.add(new Sucursal(2, "Robledo", 30, y, 48000000, "auto"));
+        sucursales.add(new Sucursal(3, "Sabaneta", 30, z, 44000000, "auto"));
         ciudad[9].setSucursal(true);
         ciudad[4].setSucursal(true);
         ciudad[1].setSucursal(true);
+
     }
 
 
@@ -304,4 +305,8 @@ public class DataManager implements Serializable {
     public Barrio[] getCiudad(){return ciudad;}
 
     public void addSucursal(Sucursal sucursal){sucursales.add(sucursal);}
+
+    public void quitarSucursal(){
+        sucursales.remove(0);
+    }
 }

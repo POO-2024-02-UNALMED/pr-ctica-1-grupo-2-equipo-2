@@ -27,7 +27,10 @@ public class Empresa implements Serializable{
 				"Solvencia: " + solvencia());
 	}
 
-	
+	public static void setDeudas() {
+		Empresa.deudas = Entrada.input();
+	}
+
 	private static void calcularFinanzas(){
 	}
 	private static double solvencia() {
@@ -87,11 +90,15 @@ public class Empresa implements Serializable{
 						break;
 					}
 					Sucursal newSucursal = Barrio.comprarTerreno(presupuesto, dataManager.getSucursales(), dataManager.getCiudad());
+					newSucursal.comprarMesas(presupuesto,newSucursal.getEspacio());
 					dataManager.addSucursal(newSucursal);
 					System.out.println(newSucursal);
 					break;
 				case 6:
 					salir = true;
+					break;
+				case 7:
+					setDeudas();
 					break;
 				default:
 					System.out.println("Opción no disponible");

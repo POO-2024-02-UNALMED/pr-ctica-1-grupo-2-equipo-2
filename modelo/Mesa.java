@@ -51,4 +51,5 @@ public class Mesa implements Serializable{
 	public void UnirMesas(Mesa mesa1, Mesa mesa2) {
 		
 	}
+	public String toString(){return id + " " + capacidad;}
 }

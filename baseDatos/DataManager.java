@@ -96,7 +96,7 @@ public class DataManager implements Serializable {
         // Sucursales de prueba nuevaSucusal
         int[] x = {-3, -3};
         int[] y = {5, 3};
-        int[] z = {2, 6};
+        int[] z = {-2, 6};
         sucursales.add(new Sucursal(1, "Cisneros", 35, x, 57000000, "auto"));
         sucursales.add(new Sucursal(2, "Robledo", 30, y, 48000000, "auto"));
         sucursales.add(new Sucursal(3, "Sabaneta", 30, z, 44000000, "auto"));
@@ -306,7 +306,25 @@ public class DataManager implements Serializable {
 
     public void addSucursal(Sucursal sucursal){sucursales.add(sucursal);}
 
-    public void quitarSucursal(){
-        sucursales.remove(0);
+    public void quitarSucursal() {
+    }
+
+    public boolean explorar(int id){
+        for(Repartidor repartidor: repartidores){
+            if(repartidor == null){continue;}
+            if (id == repartidor.getId()){return false;}}
+        for(Sucursal sucursal: sucursales){
+            if(sucursal.getEmpleado() != null){
+                for(Empleado empleado: sucursal.getEmpleado()){
+                    if(empleado == null){continue;}
+                    if(id == empleado.getId()){return false;}}
+            }
+            if (sucursal.getMeseros() != null){
+                for(Mesero mesero: sucursal.getMeseros()){
+                    if(mesero == null){continue;}
+                    if(id == mesero.getId()){return false;}}
+            }
+        }
+        return true;
     }
 }

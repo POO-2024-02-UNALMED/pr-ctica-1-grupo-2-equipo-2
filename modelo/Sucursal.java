@@ -61,6 +61,10 @@ public class Sucursal implements Serializable{
 
     }
 
+    public void aumentarPresupuesto(double aumento){
+        presupuesto += aumento;
+    }
+
     public static boolean calcularDistancia(int[] coordenadas, List<Sucursal> sucursales){
         boolean suficiente = true;
         int x = coordenadas[0];
@@ -248,5 +252,38 @@ public class Sucursal implements Serializable{
         meseros[numero] = new Mesero(id,direccion,20,this,1500000);
         System.out.println("Se ha contratado a " + meseros[numero] + " para prestar servicio como meser@");
         presupuesto -= 1500000;
+    }
+
+    public void restarPresupuesto(double menos){presupuesto -= menos;}
+
+    public static void cerrar(DataManager dataManager){
+        System.out.println("Escoja qué sucursal desea cerrar");
+        int i = 0;
+        for(Sucursal sucursal:dataManager.getSucursales()){
+            i++;
+            System.out.println(i + ". " + sucursal);
+        }
+        System.out.println((i+1) + ". No cerrar nunguna");
+        int eleccion = Entrada.input();
+        if(eleccion < 0 || eleccion > dataManager.getSucursales().size()){
+            System.out.println("No se ha cerrado ninguna sucursal");
+            return;
+        }
+        Sucursal sucursal = dataManager.getSucursales().get(eleccion-1);
+        double liquidacion = sucursal.getEspacio() * 1000000;
+        for(Mesero mesero: sucursal.getMeseros()){
+            if(mesero == null){break;}
+            liquidacion += mesero.getSueldo() * 6;
+        }
+        for(Empleado empleado: sucursal.getEmpleado()){
+            if(empleado == null){break;}
+            liquidacion += empleado.getSueldo() * 6;
+        }
+        dataManager.getSucursales().remove(sucursal);
+        System.out.println("Se ha cerrado la sucursal de " + sucursal.ubicacion);
+        liquidacion /= dataManager.getSucursales().size();
+        for(Sucursal sucursal1: dataManager.getSucursales()){
+            sucursal1.aumentarPresupuesto(liquidacion);
+        }
     }
 }

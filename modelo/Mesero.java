@@ -1,9 +1,11 @@
 package modelo;
 
-public class Mesero extends Empleado {
+import java.io.Serializable;
+
+public class Mesero extends Empleado implements Serializable{
 	private Sucursal sucursal;
 	private int antiguedad;
-	private String fechaDeContratacion;
+	private final String fechaDeContratacion;
 	private int ultimaCalificacion;
 	private int pedidosAtendidos;
 	private int puntaje;
@@ -23,8 +25,8 @@ public class Mesero extends Empleado {
 		this.isDisponible=isDisponible;
 		this.proximoObjetivo=20;
 	}
-	public Mesero(int id, String nombre,String direccio, int edad ,Sucursal sucursal,double sueldo){
-		this(id,nombre,direccio,edad,sucursal,1,"24/01/24",0,true,sueldo);
+	public Mesero(int id,String direccio, int edad ,Sucursal sucursal,double sueldo){
+		this(id,generarNombre(),direccio,edad,sucursal,1,"24/01/24",0,true,sueldo);
 	}
 	
 	

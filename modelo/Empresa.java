@@ -108,7 +108,8 @@ public class Empresa implements Serializable{
 			System.out.println("2. Ver sucursales");
 			System.out.println("3. Abrir sucursal");
 			System.out.println("4. Cerrar sucursal");
-			System.out.println("5. Salir");
+			System.out.println("5. Pagar deudas");
+			System.out.println("6. Salir");
 
 			int eleccion = Entrada.input();
 
@@ -144,10 +145,11 @@ public class Empresa implements Serializable{
 					Sucursal.cerrar(dataManager);
 					break;
 				case 5:
-					salir = true;
+					pagarDeuda(dataManager);
 					break;
 				case 6:
-					dataManager.quitarSucursal();
+					salir = true;
+					break;
 				default:
 					System.out.println("Opción no disponible");
 					break;

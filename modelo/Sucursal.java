@@ -17,6 +17,7 @@ public class Sucursal implements Serializable{
     private Mesero[] meseros;
     private Mesa[] mesas;
     private int[] direccion;
+    private double gastoRecursos;
 
 
 	public Sucursal(int id, String ubicacion,int presupuesto,Ingrediente[] inventario,Empleado[] empleados) {
@@ -37,6 +38,7 @@ public class Sucursal implements Serializable{
         this.meseros = new Mesero[cantidad];
         this.direccion = direccion;
         this.presupuesto = presupuesto;
+        this.empleados = new Empleado[15];
     }
     public Sucursal(int id, String nombre, int cantidad, int[] direccion, double presupuesto, String auto){
         this(id,nombre,cantidad,direccion,presupuesto);
@@ -73,7 +75,7 @@ public class Sucursal implements Serializable{
             }
             return suficiente;
         }
-        return false;
+        return true;
     }
 
     public int getEspacio(){
@@ -116,9 +118,15 @@ public class Sucursal implements Serializable{
     	this.empleados=empleados;
     }
 
+    public Mesero[] getMeseros(){return meseros;}
+
+    public double getGastoRecursos(){return gastoRecursos;}
+
+    public void setGastoRecursos(double x){gastoRecursos = x;}
+
     public String toString(){
-        return "*Sucursal de " + ubicacion + ": \n" +
-                "Cantidad de mesas: " + mesas[1] + "\n" +
+        return "*Sucursal de " + ubicacion + "(" + (Esquina.fromCoo(direccion).toString())  + "): " + " \n" +
+                "Cantidad de mesas: " + mesas.length + "\n" +
                 "Presupuesto: $" + Math.round(presupuesto)/1000000 + "M";
     }
     public void comprarMesas(double presupuesto, int cantidad){
@@ -136,8 +144,8 @@ public class Sucursal implements Serializable{
                     while (numero > cantidad - compradas || numero < 1) {
                         numero = Entrada.input();
                         if (numero < 1) {System.out.println("No es posible comprar esa cantidad");}
-                        if (numero > cantidad - compradas) {System.out.println("No hay suficiente espacio para comprar esa cantidad");}
-                        System.out.println("Escoja otra");
+                        if (numero > cantidad - compradas) {System.out.println("No hay suficiente espacio para comprar esa cantidad");
+                        System.out.println("Escoja otra");}
                     }
                     if(presupuesto < 500000 * numero){
                         System.out.println("No hay suficiente dinero");
@@ -234,5 +242,11 @@ public class Sucursal implements Serializable{
             mesas[i] = new Mesa(i+1,8,this);
             i++;
         }
+    }
+    public void autoEmpleado(int numero, int id){
+        String direccion = Esquina.fromCoo(this.direccion).toString();
+        meseros[numero] = new Mesero(id,direccion,20,this,1500000);
+        System.out.println("Se ha contratado a " + meseros[numero] + " para prestar servicio como meser@");
+        presupuesto -= 1500000;
     }
 }

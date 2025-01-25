@@ -34,7 +34,7 @@ public enum Apellido {
     LOAIZA("loaiza",30),
     CANO("Cano",31),
     CASTILLO("Castillo",32),
-    FRANCO("Farnco",33),
+    FRANCO("Franco",33),
     MIRANDA("Miranda",34),
     MOSQUERA("Mosquera",35),
     MURILLO("Murillo",36),
@@ -43,7 +43,7 @@ public enum Apellido {
     MONTERO("Montero",39),
     PALACIOS("Palacios",40),
     FLOREZ("Flórez",41),
-    BLANCO("Balnco",42),
+    BLANCO("Blanco",42),
     RAMOS("Ramos",43),
     RINCON("Rincón",44),
     MADRID("Madrid",45),
@@ -80,7 +80,7 @@ public enum Apellido {
         this.nombre = nombre;
     }
 
-    public String getNombre(int id){
+    public static String getNombre(int id){
         for(Apellido nombre: values()){
             if (nombre.id == id){
                 return nombre.nombre;

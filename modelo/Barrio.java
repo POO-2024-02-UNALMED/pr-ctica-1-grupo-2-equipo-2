@@ -133,6 +133,7 @@ public class Barrio implements Serializable{
         presupuesto -= valor[este - 1];
         presupuesto -= 10000000;
         String nombre = barrio.nombre;
+        barrio.setSucursal(true);
         int j = sucursales.size();
         barrio.setSucursal(true);
         return new Sucursal(j, nombre, espacio, direccion, presupuesto);

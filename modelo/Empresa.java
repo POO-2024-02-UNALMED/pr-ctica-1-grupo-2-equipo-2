@@ -18,12 +18,12 @@ public class Empresa implements Serializable{
 	
 	private static void verFinanzas() {
 		System.out.println("Deudas crediticias: " + deudas/1000000 + "M\n" +
-				"Renta: " + renta/1000000 + "M\n" +
-				"Gasto en salarios: " + gastoSalarios/1000000 + "M\n" +
-				"Gasto en recursos: " + gastoRecursos/1000000 + "M\n" +
-				"Capital bruto: " + presupuestoBruto/1000000 + "M\n" +
-				"Capital neto: " + presupuestoTotal/1000000 + "M\n" +
-				"Solvencia: " + solvencia());
+				"Renta: $" + Math.round(renta/1000000) + "M\n" +
+				"Gasto en salarios: $" + Math.round(gastoSalarios/1000000) + "M\n" +
+				"Gasto en recursos: $" + Math.round(gastoRecursos/1000000) + "M\n" +
+				"Capital bruto: $" + Math.round(presupuestoBruto/1000000) + "M\n" +
+				"Capital neto: $" + Math.round(presupuestoTotal/1000000) + "M\n" +
+				"Solvencia: $" + String.format("%.2f",solvencia()));
 	}
 
 
@@ -33,9 +33,10 @@ public class Empresa implements Serializable{
 
 	private static void calcularFinanzas(DataManager dataManager){
 		List<Sucursal> sucursales = dataManager.getSucursales();
-		renta = 1000000 * sucursales.size();
+		renta = 10000000 * sucursales.size();
 		gastoSalarios = 0;
 		gastoRecursos = 0;
+		presupuestoBruto = 0;
 		for (Sucursal sucursal: sucursales){
 			for(Empleado empleado: sucursal.getEmpleado()){
 				if(empleado == null){continue;}
@@ -46,7 +47,7 @@ public class Empresa implements Serializable{
 				gastoSalarios += mesero.getSueldo() * 12;
 			}
 			gastoRecursos += sucursal.getGastoRecursos();
-			presupuestoBruto = sucursal.getPresupuesto();
+			presupuestoBruto += sucursal.getPresupuesto();
 		}
 		for(Repartidor repartidor: dataManager.getRepartidores()) {
 			gastoSalarios += 1000000 + (1000000 * (repartidor.getCalificacionPromedio() / 100));
@@ -71,10 +72,25 @@ public class Empresa implements Serializable{
 		double presupuesto = Banco.prestamo(solvencia(), deudas);
 		return presupuesto;
 	}
+
+	private static void pagarDeuda(DataManager dataManager){
+		double paga = 0;
+		for(Sucursal sucursal: dataManager.getSucursales()){
+			if(sucursal.getPresupuesto() - 20000000 < 40000000){continue;}
+			paga += 20000000;
+			sucursal.restarPresupuesto(20000000);
+		}
+		if(paga == 0) {
+			System.out.println("No tenemos los suficeintes fondos para empezar a pagar");
+			return;
+		}
+		deudas -= paga;
+		System.out.println("Se han pagado $" + paga/1000000 + "M de la deuda");
+	}
 	
 	public static void endeudar(double deuda) {
 		deudas += deuda;
-		System.out.println("Se han añadido $" + deuda/1000000 + "M a su deuda");
+		System.out.println("Se han añadido $" + Math.round(deuda/1000000) + "M a su deuda");
 	}
 
 	private static void verSucursales(DataManager dataManager) {
@@ -84,8 +100,8 @@ public class Empresa implements Serializable{
 	}
 	public static void menuFinanzas(DataManager dataManager) {
 		boolean salir = false;
-		calcularFinanzas(dataManager);
-		while (salir == false) {
+		while (!salir) {
+			calcularFinanzas(dataManager);
 			System.out.println("=== Menú Finanzas ===");
 			System.out.println("¿Qué acción desea realizar");
 			System.out.println("1. Ver finanzas generales");
@@ -125,11 +141,13 @@ public class Empresa implements Serializable{
 					System.out.println(newSucursal);
 					break;
 				case 4:
-					dataManager.quitarSucursal();
+					Sucursal.cerrar(dataManager);
 					break;
 				case 5:
 					salir = true;
 					break;
+				case 6:
+					dataManager.quitarSucursal();
 				default:
 					System.out.println("Opción no disponible");
 					break;

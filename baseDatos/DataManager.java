@@ -104,6 +104,20 @@ public class DataManager implements Serializable {
         ciudad[4].setSucursal(true);
         ciudad[1].setSucursal(true);
 
+        // Meseros
+
+        for(Sucursal sucursal: getSucursales()){
+            for(int i = 0; i < 5; i++){
+                boolean correcto = false;
+                while(!correcto){
+                    int cedula = Empleado.generarDocumento();
+                    correcto = explorar(cedula);
+                    sucursal.autoEmpleado(i,cedula);
+                }
+
+            }
+        }
+
     }
 
 

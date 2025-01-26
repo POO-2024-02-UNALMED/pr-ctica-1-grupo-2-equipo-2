@@ -42,7 +42,7 @@ public class Mesero extends Empleado implements Serializable{
         }
 
     }
-
+	//COnstructor automático
 	public Mesero(int id,String direccio, int edad ,Sucursal sucursal,double sueldo){
 		this(id,generarNombre(),direccio,edad,sucursal,1,"24/01/24",0,true,sueldo);
 	}

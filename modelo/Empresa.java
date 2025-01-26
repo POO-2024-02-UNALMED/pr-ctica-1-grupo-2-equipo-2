@@ -27,8 +27,8 @@ public class Empresa implements Serializable{
 	}
 
 
-	public static void setDeudas() {
-		Empresa.deudas = 10000000;
+	public static void setDeudas(double deuda) {
+		Empresa.deudas = deuda;
 	}
 
 	private static void calcularFinanzas(DataManager dataManager){
@@ -142,6 +142,10 @@ public class Empresa implements Serializable{
 					System.out.println(newSucursal);
 					break;
 				case 4:
+					if(dataManager.getSucursales().size() < 2 ){
+						System.out.println("No podemos cerrar más sucursales, solo queda una");
+						break;
+					}
 					Sucursal.cerrar(dataManager);
 					break;
 				case 5:

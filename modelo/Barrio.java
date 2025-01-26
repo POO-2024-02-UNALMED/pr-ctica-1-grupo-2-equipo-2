@@ -139,6 +139,8 @@ public class Barrio implements Serializable {
         return new Sucursal(j, nombre, espacio, direccion, presupuesto);
     }
 
+    public String getNombre(){return nombre;}
+
     public double getCostoEnvio() {
         return costoEnvio;
     }

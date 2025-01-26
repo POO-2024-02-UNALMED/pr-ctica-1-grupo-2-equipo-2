@@ -23,6 +23,7 @@ public class Banco {
 		return nombre + " pagará como mínimo: $" + millones + "M";
 	}
 
+	//Se asegura que la emoresa si cumpla con las expectativas del banco
 	private double aceptar(double solvencia, double deudas) {
 		int tolerancia = 10 - exigencia;
 		double capacidad = (solvencia - 1) * 10;
@@ -37,6 +38,7 @@ public class Banco {
 		return prestamoMin + valorAgregado;
 	}
 
+	//Calcula el total del préstamo
 	private static double calcularPrestamo(double solvencia, double prestamo) {
 		solvencia -= 1;
 		double recargo = solvencia*10;
@@ -52,6 +54,7 @@ public class Banco {
 		return prestamo * recargo;
 	}
 
+	//Realiza los trámites del préstamo
 	public static double prestamo(double solvencia, double deudas) {
 		boolean aceptado = false;
 		int eleccion = -1;

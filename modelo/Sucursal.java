@@ -133,8 +133,9 @@ public class Sucursal implements Serializable{
                 "Cantidad de mesas: " + mesas.length + "\n" +
                 "Presupuesto: $" + Math.round(presupuesto)/1000000 + "M";
     }
-    public void comprarMesas(double presupuesto, int cantidad){
+    public void comprarMesas(){
         int compradas = 0;
+        int cantidad = mesas.length;
         while(compradas < cantidad) {
             System.out.println("¿Qué tipo de mesa desea adquirir");
             System.out.println("1. Pequeña: 4/ $500.000");

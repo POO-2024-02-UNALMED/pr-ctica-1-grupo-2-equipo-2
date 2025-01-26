@@ -20,6 +20,7 @@ public class Main {
         }
 
         while (running) {
+            Empresa.calcularFinanzas(dataManager);
             System.out.println("\n=== Menú Principal ===");
             System.out.println("1. Ver sucursales");
             System.out.println("2. Funcionalidad 2");

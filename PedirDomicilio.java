@@ -76,8 +76,6 @@ public class PedirDomicilio {
             }
         }
 
-        if (opcion == 3) {inicializarDatos();}
-
         gestionarPedidos();
     }
 

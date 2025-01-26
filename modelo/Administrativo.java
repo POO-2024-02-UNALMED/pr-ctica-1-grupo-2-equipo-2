@@ -21,7 +21,7 @@ public class Administrativo implements  Serializable{
 		this.contrasena = clave;
 	}
 
-	
+	//Se asegura de que la contraseña sea correcta
 	private boolean verificarCodigo() {
 		long clave = Entrada.input();
 		int i = 0;
@@ -39,7 +39,7 @@ public class Administrativo implements  Serializable{
 		System.out.println("usted está siendo rastreado por suplantación de identidad");
 		return false;
 	}
-	
+	//BUsca si un administrador coincide con el usuario
 	public static boolean verificarAdmin(long cedula, DataManager dataManager) {
 		Administrativo tu = null;
 		List<Administrativo> admins = dataManager.getAdmins();
@@ -70,7 +70,7 @@ public class Administrativo implements  Serializable{
 		}
 		return null;
 	}
-
+	//Crea un nuevo administrador
 	public static void nuevoAdmin(DataManager dataManager){
 		boolean correcto = false;
 		int id = 0;
@@ -88,34 +88,6 @@ public class Administrativo implements  Serializable{
 		System.out.println("Contraseña: " + admin.contrasena);
 	}
 
-/* 	
-	public void menuAdmin() {
-		System.out.println("Bienvenid@ admin. " + nombre);
-		boolean salir = false;
-		int eleccion;
-		while (salir == false) {
-			System.out.println("Elija la acción que desea realizar");
-			System.out.println("1. Ver recursos humanos");
-			System.out.println("2. Ver finanzas");
-			System.out.println("3. Salir");
-			Scanner scanner = new Scanner(System.in);
-			eleccion = scanner.nextInt();
-			switch(eleccion) {
-			case 2:
-				Empresa.menuFinanzas();
-				break;
-			case 3:
-				salir = true;
-				System.out.println("Sesión cerrada");
-				break;
-			default:
-				System.out.println("Opción no disponible");
-				break;
-			}
-		}
-		return;
-	}
-*/
 	public void saludo(){
 		System.out.println("Bienvenid@ admin. " + nombre);
 	}

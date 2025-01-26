@@ -32,6 +32,7 @@ public class Empresa implements Serializable{
 		Empresa.deudas = deuda;
 	}
 
+	//Actualiza las finanzas de la empresa
 	public static void calcularFinanzas(DataManager dataManager){
 		List<Sucursal> sucursales = dataManager.getSucursales();
 		renta = 10000000 * sucursales.size();
@@ -55,25 +56,20 @@ public class Empresa implements Serializable{
 		}
 		presupuestoTotal = presupuestoBruto - renta - gastoRecursos;
 	}
+	//Se asegura de que la empresa pueda aforntar una deuda
 	private static double solvencia() {
 		double pasivos = deudas + renta + gastoRecursos;
 		double activos = presupuestoBruto;
 		return activos/pasivos;
 	}
-	
-	private static boolean isSolvente() {
-		if (solvencia() <= 1.1) {
-			return false;
-		}else {
-			return true;
-		}
-	}
-	
+
+	//Convoca la opción de pedir un préstamo
 	private static double pedirPrestamo() {
 		double presupuesto = Banco.prestamo(solvencia(), deudas);
 		return presupuesto;
 	}
 
+	//Busca cuanto se puede pagar de una deuda y abona esa cantidad
 	private static void pagarDeuda(DataManager dataManager){
 		double paga = 0;
 		for(Sucursal sucursal: dataManager.getSucursales()){
@@ -88,7 +84,7 @@ public class Empresa implements Serializable{
 		deudas -= paga;
 		System.out.println("Se han pagado $" + paga/1000000 + "M de la deuda");
 	}
-	
+	//Cuando se concreta un préstamo, suma la deuda adquirida
 	public static void endeudar(double deuda) {
 		deudas += deuda;
 		System.out.println("Se han añadido $" + Math.round(deuda/1000000) + "M a su deuda");
@@ -99,6 +95,7 @@ public class Empresa implements Serializable{
 			System.out.println(sucursal);
 		}
 	}
+	//Menú de la finanzas
 	public static void menuFinanzas(DataManager dataManager) {
 		boolean salir = false;
 		while (!salir) {
@@ -122,12 +119,15 @@ public class Empresa implements Serializable{
 					verSucursales(dataManager);
 					break;
 				case 3:
+					//Se pide el préstamo
 					double presupuesto = pedirPrestamo();
 					if(presupuesto == 0){
 						System.out.println("No se ha concretado ningún préstamo");
 						break;
 					}
+					//Se compra el terrno
 					Sucursal newSucursal = Barrio.comprarTerreno(presupuesto, dataManager.getSucursales(), dataManager.getCiudad());
+					//Se habilita la sucursal para abrirse
 					newSucursal.comprarMesas();
 					for(int i = 0; i < 5; i++){
 						boolean correcto = false;
@@ -138,6 +138,7 @@ public class Empresa implements Serializable{
 						}
 
 					}
+					//Se gurada la sucursal
 					dataManager.addSucursal(newSucursal);
 					Administrativo.nuevoAdmin(dataManager);
 					System.out.println(newSucursal);

@@ -23,7 +23,7 @@ public class Empresa implements Serializable{
 				"Gasto en recursos: $" + Math.round(gastoRecursos/1000000) + "M\n" +
 				"Capital bruto: $" + Math.round(presupuestoBruto/1000000) + "M\n" +
 				"Capital neto: $" + Math.round(presupuestoTotal/1000000) + "M\n" +
-				"Solvencia: $" + String.format("%.2f",solvencia()));
+				"Solvencia: " + String.format("%.2f",solvencia()));
 	}
 
 

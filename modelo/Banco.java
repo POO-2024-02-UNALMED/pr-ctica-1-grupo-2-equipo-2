@@ -72,8 +72,8 @@ public class Banco {
 				return 0;
 			}
 			eleccion -= 1;
-			Banco elejido = bancos[eleccion];
-			prestamo = elejido.aceptar(solvencia, deudas);
+			Banco elegido = bancos[eleccion];
+			prestamo = elegido.aceptar(solvencia, deudas);
 			if (prestamo == 0) {
 				System.out.println("Su solicitud no ha sido aceptada");
 				System.out.println("Escoja otra opción");

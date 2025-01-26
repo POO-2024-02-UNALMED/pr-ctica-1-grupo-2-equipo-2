@@ -29,14 +29,7 @@ public class Barrio implements Serializable {
 
     public void setSucursal(boolean x){this.sucursal = x;}
 
-    public void generarLocal(double presupuesto){
-        presupuesto /= 2;
-        presupuesto /= 100000000;
-        double[] precios = new double[4];
-        double x = Math.random()*presupuesto+1000000000;
-        x = Math.round(x);
-
-    }
+    //Determina cuáles son las localizaciones que hacen parte del barrio
     private static int esquinasPer(int [] direccion){
         int x = direccion[0];
         int y = direccion[1];
@@ -55,6 +48,7 @@ public class Barrio implements Serializable {
         return 4;
     }
 
+    //Busca la ubicación para abrir una nueva sucursal
     public static Sucursal comprarTerreno(double presupuesto, List<Sucursal> sucursales, Barrio[] ciudad) {
         Barrio[] candidatos = ciudad;
         Barrio[] hay = new Barrio[16];

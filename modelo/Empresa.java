@@ -31,7 +31,7 @@ public class Empresa implements Serializable{
 		Empresa.deudas = deuda;
 	}
 
-	private static void calcularFinanzas(DataManager dataManager){
+	public static void calcularFinanzas(DataManager dataManager){
 		List<Sucursal> sucursales = dataManager.getSucursales();
 		renta = 10000000 * sucursales.size();
 		gastoSalarios = 0;
@@ -127,7 +127,7 @@ public class Empresa implements Serializable{
 						break;
 					}
 					Sucursal newSucursal = Barrio.comprarTerreno(presupuesto, dataManager.getSucursales(), dataManager.getCiudad());
-					newSucursal.comprarMesas(presupuesto,newSucursal.getEspacio());
+					newSucursal.comprarMesas();
 					for(int i = 0; i < 5; i++){
 						boolean correcto = false;
 						while(!correcto){

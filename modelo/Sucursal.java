@@ -40,6 +40,7 @@ public class Sucursal implements Serializable{
         this.presupuesto = presupuesto;
         this.empleados = new Empleado[15];
     }
+    //Se usó para las sucursales por defecto
     public Sucursal(int id, String nombre, int cantidad, int[] direccion, double presupuesto, String auto){
         this(id,nombre,cantidad,direccion,presupuesto);
         int mitad = mesas.length/2;
@@ -69,6 +70,7 @@ public class Sucursal implements Serializable{
         this.ubicacion=ubicacionSucursal;
     }
 
+    //Se asegura que las coordenadas de una nueva sucursal no se encuentren demasiado cerca de una ya existente
     public static boolean calcularDistancia(int[] coordenadas, List<Sucursal> sucursales){
         boolean suficiente = true;
         int x = coordenadas[0];
@@ -137,6 +139,8 @@ public class Sucursal implements Serializable{
                 "Cantidad de mesas: " + mesas.length + "\n" +
                 "Presupuesto: $" + Math.round(presupuesto)/1000000 + "M";
     }
+
+    //Se compran mesas para una sucursal nueva
     public void comprarMesas(){
         int compradas = 0;
         int cantidad = mesas.length;
@@ -252,6 +256,7 @@ public class Sucursal implements Serializable{
             i++;
         }
     }
+    //Se usó para los meseros por defecto
     public void autoEmpleado(int numero, int id){
         String direccion = Esquina.fromCoo(this.direccion).toString();
         meseros[numero] = new Mesero(id,direccion,20,this,1500000);
@@ -261,6 +266,7 @@ public class Sucursal implements Serializable{
 
     public void restarPresupuesto(double menos){presupuesto -= menos;}
 
+    //Cierra una sucursal
     public static void cerrar(DataManager dataManager){
         System.out.println("Escoja qué sucursal desea cerrar");
         int i = 0;

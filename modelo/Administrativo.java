@@ -70,7 +70,7 @@ public class Administrativo {
 	}
 
 
-	/*
+/* 	
 	public void menuAdmin() {
 		System.out.println("Bienvenid@ admin. " + nombre);
 		boolean salir = false;
@@ -104,5 +104,7 @@ public class Administrativo {
 	public long getCedula(){return cedula;}
 	public long getClave(){return contrasena;}
 	public String getNombre(){return nombre;}
+
+
 }
 

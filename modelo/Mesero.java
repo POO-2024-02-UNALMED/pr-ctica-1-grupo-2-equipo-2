@@ -23,6 +23,22 @@ public class Mesero extends Empleado {
 		this.isDisponible=isDisponible;
 		this.proximoObjetivo=20;
 	}
+	public Mesero(int id, String nombre, String direccion, int edad,Sucursal sucursal, int antiguedad, String fechaDeContratacion) {
+        super(id,nombre,direccion,edad);
+        this.sucursal = sucursal;
+        this.antiguedad = antiguedad;
+        this.fechaDeContratacion = fechaDeContratacion;
+		if (antiguedad >= 1 && antiguedad < 2) {
+            this.sueldo = 1500000;
+        } else if (antiguedad >= 2 && antiguedad < 3) {
+            this.sueldo = 1800000;
+        } else if (antiguedad >= 3) {
+            this.sueldo = 2200000;
+        } else {
+            this.sueldo = 1300000;
+        }
+
+    }
 	
 	
 	public Sucursal getSucursal() {

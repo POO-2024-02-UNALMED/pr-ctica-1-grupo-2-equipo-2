@@ -35,6 +35,10 @@ public class Sucursal {
         this.direccion = direccion;
         this.presupuesto = presupuesto;
     }
+    public Sucursal(int id, String ubicacionSucursal){
+        this.id=id;
+        this.ubicacion=ubicacionSucursal;
+    }
 
     public static boolean calcularDistancia(int[] coordenadas, List<Sucursal> sucursales){
         boolean suficiente = true;

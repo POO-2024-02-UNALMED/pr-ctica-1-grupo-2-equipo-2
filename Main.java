@@ -4,6 +4,7 @@ import baseDatos.Persistencia;
 import error.Entrada;
 import modelo.Administrativo;
 import modelo.Empresa;
+import modelo.Restaurante;
 
 
 public class Main {
@@ -21,7 +22,7 @@ public class Main {
         while (running) {
             System.out.println("\n=== Menú Principal ===");
             System.out.println("1. Ver sucursales");
-            System.out.println("2. Funcionalidad 2");
+            System.out.println("2. contratacion");
             System.out.println("3. Funcionalidad 3");
             System.out.println("4. Pedir Domicilio");
             System.out.println("5. Funcionalidad 5");
@@ -42,7 +43,16 @@ public class Main {
                         break;
                     }
                 case 2:
-                    System.out.println("Funcionalidad 2 en desarrollo.");
+                    System.out.println("iniciar como administrativo");
+                    System.out.println("ingrese su numero de cedula");
+                    int ced = Entrada.input();
+                    if (Administrativo.verificarAdmin(ced, dataManager)){
+                        Administrativo admin = Administrativo.getAdmin(ced,dataManager);
+                        admin.saludo();
+                        Restaurante.menuAdministrativo();
+
+                    }
+
                     break;
                 case 3:
                     System.out.println("Funcionalidad 3 en desarrollo.");

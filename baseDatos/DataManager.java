@@ -117,13 +117,28 @@ public class DataManager implements Serializable {
         // Sucursales de prueba nuevaSucusal
         int[] x = {-3, -3};
         int[] y = {5, 3};
-        int[] z = {2, 6};
-        sucursales.add(new Sucursal(1, "Cisneros", 35, x, 57000000));
-        sucursales.add(new Sucursal(2, "Robledo", 30, y, 48000000));
-        sucursales.add(new Sucursal(3, "Sabaneta", 30, z, 44000000));
+        int[] z = {-2, 6};
+        sucursales.add(new Sucursal(1, "Cisneros", 35, x, 57000000, "auto"));
+        sucursales.add(new Sucursal(2, "Robledo", 30, y, 48000000, "auto"));
+        sucursales.add(new Sucursal(3, "Sabaneta", 30, z, 44000000, "auto"));
         ciudad[9].setSucursal(true);
         ciudad[4].setSucursal(true);
         ciudad[1].setSucursal(true);
+
+        // Meseros
+
+        for(Sucursal sucursal: getSucursales()){
+            for(int i = 0; i < 5; i++){
+                boolean correcto = false;
+                while(!correcto){
+                    int cedula = Empleado.generarDocumento();
+                    correcto = explorar(cedula);
+                    sucursal.autoEmpleado(i,cedula);
+                }
+
+            }
+        }
+
     }
 
 
@@ -334,4 +349,26 @@ public class DataManager implements Serializable {
     public Barrio[] getCiudad(){return ciudad;}
 
     public void addSucursal(Sucursal sucursal){sucursales.add(sucursal);}
+
+    public void quitarSucursal() {
+    }
+
+    public boolean explorar(int id){
+        for(Repartidor repartidor: repartidores){
+            if(repartidor == null){continue;}
+            if (id == repartidor.getId()){return false;}}
+        for(Sucursal sucursal: sucursales){
+            if(sucursal.getEmpleado() != null){
+                for(Empleado empleado: sucursal.getEmpleado()){
+                    if(empleado == null){continue;}
+                    if(id == empleado.getId()){return false;}}
+            }
+            if (sucursal.getMeseros() != null){
+                for(Mesero mesero: sucursal.getMeseros()){
+                    if(mesero == null){continue;}
+                    if(id == mesero.getId()){return false;}}
+            }
+        }
+        return true;
+    }
 }

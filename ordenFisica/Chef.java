@@ -54,7 +54,7 @@ public class Chef extends Empleado {
 		
 	}
 	
-    public int getSueldo() {
+    public double getSueldo() {
     	return sueldo;
     }
     

@@ -1,17 +1,19 @@
 package modelo;
 
-public class Mesero extends Empleado {
+import java.io.Serializable;
+
+public class Mesero extends Empleado implements Serializable{
 	private Sucursal sucursal;
 	private int antiguedad;
-	private String fechaDeContratacion;
+	private final String fechaDeContratacion;
 	private int ultimaCalificacion;
 	private int pedidosAtendidos;
 	private int puntaje;
-	private int sueldo;
+	private double sueldo;
     private boolean isDisponible;
     private int proximoObjetivo;
 
-	public Mesero(int id,String nombre,String direccion,int edad,Sucursal sucursal,int antiguedad,String fechaDeContratacion,int ultimaCalificacion,boolean isDisponible) {
+	public Mesero(int id,String nombre,String direccion,int edad,Sucursal sucursal,int antiguedad,String fechaDeContratacion,int ultimaCalificacion,boolean isDisponible, double sueldo) {
 		super(id,nombre,direccion,edad);
 		this.sucursal=sucursal;
 		this.antiguedad=antiguedad;
@@ -19,9 +21,12 @@ public class Mesero extends Empleado {
 		this.ultimaCalificacion=ultimaCalificacion;
 		this.pedidosAtendidos=0;
 		this.puntaje=0;
-		this.sueldo=1300000;
+		this.sueldo=sueldo;
 		this.isDisponible=isDisponible;
 		this.proximoObjetivo=20;
+	}
+	public Mesero(int id,String direccio, int edad ,Sucursal sucursal,double sueldo){
+		this(id,generarNombre(),direccio,edad,sucursal,1,"24/01/24",0,true,sueldo);
 	}
 	
 	
@@ -54,7 +59,7 @@ public class Mesero extends Empleado {
 		
 	}
 	
-    public int getSueldo() {
+    public double getSueldo() {
     	return sueldo;
     }
     
@@ -92,9 +97,9 @@ public class Mesero extends Empleado {
     public void setPuntaje(int puntaje) {
     	this.puntaje=puntaje;
     }
-    
+
 public void ganarPuntos(Mesero mesero) {
-	
+
 }
 
 }

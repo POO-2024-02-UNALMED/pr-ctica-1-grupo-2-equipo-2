@@ -80,7 +80,7 @@ public enum Nombre {
         this.nombre = nombre;
     }
 
-    public String getNombre(int id){
+    public static String getNombre(int id){
         for(Nombre nombre: values()){
             if (nombre.id == id){
                 return nombre.nombre;

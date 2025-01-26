@@ -39,7 +39,31 @@ public class DataManager implements Serializable {
         cargarDatosPrueba();
     }
 
-    private void cargarDatosPrueba() {
+    public void borrarDatos() {
+        // Reiniciar listas y datos en el DataManager
+        clientes.clear();
+        productos.clear();
+        repartidores.clear();
+        pedidos.clear();
+        zonas.clear();
+        incidencias.clear();
+        domicilios.clear();
+        admins.clear();
+        sucursales.clear();
+    
+        // Reiniciar el array de barrios
+        for (int i = 0; i < ciudad.length; i++) {
+            ciudad[i] = null;
+        }
+    
+        // Reiniciar los contadores de IDs
+        nextPedidoId.set(1);
+        nextIncidenciaId.set(1);
+    
+        System.out.println("Todos los datos han sido borrados correctamente.");
+    }
+    
+    public void cargarDatosPrueba() {
         // Zonas de prueba
         zonas.add(new Zona(1, "Centro", 2.99, true));
         zonas.add(new Zona(2, "Norte", 3.99, true));
@@ -48,13 +72,9 @@ public class DataManager implements Serializable {
         // Repartidores de prueba con zonas asignadas
         Repartidor repartidor1 = new Repartidor(1, "Juan Pérez", true);
         repartidor1.setCalificacionPromedio(4.5);
-        repartidor1.getZonasAsignadas().add(zonas.get(0));
-        repartidor1.getZonasAsignadas().add(zonas.get(1));
 
         Repartidor repartidor2 = new Repartidor(2, "María García", true);
         repartidor2.setCalificacionPromedio(4.8);
-        repartidor2.getZonasAsignadas().add(zonas.get(1));
-        repartidor2.getZonasAsignadas().add(zonas.get(2));
 
         repartidores.add(repartidor1);
         repartidores.add(repartidor2);
@@ -71,38 +91,54 @@ public class DataManager implements Serializable {
         admins.add(new Administrativo("Elena Nito", 10453, 4488123));
         admins.add(new Administrativo("Alma Marcela Gozo", 42012, 4488123));
 
-        // Barrios habilitados
+        // Barrios habilitados con costos basados en la distancia al centro
         int[] a = {-8, -4};
         int[] b = {-4, 0};
         int[] c = {0, 4};
         int[] d = {4, 8};
-        ciudad[0] = new Barrio("La Estrella", a, d);
-        ciudad[1] = new Barrio("Sabaneta", b, d);
-        ciudad[2] = new Barrio("Itagüí", c, d);
-        ciudad[3] = new Barrio("Envigado", d, d);
-        ciudad[4] = new Barrio("Robledo", d, c);
-        ciudad[5] = new Barrio("Bello", c, c);
-        ciudad[6] = new Barrio("Poblado", b, c);
-        ciudad[7] = new Barrio("Niquía", a, c);
-        ciudad[8] = new Barrio("Alpujarra", a, b);
-        ciudad[9] = new Barrio("Cisneros", b, b);
-        ciudad[10] = new Barrio("San Antonio", c, b);
-        ciudad[11] = new Barrio("Parque Berrío", d, b);
-        ciudad[12] = new Barrio("Prado", d, a);
-        ciudad[13] = new Barrio("Caribe", c, a);
-        ciudad[14] = new Barrio("Acevedo", b, a);
-        ciudad[15] = new Barrio("Madera", a, a);
+        
+        ciudad[0] = new Barrio("La Estrella", 7.99, a, d);  
+        ciudad[1] = new Barrio("Sabaneta", 6.99, b, d);     
+        ciudad[2] = new Barrio("Itagüí", 5.99, c, d);       
+        ciudad[3] = new Barrio("Envigado", 4.99, d, d);     
+        ciudad[4] = new Barrio("Robledo", 6.99, d, c);      
+        ciudad[5] = new Barrio("Bello", 7.99, c, c);        
+        ciudad[6] = new Barrio("Poblado", 4.99, b, c);      
+        ciudad[7] = new Barrio("Niquía", 7.49, a, c);       
+        ciudad[8] = new Barrio("Alpujarra", 3.99, a, b);    
+        ciudad[9] = new Barrio("Cisneros", 3.99, b, b);     
+        ciudad[10] = new Barrio("San Antonio", 3.99, c, b); 
+        ciudad[11] = new Barrio("Parque Berrío", 3.99, d, b); 
+        ciudad[12] = new Barrio("Prado", 4.49, d, a);       
+        ciudad[13] = new Barrio("Caribe", 5.49, c, a);      
+        ciudad[14] = new Barrio("Acevedo", 6.49, b, a);     
+        ciudad[15] = new Barrio("Madera", 6.99, a, a);      
 
         // Sucursales de prueba nuevaSucusal
         int[] x = {-3, -3};
         int[] y = {5, 3};
-        int[] z = {2, 6};
-        sucursales.add(new Sucursal(1, "Cisneros", 35, x, 57000000));
-        sucursales.add(new Sucursal(2, "Robledo", 30, y, 48000000));
-        sucursales.add(new Sucursal(3, "Sabaneta", 30, z, 44000000));
+        int[] z = {-2, 6};
+        sucursales.add(new Sucursal(1, "Cisneros", 35, x, 57000000, "auto"));
+        sucursales.add(new Sucursal(2, "Robledo", 30, y, 48000000, "auto"));
+        sucursales.add(new Sucursal(3, "Sabaneta", 30, z, 44000000, "auto"));
         ciudad[9].setSucursal(true);
         ciudad[4].setSucursal(true);
         ciudad[1].setSucursal(true);
+
+        // Meseros
+
+        for(Sucursal sucursal: getSucursales()){
+            for(int i = 0; i < 5; i++){
+                boolean correcto = false;
+                while(!correcto){
+                    int cedula = Empleado.generarDocumento();
+                    correcto = explorar(cedula);
+                    sucursal.autoEmpleado(i,cedula);
+                }
+
+            }
+        }
+
     }
 
 
@@ -202,6 +238,15 @@ public class DataManager implements Serializable {
     // Métodos para gestionar pedidos e incidencias
     public List<Pedido> getPedidos() {
         return new ArrayList<>(pedidos);
+    }
+
+    public Barrio getBarrio(String nombre) {
+        for (Barrio barrio : this.ciudad) {
+            if (barrio != null && barrio.toString().equalsIgnoreCase(nombre)) {
+                return barrio;
+            }
+        }
+        return null; // Si no se encuentra
     }
 
     public void registrarIncidencia(Incidencia incidencia) {
@@ -304,4 +349,26 @@ public class DataManager implements Serializable {
     public Barrio[] getCiudad(){return ciudad;}
 
     public void addSucursal(Sucursal sucursal){sucursales.add(sucursal);}
+
+    public void quitarSucursal() {
+    }
+
+    public boolean explorar(int id){
+        for(Repartidor repartidor: repartidores){
+            if(repartidor == null){continue;}
+            if (id == repartidor.getId()){return false;}}
+        for(Sucursal sucursal: sucursales){
+            if(sucursal.getEmpleado() != null){
+                for(Empleado empleado: sucursal.getEmpleado()){
+                    if(empleado == null){continue;}
+                    if(id == empleado.getId()){return false;}}
+            }
+            if (sucursal.getMeseros() != null){
+                for(Mesero mesero: sucursal.getMeseros()){
+                    if(mesero == null){continue;}
+                    if(id == mesero.getId()){return false;}}
+            }
+        }
+        return true;
+    }
 }

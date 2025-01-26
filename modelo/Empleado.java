@@ -1,10 +1,14 @@
 package modelo;
 
-public class Empleado {
+import java.io.Serializable;
+
+public class Empleado implements Serializable{
+    private static final long serialVersionUID = 1L;
 	private int id;
 	private String nombre;
 	private String direccion;
 	private int edad;
+    private int sueldo;
 
 	
 	public Empleado(int id,String nombre,String direccion,int edad) {
@@ -14,8 +18,11 @@ public class Empleado {
 		this.edad=edad;
 
 	}
-	
+    public String toString(){
+        return nombre;
+    }
 
+    public double getSueldo(){return sueldo;}
 	public int getId() {
 		return id;
 	}
@@ -47,8 +54,28 @@ public class Empleado {
     public void setEdad(int edad) {
         this.edad = edad;
     }
-    
 
-    
+    public final static String generarNombre(){
+        double x = Math.random()*70+1;
+        x = Math.round(x);
+        double y = Math.random()*70+1;
+        y = Math.round(y);
+        int i = 0,j = 0;
+        while(i < x){i++;}
+        while(j < y){j++;}
+        String nombre = Nombre.getNombre(i);
+        String apellido = Apellido.getNombre(j);
+        return nombre + " " + apellido;
+    }
+
+
+    public final static int generarDocumento(){
+        double x = Math.random()*99999+10000;
+        x = Math.round(x);
+        int i = 0;
+        while(i < x){i++;}
+        return i;
+    }
+
     
 }

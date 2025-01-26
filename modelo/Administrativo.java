@@ -4,11 +4,13 @@ package modelo;
 import baseDatos.DataManager;
 import error.Entrada;
 import java.util.List;
+import java.io.Serializable;
 
 
 
-public class Administrativo {
-
+public class Administrativo implements  Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	private long contrasena;
 	private String nombre;
 	private long cedula;
@@ -69,6 +71,22 @@ public class Administrativo {
 		return null;
 	}
 
+	public static void nuevoAdmin(DataManager dataManager){
+		boolean correcto = false;
+		int id = 0;
+		while(!correcto){
+			id = Empleado.generarDocumento();
+			correcto = dataManager.explorar(id);
+		}
+		System.out.println("Ingrese la clave que se le asignará al nuevo administrador");
+		int clave = Entrada.input();
+		Administrativo admin = new Administrativo(Empleado.generarNombre(),id,clave);
+		dataManager.getAdmins().add(admin);
+		System.out.println("El nuevo puesto de administrativo es para " + admin.nombre);
+		System.out.println("no olvide la información");
+		System.out.println("Cédula: " + admin.cedula);
+		System.out.println("Contraseña: " + admin.contrasena);
+	}
 
 /* 	
 	public void menuAdmin() {

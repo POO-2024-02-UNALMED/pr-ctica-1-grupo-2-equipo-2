@@ -44,8 +44,13 @@ public class Pedido implements Serializable {
                 .mapToDouble(Producto::getPrecio)
                 .sum();
         
-        // Aplicar costo de envío según zona
-        this.costoEnvio = domicilio.getZona().getCostoEnvio();
+         // Obtener el costo de envío desde el barrio asociado al domicilio
+         if (domicilio != null && domicilio.getBarrio() != null) {
+            this.costoEnvio = domicilio.getBarrio().getCostoEnvio();
+            System.out.println("Costo de envío aplicado: " + this.costoEnvio);
+        } else {
+            this.costoEnvio = 0;
+        }
         
         // Calcular total
         this.total = this.subtotal + this.costoEnvio - this.descuento;

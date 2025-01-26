@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import baseDatos.DataManager;
 import baseDatos.Persistencia;
@@ -20,6 +21,7 @@ public class Main {
         }
 
         while (running) {
+            Empresa.calcularFinanzas(dataManager);
             System.out.println("\n=== Menú Principal ===");
             System.out.println("1. Ver sucursales");
             System.out.println("2. contratacion");
@@ -29,7 +31,20 @@ public class Main {
             System.out.println("6. Finalizar programa");
 
             System.out.print("Seleccione una opción: ");
-            int opcion = scanner.nextInt();
+            boolean correcto = false;
+            int opcion = 0;
+            while (!correcto) {
+                scanner = new Scanner(System.in);
+                try {
+                    opcion = scanner.nextInt();
+                    scanner.nextLine();
+                } catch (InputMismatchException e) {
+                    System.out.println("Error, entrada no válida. Por favor, ingrese un número.");
+                    scanner.nextLine();
+                    continue;
+                }
+                correcto = true;
+            }
 
             switch (opcion) {
                 case 1:

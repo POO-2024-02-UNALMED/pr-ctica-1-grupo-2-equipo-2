@@ -30,8 +30,6 @@ public class Banco {
 			return 0;
 		}else {
 			if (capacidad < exigencia) {
-				System.out.println(capacidad);
-				System.out.println(exigencia);
 				return 0;
 			}
 		}
@@ -79,7 +77,7 @@ public class Banco {
 			}else {
 				prestamo += calcularPrestamo(solvencia, prestamo);
 				prestamo = Math.round(prestamo);
-				System.out.println("Se la han prestado $" + prestamo/1000000 + "M");
+				System.out.println("Se la han prestado $" + String.format("%.1f",prestamo/1000000) + "M");
 				int anos = 0;
 				boolean correcto = false;
 				while (correcto == false) {

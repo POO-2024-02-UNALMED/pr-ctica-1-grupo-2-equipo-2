@@ -1,10 +1,13 @@
 package ordenFisica;
 
+import java.io.Serializable;
+
 import modelo.Mesa;
 import modelo.Mesero;
 import modelo.Sucursal;
 
-public class OrdenFisica {
+public class OrdenFisica implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Mesa mesa;
 	private Cliente cliente;
 	private Mesero mesero;

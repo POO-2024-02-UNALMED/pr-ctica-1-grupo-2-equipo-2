@@ -1,6 +1,9 @@
 package modelo;
 
-public class Mesa {
+import java.io.Serializable;
+
+public class Mesa implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private int capacidad;
 	private Sucursal sucursal;
@@ -48,4 +51,5 @@ public class Mesa {
 	public void UnirMesas(Mesa mesa1, Mesa mesa2) {
 		
 	}
+	public String toString(){return id + " " + capacidad;}
 }

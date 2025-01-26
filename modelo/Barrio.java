@@ -6,22 +6,22 @@ import java.util.List;
 import error.Entrada;
 import baseDatos.DataManager;
 
-public class Barrio implements Serializable{
+public class Barrio implements Serializable {
     private static final long serialVersionUID = 1L;
     private boolean sucursal;
     private String nombre;
+    private double costoEnvio;
     private ArrayList<Esquina> esquinas;
 
-    public Barrio(String nombre, int[] x, int[] y) {
+    public Barrio(String nombre, double costoEnvio, int[] x, int[] y) {
         this.nombre = nombre;
+        this.costoEnvio = costoEnvio;
         this.sucursal = false;
         this.esquinas = Esquina.determinarZona(x, y);
     }
 
 
-
     public boolean tieneRestaurante() {return sucursal;}
-
 
     public String toString() {return this.nombre;}
 
@@ -137,4 +137,13 @@ public class Barrio implements Serializable{
         barrio.setSucursal(true);
         return new Sucursal(j, nombre, espacio, direccion, presupuesto);
     }
+
+    public double getCostoEnvio() {
+        return costoEnvio;
+    }
+
+    public void setCostoEnvio(double costoEnvio) {
+        this.costoEnvio = costoEnvio;
+    }
+
 }

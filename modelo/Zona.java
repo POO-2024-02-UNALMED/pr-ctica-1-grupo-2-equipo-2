@@ -33,14 +33,6 @@ public class Zona implements Serializable {
         this.nombre = nombre; 
     }
 
-    public double getCostoEnvio() { 
-        return costoEnvio; 
-    }
-
-    public void setCostoEnvio(double costoEnvio) { 
-        this.costoEnvio = costoEnvio; 
-    }
-
     public boolean isActiva() { 
         return activa; 
     }

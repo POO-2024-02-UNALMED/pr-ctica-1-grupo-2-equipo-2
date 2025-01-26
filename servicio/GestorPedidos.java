@@ -16,52 +16,60 @@ public class GestorPedidos {
         this.dataManager = dataManager;
     }
 
-    public Pedido crearPedido(Cliente cliente, List<Producto> productos, String direccion) throws Exception {
+    public Pedido crearPedido(Cliente cliente, List<Producto> productos, Barrio barrioSeleccionado) throws Exception {
         // Validar horario de servicio
         LocalTime horaActual = LocalTime.now();
         if (horaActual.isBefore(HORA_INICIO) || horaActual.isAfter(HORA_CIERRE)) {
             throw new Exception("Fuera del horario de servicio (8:00 - 22:00)");
         }
-
+    
         // Validar disponibilidad de productos
         for (Producto producto : productos) {
             if (!dataManager.verificarDisponibilidadProducto(producto.getId())) {
                 throw new Exception("Producto no disponible: " + producto.getNombre());
             }
         }
-
-        // Asignar repartidor según zona y carga de trabajo
-        Zona zona = determinarZona(direccion);
-        if (!zona.isActiva()) {
-            throw new Exception("La dirección está fuera de la zona de cobertura");
+    
+        // Validar que el barrio sea válido
+        if (barrioSeleccionado == null) {
+            throw new Exception("El barrio seleccionado no es válido.");
         }
-
-        Repartidor repartidor = asignarMejorRepartidor(zona);
+    
+        // Asignar repartidor según barrio
+        Repartidor repartidor = asignarRepartidorDisponible();
         if (repartidor == null) {
-            throw new Exception("No hay repartidores disponibles en este momento");
+            throw new Exception("No hay repartidores disponibles para el barrio seleccionado.");
         }
-
-        // Crear el domicilio
-        Domicilio domicilio = new Domicilio(direccion, repartidor, zona);
-
+    
+        // Crear el domicilio asociado al barrio
+        Domicilio domicilio = new Domicilio(barrioSeleccionado, repartidor, null);
+        domicilio.setBarrio(barrioSeleccionado);
+    
         // Crear el pedido
         int idPedido = dataManager.getNextPedidoId();
         Pedido pedido = new Pedido(idPedido, productos, domicilio, cliente);
-
+    
         // Aplicar descuentos si corresponde
         aplicarDescuentos(pedido, cliente);
-
+    
         // Aplicar recargos por hora pico si corresponde
         if (esHoraPico()) {
             aplicarRecargoPico(pedido);
         }
-
+    
         // Registrar el pedido
         dataManager.agregarPedido(cliente, pedido);
-
+    
         return pedido;
     }
-
+    
+    private Repartidor asignarRepartidorDisponible() {
+        return dataManager.getRepartidores().stream()
+            .filter(Repartidor::isDisponible)
+            .findFirst()
+            .orElse(null);
+    }
+     
     private boolean esHoraPico() {
         LocalTime hora = LocalTime.now();
         return (hora.isAfter(LocalTime.of(12, 0)) && hora.isBefore(LocalTime.of(14, 0))) ||
@@ -85,33 +93,6 @@ public class GestorPedidos {
         return cliente.getHistorialPedidos().stream()
                 .filter(p -> p.getFechaCreacion().isAfter(unMesAtras))
                 .count() > 10;
-    }
-
-    private Repartidor asignarMejorRepartidor(Zona zona) {
-        return dataManager.getRepartidores().stream()
-                .filter(Repartidor::isDisponible)
-                .filter(r -> r.getZonasAsignadas().contains(zona))
-                .min((r1, r2) -> Double.compare(
-                    calcularCargaTrabajo(r1),
-                    calcularCargaTrabajo(r2)))
-                .orElse(null);
-    }
-
-    private double calcularCargaTrabajo(Repartidor repartidor) {
-        // Considerar número de pedidos activos y calificación promedio
-        long pedidosActivos = dataManager.getPedidos().stream()
-                .filter(p -> p.getDomicilio().getRepartidor().equals(repartidor))
-                .filter(p -> p.getEstado() != EstadoPedido.ENTREGADO && 
-                           p.getEstado() != EstadoPedido.CANCELADO)
-                .count();
-                
-        return pedidosActivos / repartidor.getCalificacionPromedio();
-    }
-
-    private Zona determinarZona(String direccion) {
-        // Aquí iría la lógica para determinar la zona según la dirección
-        // Por ahora retornamos una zona por defecto
-        return dataManager.getZonas().get(0);
     }
 
     public void actualizarEstadoPedido(Pedido pedido, EstadoPedido nuevoEstado) {

@@ -9,12 +9,23 @@ import java.util.InputMismatchException;
 public class PedirDomicilio {
     private DataManager dataManager;
     private GestorPedidos gestorPedidos;
-    private Domicilio domicilio;
     private final Scanner scanner = new Scanner(System.in);
 
     public PedirDomicilio(DataManager dataManager) {
         this.dataManager = dataManager;
         this.gestorPedidos = new GestorPedidos(dataManager);
+    }
+
+    public void inicializarDatos() {
+        System.out.println("¿Desea reiniciar los datos antes de iniciar el programa? (S/N)");
+        String respuesta = scanner.nextLine().trim().toUpperCase();
+        if (respuesta.equals("S")) {
+            dataManager.borrarDatos();
+            dataManager.cargarDatosPrueba();
+            System.out.println("Los datos han sido reiniciados correctamente.");
+        } else {
+            System.out.println("Iniciando sin reiniciar los datos...");
+        }
     }
 
     public void realizarPedido() {
@@ -28,7 +39,7 @@ public class PedirDomicilio {
             opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiar el buffer
         } catch (InputMismatchException e) {
-            System.out.println("error.Entrada no válida. Por favor, ingrese un número.");
+            System.out.println("Error: Entrada no válida. Por favor, ingrese un número.");
             scanner.nextLine(); // Limpiar el buffer
             return;
         }
@@ -47,27 +58,14 @@ public class PedirDomicilio {
                     return;
                 }
 
-                String direccionEntrega;
-                while (true) {
-                    System.out.println("\nDirección registrada: " + cliente.getDireccion());
-                    System.out.print("¿Desea usar esta dirección? (S/N): ");
-                    String respuesta = scanner.nextLine().trim().toUpperCase();
-
-                    if (respuesta.equals("S")) {
-                        direccionEntrega = cliente.getDireccion();
-                        break;
-                    } else if (respuesta.equals("N")) {
-                        System.out.print("Ingrese la nueva dirección de entrega: ");
-                        direccionEntrega = scanner.nextLine().trim();
-                        if (!direccionEntrega.isEmpty()) {
-                            break;
-                        }
-                    }
-                    System.out.println("Por favor, ingrese S o N.");
+                Barrio barrioSeleccionado = seleccionarBarrio(scanner);
+                if (barrioSeleccionado == null) {
+                    System.out.println("No se seleccionó un barrio válido.");
+                    return;
                 }
 
                 try {
-                    Pedido pedido = gestorPedidos.crearPedido(cliente, productosSeleccionados, direccionEntrega);
+                    Pedido pedido = gestorPedidos.crearPedido(cliente, productosSeleccionados, barrioSeleccionado);
                     mostrarResumenPedido(pedido);
                 } catch (Exception e) {
                     System.out.println("Error al crear el pedido: " + e.getMessage());
@@ -78,7 +76,8 @@ public class PedirDomicilio {
             }
         }
 
-        // Redirigir al menú de gestión de pedidos
+        if (opcion == 3) {inicializarDatos();}
+
         gestionarPedidos();
     }
 
@@ -124,6 +123,63 @@ public class PedirDomicilio {
         }
     }
 
+    private Barrio seleccionarBarrio(Scanner scanner) {
+        Barrio[] ciudad = dataManager.getCiudad(); 
+        if (ciudad == null || ciudad.length == 0) {
+            System.out.println("No hay barrios configurados.");
+            return null; 
+        }
+    
+        System.out.println("Seleccione el barrio para la entrega:");
+        for (int i = 0; i < ciudad.length; i++) {
+            if (ciudad[i] != null) { 
+                System.out.println((i + 1) + ". " + ciudad[i].toString() + 
+                                   " - Costo de envío: $" + ciudad[i].getCostoEnvio());
+            }
+        }
+    
+        int seleccion;
+        while (true) {
+            System.out.print("Ingrese el número correspondiente al barrio: ");
+            try {
+                seleccion = scanner.nextInt();
+                scanner.nextLine(); // Limpiar buffer
+                if (seleccion > 0 && seleccion <= ciudad.length && ciudad[seleccion - 1] != null) {
+                    Barrio seleccionado = ciudad[seleccion - 1];
+                    System.out.println("Barrio seleccionado: " + seleccionado.toString() +
+                                       ", Costo de envío: $" + seleccionado.getCostoEnvio());
+                    return seleccionado;
+                } else {
+                    System.out.println("El número ingresado no corresponde a ningún barrio listado.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                scanner.nextLine(); // Limpiar buffer
+            }
+        }
+    }
+
+    private Cliente seleccionarOcrearCliente(Scanner scanner) {
+        System.out.print("Ingrese el ID del cliente: ");
+        int clienteId = scanner.nextInt();
+        scanner.nextLine(); // Limpiar buffer
+
+        Cliente cliente = dataManager.buscarClientePorId(clienteId);
+        if (cliente == null) {
+            System.out.println("Cliente no encontrado. Ingrese los datos para registrarlo.");
+            System.out.print("Nombre: ");
+            String nombre = scanner.nextLine();
+            System.out.print("Teléfono: ");
+            String telefono = scanner.nextLine();
+
+            cliente = new Cliente(clienteId, nombre, "", telefono);
+            dataManager.agregarCliente(cliente);
+            System.out.println("Cliente registrado exitosamente.");
+        } else {
+            System.out.println("Cliente encontrado: " + cliente);
+        }
+        return cliente;
+    }
 
     private void crearNuevoPedido(Scanner scanner) {
         System.out.println("\n=== Crear Nuevo Pedido ===");
@@ -140,27 +196,14 @@ public class PedirDomicilio {
                 return;
             }
 
-            String direccionEntrega;
-            while (true) {
-                System.out.println("\nDirección registrada: " + cliente.getDireccion());
-                System.out.print("¿Desea usar esta dirección? (S/N): ");
-                String respuesta = scanner.nextLine().trim().toUpperCase();
-
-                if (respuesta.equals("S")) {
-                    direccionEntrega = cliente.getDireccion();
-                    break;
-                } else if (respuesta.equals("N")) {
-                    System.out.print("Ingrese la nueva dirección de entrega: ");
-                    direccionEntrega = scanner.nextLine().trim();
-                    if (!direccionEntrega.isEmpty()) {
-                        break;
-                    }
-                }
-                System.out.println("Por favor, ingrese S o N.");
+            Barrio barrioSeleccionado = seleccionarBarrio(scanner);
+            if (barrioSeleccionado == null) {
+                System.out.println("No se seleccionó un barrio válido.");
+                return;
             }
 
             try {
-                Pedido pedido = gestorPedidos.crearPedido(cliente, productosSeleccionados, direccionEntrega);
+                Pedido pedido = gestorPedidos.crearPedido(cliente, productosSeleccionados, barrioSeleccionado);
                 mostrarResumenPedido(pedido);
             } catch (Exception e) {
                 System.out.println("Error al crear el pedido: " + e.getMessage());
@@ -202,7 +245,7 @@ public class PedirDomicilio {
             }
     
             // Accede a la dirección desde el domicilio del pedido
-            System.out.println("Dirección: " + pedido.getDomicilio().getDireccion());
+            System.out.println("Barrio: " + pedido.getDomicilio().getBarrio());
             System.out.println("Estado: " + pedido.getEstado());
             System.out.println("------------------------------------");
         }
@@ -335,9 +378,7 @@ public class PedirDomicilio {
             System.out.printf("- %s: $%.2f%n", producto.getNombre(), producto.getPrecio());
         }
         System.out.println("\nDetalles de entrega:");
-        System.out.println("Dirección: " + pedido.getDomicilio().getDireccion());
-        System.out.println("Zona: " + pedido.getDomicilio().getZona().getNombre());
-        System.out.println("Repartidor: " + pedido.getDomicilio().getRepartidor().getNombre());
+        System.out.println("Barrio: " + pedido.getDomicilio().getBarrio().toString());        System.out.println("Repartidor: " + pedido.getDomicilio().getRepartidor().getNombre());
         System.out.println("Tiempo estimado: " + pedido.getDomicilio().getTiempoEstimadoEntrega());
         
         System.out.println("\nCostos:");
@@ -351,30 +392,6 @@ public class PedirDomicilio {
         System.out.println("\nEstado del pedido: " + pedido.getEstado().getDescripcion());
     }
 
-    private Cliente seleccionarOcrearCliente(Scanner scanner) {
-        System.out.print("Ingrese el ID del cliente: ");
-        int clienteId = scanner.nextInt();
-        scanner.nextLine(); // Limpiar buffer
-
-        Cliente cliente = dataManager.buscarClientePorId(clienteId);
-        if (cliente == null) {
-            System.out.println("Cliente no encontrado. Ingrese los datos para registrarlo.");
-            System.out.print("Nombre: ");
-            String nombre = scanner.nextLine();
-            System.out.print("Dirección: ");
-            String direccion = scanner.nextLine();
-            System.out.print("Teléfono: ");
-            String telefono = scanner.nextLine();
-
-            cliente = new Cliente(clienteId, nombre, direccion, telefono);
-            dataManager.agregarCliente(cliente);
-            System.out.println("Cliente registrado exitosamente.");
-        } else {
-            System.out.println("Cliente encontrado: " + cliente);
-        }
-        
-        return cliente;
-    }
 
     private List<Producto> seleccionarProductos(Scanner scanner) {
         List<Producto> productosSeleccionados = new ArrayList<>();

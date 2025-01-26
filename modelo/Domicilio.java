@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class Domicilio implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String direccion;
+    private Barrio barrio;
     private Repartidor repartidor;
     private EstadoPedido estado;
     private Zona zona;
@@ -15,13 +15,12 @@ public class Domicilio implements Serializable {
     private double distanciaKm;
 
     // Constructor
-    public Domicilio(String direccion, Repartidor repartidor, Zona zona) {
-        this.direccion = direccion;
+    public Domicilio(Barrio barrio, Repartidor repartidor, Zona zona) {
+        this.barrio = barrio;
         this.repartidor = repartidor;
         this.zona = zona;
-        this.estado = EstadoPedido.RECIBIDO; // Estado predeterminado
-        this.tiempoEstimadoEntrega = LocalDateTime.now().plusMinutes(30); // tiempo por defecto
-        calcularDistancia();
+        this.estado = EstadoPedido.RECIBIDO; 
+        this.tiempoEstimadoEntrega = LocalDateTime.now().plusMinutes(30); 
     }
 
     // Método para deserialización
@@ -30,13 +29,8 @@ public class Domicilio implements Serializable {
         // La conversión de estado no es necesaria aquí si siempre es un EstadoPedido
     }
 
-    private void calcularDistancia() {
-        this.distanciaKm = 1 + Math.random() * 9; // valor aleatorio
-    }
 
     // Getters y setters
-    public String getDireccion() { return direccion; }
-    public void setDireccion(String direccion) { this.direccion = direccion; }
     
     public Repartidor getRepartidor() { return repartidor; }
     public void setRepartidor(Repartidor repartidor) { this.repartidor = repartidor; }
@@ -54,4 +48,15 @@ public class Domicilio implements Serializable {
     
     public String getComentariosEntrega() { return comentariosEntrega; }
     public void setComentariosEntrega(String comentarios) { this.comentariosEntrega = comentarios; }
+
+    public Barrio getBarrio() { return this.barrio; }
+
+    public void setBarrio(Barrio barrioSeleccionado) {
+        this.barrio = barrioSeleccionado;
+    }
+
+    public double getCostoEnvio() {
+        return barrio != null ? barrio.getCostoEnvio() : 0.0;
+    }
+
 }

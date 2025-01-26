@@ -30,8 +30,6 @@ public class Banco {
 			return 0;
 		}else {
 			if (capacidad < exigencia) {
-				System.out.println(capacidad);
-				System.out.println(exigencia);
 				return 0;
 			}
 		}

@@ -24,7 +24,7 @@ public class Main {
             Empresa.calcularFinanzas(dataManager);
             System.out.println("\n=== Menú Principal ===");
             System.out.println("1. Ver sucursales");
-            System.out.println("2. contratacion");
+            System.out.println("2. Contratacion");
             System.out.println("3. Funcionalidad 3");
             System.out.println("4. Pedir Domicilio");
             System.out.println("5. Funcionalidad 5");

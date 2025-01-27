@@ -1,134 +1,132 @@
-#funcionalidad de reservacion
+#funcionalidad de reservacion#
+    
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-class Reserva {
-    private String nombreCliente;
-    private Date fechaReserva;
-    private String horario; // "dia" o "noche"
-    private int numeroPersonas;
-    private boolean esMesa; // true si es una mesa, false si es todo el establecimiento
-    private String tipoEvento; // "fiesta", "cumpleaños", etc.
-    private boolean conPersonal; // true si se requiere personal del restaurante
+class Mesa {
+    private int numero;
+    private int capacidad;
+    private boolean reservada;
 
-    public Reserva(String nombreCliente, Date fechaReserva, String horario, int numeroPersonas, boolean esMesa, String tipoEvento, boolean conPersonal) {
-        this.nombreCliente = nombreCliente;
-        this.fechaReserva = fechaReserva;
-        this.horario = horario;
-        this.numeroPersonas = numeroPersonas;
-        this.esMesa = esMesa;
-        this.tipoEvento = tipoEvento;
-        this.conPersonal = conPersonal;
+    public Mesa(int numero, int capacidad) {
+        this.numero = numero;
+        this.capacidad = capacidad;
+        this.reservada = false;
     }
 
-    public String getNombreCliente() {
-        return nombreCliente;
+    public int getNumero() {
+        return numero;
     }
 
-    public Date getFechaReserva() {
-        return fechaReserva;
+    public int getCapacidad() {
+        return capacidad;
     }
 
-    public String getHorario() {
-        return horario;
+    public boolean isReservada() {
+        return reservada;
     }
 
-    public int getNumeroPersonas() {
-        return numeroPersonas;
+    public void reservar() {
+        this.reservada = true;
     }
 
-    public boolean isEsMesa() {
-        return esMesa;
+    public void liberar() {
+        this.reservada = false;
+    }
+}
+
+class Reservacion {
+    private LocalDateTime fechaHora;
+    private int cantidadPersonas;
+    private Mesa mesa;
+
+    public Reservacion(LocalDateTime fechaHora, int cantidadPersonas, Mesa mesa) {
+        this.fechaHora = fechaHora;
+        this.cantidadPersonas = cantidadPersonas;
+        this.mesa = mesa;
     }
 
-    public String getTipoEvento() {
-        return tipoEvento;
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
     }
 
-    public boolean isConPersonal() {
-        return conPersonal;
+    public int getCantidadPersonas() {
+        return cantidadPersonas;
     }
 
-    @Override
-    public String toString() {
-        return "Reserva{" +
-                "nombreCliente='" + nombreCliente + '\'' +
-                ", fechaReserva=" + fechaReserva +
-                ", horario='" + horario + '\'' +
-                ", numeroPersonas=" + numeroPersonas +
-                ", esMesa=" + esMesa +
-                ", tipoEvento='" + tipoEvento + '\'' +
-                ", conPersonal=" + conPersonal +
-                '}';
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public void setCantidadPersonas(int cantidadPersonas) {
+        this.cantidadPersonas = cantidadPersonas;
     }
 }
 
 class Restaurante {
-    private List<Reserva> reservas;
-    private List<String> catalogoMesas;
+    private List<Mesa> mesas;
+    private List<Reservacion> reservaciones;
 
     public Restaurante() {
-        this.reservas = new ArrayList<>();
-        this.catalogoMesas = new ArrayList<>();
-        inicializarCatalogoMesas();
-    }
-
-    private void inicializarCatalogoMesas() {
+        mesas = new ArrayList<>();
+        reservaciones = new ArrayList<>();
+        // Inicializar mesas
         for (int i = 1; i <= 10; i++) {
-            catalogoMesas.add("Mesa " + i);
+            mesas.add(new Mesa(i, 4)); // 10 mesas, cada una con capacidad para 4 personas
         }
     }
 
-    public void realizarReserva(String nombreCliente, Date fechaReserva, String horario, int numeroPersonas, boolean esMesa, String tipoEvento, boolean conPersonal) {
-        Reserva nuevaReserva = new Reserva(nombreCliente, fechaReserva, horario, numeroPersonas, esMesa, tipoEvento, conPersonal);
-        reservas.add(nuevaReserva);
-        System.out.println("Reserva realizada: " + nuevaReserva);
+    public List<Mesa> getMesas() {
+        return mesas;
     }
 
-    public void cancelarReserva(String nombreCliente) {
-        boolean encontrado = reservas.removeIf(reserva -> reserva.getNombreCliente().equalsIgnoreCase(nombreCliente));
-        if (encontrado) {
-            System.out.println("Reserva cancelada para el cliente: " + nombreCliente);
+    public void realizarReservacion(LocalDateTime fechaHora, int cantidadPersonas, int numeroMesa) {
+        Mesa mesa = mesas.get(numeroMesa - 1);
+        if (!mesa.isReservada() && cantidadPersonas <= mesa.getCapacidad()) {
+            Reservacion reservacion = new Reservacion(fechaHora, cantidadPersonas, mesa);
+            reservaciones.add(reservacion);
+            mesa.reservar();
+            System.out.println("Reservación realizada para " + cantidadPersonas + " personas en la mesa " + mesa.getNumero());
         } else {
-            System.out.println("No se encontró reserva para el cliente: " + nombreCliente);
+            System.out.println("No se puede realizar la reservación. Mesa ocupada o capacidad excedida.");
         }
     }
 
-    public void aplazarReserva(String nombreCliente, Date nuevaFecha) {
-        for (Reserva reserva : reservas) {
-            if (reserva.getNombreCliente().equalsIgnoreCase(nombreCliente)) {
-                reservas.remove(reserva);
-                realizarReserva(nombreCliente, nuevaFecha, reserva.getHorario(), reserva.getNumeroPersonas(), reserva.isEsMesa(), reserva.getTipoEvento(), reserva.isConPersonal());
+    public void cancelarReservacion(int numeroMesa) {
+        for (Reservacion reservacion : reservaciones) {
+            if (reservacion.getMesa().getNumero() == numeroMesa) {
+                reservaciones.remove(reservacion);
+                reservacion.getMesa().liberar();
+                System.out.println("Reservación cancelada para la mesa " + numeroMesa);
                 return;
             }
         }
-        System.out.println("No se encontró reserva para el cliente: " + nombreCliente);
+        System.out.println("No se encontró una reservación para la mesa " + numeroMesa);
     }
 
-    public void mostrarCatalogoMesas() {
-        System.out.println("Catálogo de Mesas:");
-        for (String mesa : catalogoMesas) {
-            System.out.println(mesa);
-        }
-    }
-
-    public void mostrarReservas() {
-        System.out.println("Reservas actuales:");
-        if (reservas.isEmpty()) {
-            System.out.println("No hay reservas.");
-        } else {
-            for (Reserva reserva : reservas) {
-                System.out.println(reserva);
+    public void aplazarReservacion(int numeroMesa, LocalDateTime nuevaFechaHora) {
+        for (Reservacion reservacion : reservaciones) {
+            if (reservacion.getMesa().getNumero() == numeroMesa) {
+                reservaciones.remove(reservacion);
+                reservacion.getMesa().liberar();
+                realizarReservacion(nuevaFechaHora, reservacion.getCantidadPersonas(), numeroMesa);
+                return;
             }
         }
+        System.out.println("No se encontró una reservación para la mesa " + numeroMesa);
     }
 
-    public List<String> getCatalogoMesas() {
-        return catalogoMesas;
-    }
-
-    public List<Reserva> getReservas() {
-        return reservas;
-    }
-}
+    public void modificarCantidadPersonas(int numeroMesa, int nuevaCantidad) {
+        for (Reservacion reservacion : reservaciones) {
+            if (reservacion.getMesa().getNumero() == numeroMesa) {
+                if (nuevaCantidad <= reservacion.getMesa().getCapacidad()) {
+                    reservacion.setCantidadPersonas(nuevaCantidad);
+                    System.out.println("Cantidad de personas modificada a " + nuevaCantidad + " para la mesa " + numeroMesa);
+                } else {
+                    System.out.println("No se puede modificar la cantidad. Excede la capacidad de la mesa.");
+                }
+                return;
+            }
+        }
+        System.out.println("No

@@ -86,7 +86,61 @@ public class Chef extends Empleado {
     	this.puntaje=puntaje;
     }
     
-	public void ganarPuntos(Chef chef) {
+
+	public void ganarPuntos(Chef chef, int Calificacion) {
+    	
+    	switch(Calificacion) {
+    		case 1:
+    			if (this.puntaje != 0) {
+    				this.puntaje -= 2;
+    			}else{
+    				this.puntaje = 0;
+    			}
+    			break;
+    		case 2:
+    			if (this.puntaje != 0) {
+    				this.puntaje -= 1;
+    			}else{
+    				this.puntaje = 0;
+    			}
+    			break;
+    		case 3:
+    			if (this.puntaje != 0) {
+    				this.puntaje -= 0;
+    			}else{
+    				this.puntaje = 0;
+    			}
+    			break;
+    		case 4:
+    			if (this.puntaje != 0) {
+    				this.puntaje += 1;
+    			}
+    			break;
+    		case 5:
+    			if (this.puntaje != 0) {
+    				this.puntaje += 2;
+    			}
+    			break;
+    	}
+	
+    	if (this.sueldo >= 3500000) {
+    		this.puntaje = 0;
+    		this.sueldo = 3500000;
+    	}
+	
+    	if (this.puntaje >= this.proximoObjetivo) {
 		
+    		double aumento = (this.getSueldo() * 0.1);
+		
+    		int numeroRedondeado = (int) Math.round(aumento);
+		
+    		this.sueldo += numeroRedondeado;
+		
+    		puntaje = 0;
+		
+    		proximoObjetivo += 50;
+	
+    	}
 	}
-}
+	}
+

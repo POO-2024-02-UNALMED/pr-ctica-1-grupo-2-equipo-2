@@ -1,13 +1,16 @@
 package ordenFisica;
 
 import java.io.Serializable;
+import java.util.list;
 
 public class Plato implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private float precio;
-	private  Ingrediente[] ingredientesNecesarios;
+	private String nombre;
+	private  List<Ingrediente> ingredientesNecesarios;
 	
-	public Plato(float precio,Ingrediente[] I_N) {
+	public Plato(String nombre,float precio,List<Ingrediente> I_N) {
+		this.nombre= nombre;
 		this.precio=precio;
 		this.ingredientesNecesarios=I_N;
 	}
@@ -20,11 +23,11 @@ public class Plato implements Serializable{
 		this.precio=precio;
 	}
 	
-	public Ingrediente[] getI_N() {
+	public List<Ingrediente> getI_N() {
 		return ingredientesNecesarios;
 	}
 	
-	public void setI_N(Ingrediente[] I_N) {
+	public void setI_N(List<Ingrediente> I_N) {
 		this.ingredientesNecesarios=I_N;
 	}
 }

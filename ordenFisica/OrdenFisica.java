@@ -60,4 +60,46 @@ public class OrdenFisica implements Serializable{
 	public void setPendiente(boolean pendiente) {
 		this.pendiente=pendiente;
 	}
+
+		public void HacerPedido(Sucursal sucursal) {
+		
+		System.out.println(sucursal.mostrarMenu());
+		
+		boolean verificacion = false;
+    	try (Scanner scanner = new Scanner(System.in)){
+			int CantPer = 0;
+			while (!verificacion) {
+				System.out.println("¿Cuantos platos desea ordenar?");
+				try {
+					CantPer = scanner.nextInt();
+					verificacion= true;
+				} catch (InputMismatchException e){
+					System.out.println("Entrada no válida. Por favor, ingrese un número.");
+					scanner.next();
+				}
+			}
+			
+		if (CantPer < 6 && CantPer>0) {
+			int i = 0;
+			List<String> pedido1 = new ArrayList<>();
+			while (i < CantPer) {
+				boolean verficacion2 = false;
+				while (!verficacion2) {
+					System.out.println("¿que plato desea ordenar? ingrese el numero del plato");
+					try {
+						CantPer = scanner.nextInt();
+						verificacion= true;
+					} catch (InputMismatchException e){
+						System.out.println("Entrada no válida. Por favor, ingrese un número.");
+						scanner.next();
+					}
+				}
+						}
+
+
+			
+						
+					}
+			}
+			}
 }

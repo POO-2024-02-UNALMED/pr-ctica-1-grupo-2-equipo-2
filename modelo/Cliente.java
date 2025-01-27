@@ -64,4 +64,64 @@ public class Cliente implements Serializable {
     public void agregarPedido(Pedido pedido) {
         this.historialPedidos.add(pedido);
     }
+    
+     public void darCalificacionM(Mesero mesero) {
+    	boolean verificacion = false;
+    	try (Scanner scanner = new Scanner(System.in)){
+			int Calificacion = 0;
+			while (!verificacion) {
+				System.out.println("ingrese la calificacion que el cliente le dio al mesero que lo atendio del 1 al 5");
+				try {
+					Calificacion = scanner.nextInt();
+					verificacion= true;
+				} catch (InputMismatchException e){
+					System.out.println("Entrada no válida. Por favor, ingrese un número.");
+					scanner.next();
+				}
+			}
+			
+			if 	(Calificacion < 1) {
+				Calificacion = 1;
+			}
+			
+			if(Calificacion > 5) {
+					Calificacion = 5;
+				}
+			
+   
+			mesero.setUltimaCalificacion(Calificacion);
+			mesero.ganarPuntos(mesero, Calificacion);
+		}
+    	
+    	
+    }
+    
+    public void darCalificacionC(Chef chef) {
+    	boolean verificacion = false;
+    	try (Scanner scanner = new Scanner(System.in)){
+			int Calificacion = 0;
+			while (!verificacion) {
+				System.out.println("ingrese la calificacion que el cliente le dio al chef que lo atendio del 1 al 5");
+				try {
+					Calificacion = scanner.nextInt();
+					verificacion= true;
+				} catch (InputMismatchException e){
+					System.out.println("Entrada no válida. Por favor, ingrese un número.");
+					scanner.next();
+				}
+			}
+			
+			if 	(Calificacion < 1) {
+				Calificacion = 1;
+			}
+			
+			if(Calificacion > 5) {
+					Calificacion = 5;
+				}
+			
+   
+			chef.setUltimaCalificacion(Calificacion);
+			chef.ganarPuntos(chef, Calificacion);
+    }
+	}
 }

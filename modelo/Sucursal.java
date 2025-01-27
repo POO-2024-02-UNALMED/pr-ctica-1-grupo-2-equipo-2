@@ -12,12 +12,12 @@ public class Sucursal implements Serializable{
 	private int id;
 	private String ubicacion;
 	private double presupuesto;
-	private Ingrediente[] inventario;
-	private Empleado[] empleados;
-    private Mesero[] meseros;
+	private List<Ingrediente> inventario;
+	private List<Empleado> empleados;
     private Mesa[] mesas;
     private int[] direccion;
     private double gastoRecursos;
+    private List<Plato> menu;
 
 
 	public Sucursal(int id, String ubicacion,int presupuesto,Ingrediente[] inventario,Empleado[] empleados) {
@@ -40,7 +40,6 @@ public class Sucursal implements Serializable{
         this.presupuesto = presupuesto;
         this.empleados = new Empleado[15];
     }
-    //Se usó para las sucursales por defecto
     public Sucursal(int id, String nombre, int cantidad, int[] direccion, double presupuesto, String auto){
         this(id,nombre,cantidad,direccion,presupuesto);
         int mitad = mesas.length/2;
@@ -70,7 +69,6 @@ public class Sucursal implements Serializable{
         this.ubicacion=ubicacionSucursal;
     }
 
-    //Se asegura que las coordenadas de una nueva sucursal no se encuentren demasiado cerca de una ya existente
     public static boolean calcularDistancia(int[] coordenadas, List<Sucursal> sucursales){
         boolean suficiente = true;
         int x = coordenadas[0];
@@ -112,23 +110,22 @@ public class Sucursal implements Serializable{
     	this.presupuesto=presupuesto;
     }
     
-    public Ingrediente[] getInventario(){
+    public List<Ingrediente> getInventario(){
     	return inventario;
     }
     
-    public void setInventario(Ingrediente[] inventario) {
+    public void setInventario(List<Ingrediente> inventario) {
         this.inventario=inventario;
     }
     
-    public Empleado[] getEmpleado() {
+    public List<Empleado> getEmpleado() {
     	return empleados;
     }
     
-    public void setEmpleado(Empleado[] empleados) {
+    public void setEmpleado(List<Empleado> empleados) {
     	this.empleados=empleados;
     }
 
-    public Mesero[] getMeseros(){return meseros;}
 
     public double getGastoRecursos(){return gastoRecursos;}
 
@@ -139,8 +136,6 @@ public class Sucursal implements Serializable{
                 "Cantidad de mesas: " + mesas.length + "\n" +
                 "Presupuesto: $" + Math.round(presupuesto)/1000000 + "M";
     }
-
-    //Se compran mesas para una sucursal nueva
     public void comprarMesas(){
         int compradas = 0;
         int cantidad = mesas.length;
@@ -256,7 +251,6 @@ public class Sucursal implements Serializable{
             i++;
         }
     }
-    //Se usó para los meseros por defecto
     public void autoEmpleado(int numero, int id){
         String direccion = Esquina.fromCoo(this.direccion).toString();
         meseros[numero] = new Mesero(id,direccion,20,this,1500000);
@@ -266,7 +260,6 @@ public class Sucursal implements Serializable{
 
     public void restarPresupuesto(double menos){presupuesto -= menos;}
 
-    //Cierra una sucursal
     public static void cerrar(DataManager dataManager){
         System.out.println("Escoja qué sucursal desea cerrar");
         int i = 0;
@@ -296,5 +289,26 @@ public class Sucursal implements Serializable{
         for(Sucursal sucursal1: dataManager.getSucursales()){
             sucursal1.aumentarPresupuesto(liquidacion);
         }
+    }
+
+        public List<Plato> getMenu() {
+    	return menu;
+    }
+    
+    public void setMenu(List<Plato> menu) {
+    	this.menu=menu;
+    }
+    
+    public String mostrarMenu() {
+    	StringBuilder sb = new StringBuilder();
+		int con = 0;
+    	for (Plato plato : menu) {
+    		con += 1;
+    		sb.append(con).append(". ").append(plato.toString()).append("\n");
+    	}
+    	
+    	String Mmenu= sb.toString();
+    	return Mmenu;
+    	
     }
 }

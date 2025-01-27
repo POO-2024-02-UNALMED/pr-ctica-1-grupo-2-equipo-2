@@ -42,7 +42,7 @@ public class Mesero extends Empleado implements Serializable{
         }
 
     }
-	//COnstructor automático
+
 	public Mesero(int id,String direccio, int edad ,Sucursal sucursal,double sueldo){
 		this(id,generarNombre(),direccio,edad,sucursal,1,"24/01/24",0,true,sueldo);
 	}
@@ -117,8 +117,66 @@ public class Mesero extends Empleado implements Serializable{
     	this.puntaje=puntaje;
     }
 
-public void ganarPuntos(Mesero mesero) {
+    public void ganarPuntos(Mesero mesero,int Calificacion) {
+	
+    	this.pedidosAtendidos += 1;
+	
+    	switch(Calificacion) {
+    		case 1:
+    			if (this.puntaje != 0) {
+    				this.puntaje -= 2;
+    			}else{
+    				this.puntaje = 0;
+    			}
+    			break;
+    		case 2:
+    			if (this.puntaje != 0) {
+    				this.puntaje -= 1;
+    			}else{
+    				this.puntaje = 0;
+    			}
+    			break;
+    		case 3:
+    			if (this.puntaje != 0) {
+    				this.puntaje -= 0;
+    			}else{
+    				this.puntaje = 0;
+    			}
+    			break;
+    		case 4:
+    			if (this.puntaje != 0) {
+    				this.puntaje += 1;
+    			}
+    			break;
+    		case 5:
+    			if (this.puntaje != 0) {
+    				this.puntaje += 2;
+    			}
+    			break;
+    	}
+	
+    	if (this.sueldo >= 2300000) {
+    		this.puntaje = 0;
+    		this.sueldo =2300000;
+    	}
+	
+    	if (this.puntaje >= this.proximoObjetivo) {
+		
+    		double aumento = (this.getSueldo() * 0.1);
+		
+    		int numeroRedondeado = (int) Math.round(aumento);
+		
+    		this.sueldo += numeroRedondeado;
+		
+    		puntaje = 0;
+		
+    		proximoObjetivo += 50;
+	
+    	}
 
+    	
 }
+
+
 
 }

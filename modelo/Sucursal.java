@@ -397,8 +397,39 @@ public class Sucursal implements Serializable{
             }
         }
     }
-	public static void tomarDatosReserva(){
+	public static void tomarDatosReserva(DataManager dataManager){
         System.out.println("Ingrese la fecha de la reservación de la siguiente forma: DD/MM/AA");
-        Scanner scanner =
+        Scanner scanner = new Scanner(System.in);
+        String fecha = scanner.toString();
+        System.out.println("Ingrese la hora en formato militar para la reservación así HH:MM");
+        String hora = scanner.nextLine();
+        System.out.println("Ingrese la cantidad de personas que asistirán");
+        int numero = 0;
+        while(numero < 1 || numero > 8){
+            numero = Entrada.input();
+            if(numero < 1 || numero > 8){
+                System.out.println("No es posible registrar esa cantidad de personas");
+            }
+        }
+        int i = 0;
+        int numero1 = 0;
+        for(Sucursal sucursal: dataManager.getSucursales()){
+            i++;
+            System.out.println(i + ". " + sucursal);
+        }
+        System.out.println("Escoja en qué susucrsal hará su reservación");
+        while(numero1 < 1 || numero1 > dataManager.getSucursales().size()){
+            numero1 = Entrada.input();
+            if(numero1 < 1 || numero1 > dataManager.getSucursales().size()){
+                System.out.println("Opción no disponible");
+            }
+        }
+        int id = 0;
+        Sucursal sucursal = dataManager.getSucursales().get(numero1 - 1);
+        for(Mesa mesa: sucursal.mesas){
+            if (mesa.getCapacidad() < numero){continue;}
+            id = mesa.getId();
+        }
+        sucursal.realizarReservacion((fecha + " a las " + hora), numero, id);
     }
 }

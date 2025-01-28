@@ -347,7 +347,7 @@ public class Sucursal implements Serializable{
     public void usarDescuento2(int precioTotal) {
     	this.presupuesto += precioTotal;
     }
-    public void realizarReservacion(LocalDateTime fechaHora, int cantidadPersonas, int numeroMesa) {
+    public void realizarReservacion(String fechaHora, int cantidadPersonas, int numeroMesa) {
         Mesa mesa = mesas[numeroMesa - 1];
         if (!mesa.isReservada() && cantidadPersonas <= mesa.getCapacidad()) {
             Reservacion reservacion = new Reservacion(fechaHora, cantidadPersonas, mesa);
@@ -371,7 +371,7 @@ public class Sucursal implements Serializable{
         System.out.println("No se encontró una reservación para la mesa " + numeroMesa);
     }
 
-    public void aplazarReservacion(int numeroMesa, LocalDateTime nuevaFechaHora) {
+    public void aplazarReservacion(int numeroMesa, String nuevaFechaHora) {
         for (Reservacion reservacion : reservaciones) {
             if (reservacion.getMesa().getId() == numeroMesa) {
                 reservaciones.remove(reservacion);

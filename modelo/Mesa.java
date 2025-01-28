@@ -8,12 +8,23 @@ public class Mesa implements Serializable{
 	private int capacidad;
 	private Sucursal sucursal;
 	private boolean unida;
+	private boolean reservada;
 	
 	public Mesa(int id,int capacidad,Sucursal sucursal) {
 		this.id=id;
 		this.capacidad=capacidad;
 		this.sucursal=sucursal;
 		this.unida= false;
+		this.reservada = false;
+	}
+
+
+	public void reservar() {
+		this.reservada = true;
+	}
+
+	public void liberar() {
+		this.reservada = false;
 	}
 	
 	public int getId() {
@@ -52,4 +63,8 @@ public class Mesa implements Serializable{
 		
 	}
 	public String toString(){return id + " " + capacidad;}
+
+	public boolean isReservada() {
+		return reservada;
+	}
 }

@@ -1,6 +1,8 @@
 package modelo;
 
 import java.io.Serializable;
+import ordenFisica.OrdenFisica;
+import ordenFisica.PedidoFisico;
 
 public class Mesero extends Empleado implements Serializable{
 	private Sucursal sucursal;

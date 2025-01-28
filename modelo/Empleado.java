@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class Empleado implements Serializable{
     private static final long serialVersionUID = 1L;
-	private int id;
-	private String nombre;
-	private String direccion;
-	private int edad;
-    private int sueldo;
-    private int rol;
+	protected int id;
+	protected String nombre;
+	protected String direccion;
+	protected int edad;
+    protected int sueldo;
+    protected int rol;
 
 	
 	public Empleado(int id,String nombre,String direccion,int edad) {

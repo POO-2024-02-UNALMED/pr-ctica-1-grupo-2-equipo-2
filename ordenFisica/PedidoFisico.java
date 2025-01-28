@@ -5,13 +5,16 @@ import java.util.List;
 import modelo.Mesa;
 import modelo.Mesero;
 import modelo.Sucursal;
+import modelo.Chef;
+import modelo.Plato;
+import modelo.Cliente;
 
 public class PedidoFisico extends OrdenFisica {
 	private int numeroDePersonas;
 	private Chef chef;
-	private Plato[] pedido;
+	private List<Plato> pedido;
 	
-	public PedidoFisico(Mesa mesa, Cliente cliente, Mesero mesero, Sucursal sucursal, int N_D_P, Chef chef, Plato[] pedido) {
+	public PedidoFisico(Mesa mesa, Cliente cliente, Mesero mesero, Sucursal sucursal, int N_D_P, Chef chef, List<Plato> pedido) {
 		super(mesa,cliente,mesero,sucursal);
 		this.numeroDePersonas=N_D_P;
 		this.chef=chef;
@@ -34,11 +37,11 @@ public class PedidoFisico extends OrdenFisica {
 		this.chef=chef;
 	}
 	
-	public Plato[] getPedido() {
+	public List<Plato> getPedido() {
 		return pedido;
 	}
 	
-	public void setPedido(Plato[] pedido) {
+	public void setPedido(List<Plato> pedido) {
 		this.pedido=pedido;
 	}
 

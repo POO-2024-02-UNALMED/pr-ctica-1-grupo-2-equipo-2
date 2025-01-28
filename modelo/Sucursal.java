@@ -4,6 +4,8 @@ import baseDatos.DataManager;
 import error.Entrada;
 import ordenFisica.OrdenFisica;
 import ordenFisica.PedidoFisico;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import java.io.Serializable;
@@ -47,6 +49,21 @@ public class Sucursal implements Serializable{
         this.direccion = direccion;
         this.presupuesto = presupuesto;
         this.empleados = new Empleado[15];
+        this.menu = new ArrayList<Plato>();
+        Plato a = new Plato("Hamburguesa", 15000,1);
+        Plato b = new Plato("Perro", 14000, 2);
+        Plato c = new Plato("Pizza Margarita", 21000,3);
+        Plato d = new Plato("Pasta Alfredo", 16000, 4);
+        Plato e = new Plato("Salchipapas", 13000,6);
+        Plato f = new Plato("Hamburgusa vegana", 17000,7);
+        Plato g = new Plato("Picada", 30000, 8);
+        menu.add(a);
+        menu.add(b);
+        menu.add(c);
+        menu.add(d);
+        menu.add(e);
+        menu.add(f);
+        menu.add(g);
     }
     public Sucursal(int id, String nombre, int cantidad, int[] direccion, double presupuesto, String auto){
         this(id,nombre,cantidad,direccion,presupuesto);

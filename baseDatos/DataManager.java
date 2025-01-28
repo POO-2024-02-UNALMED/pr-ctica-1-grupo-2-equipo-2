@@ -22,6 +22,7 @@ public class DataManager implements Serializable {
     private List<Administrativo> admins;
     private List<Sucursal> sucursales;
     private final Barrio[] ciudad;
+    private List<Reservacion> reservaciones;
 
     public DataManager() {
         this.clientes = new ArrayList<>();
@@ -36,6 +37,7 @@ public class DataManager implements Serializable {
         this.nextIncidenciaId = new AtomicInteger(1);
         this.sucursales = new ArrayList<Sucursal>();
         this.ciudad = new Barrio[16];
+        this.reservaciones = new ArrayList<Reservacion>();
         cargarDatosPrueba();
     }
 

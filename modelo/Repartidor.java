@@ -9,6 +9,7 @@ public class Repartidor implements Serializable {
     private boolean isDisponible;
     private double calificacionPromedio;
     private List<Zona> zonasAsignadas = new ArrayList<>();
+    private List<Barrio> barriosAsignado = new ArrayList<Barrio>();
 
     private static final long serialVersionUID = 1L;
 
@@ -66,6 +67,9 @@ public class Repartidor implements Serializable {
     public void setCalificacionPromedio(double calificacionPromedio) {
         this.calificacionPromedio = calificacionPromedio;
     }
+
+    public ArrayList<Barrio> getBarriosAsignados(){return getBarriosAsignados();}
+    public void setBarriosAsignado(ArrayList<Barrio> barriosAsignado){this.barriosAsignado = barriosAsignado;}
 
     @Override
     public String toString() {

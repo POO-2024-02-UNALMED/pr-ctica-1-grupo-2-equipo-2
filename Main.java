@@ -6,6 +6,7 @@ import error.Entrada;
 import modelo.Administrativo;
 import modelo.Empresa;
 import modelo.Restaurante;
+import modelo.Sucursal;
 
 
 public class Main {
@@ -77,7 +78,7 @@ public class Main {
                     pedido.realizarPedido();
                     break;
                 case 5:
-
+                    Sucursal.tomarDatosReserva(dataManager);
                     break;
                 case 6:
                     System.out.println("Guardando datos y finalizando programa...");

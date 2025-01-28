@@ -6,6 +6,7 @@ import ordenFisica.OrdenFisica;
 import ordenFisica.PedidoFisico;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Sucursal implements Serializable{
@@ -21,6 +22,7 @@ public class Sucursal implements Serializable{
     private int[] direccion;
     private double gastoRecursos;
     private List<Plato> menu;
+    private List<Reservacion> reservaciones;
 
 
 	public Sucursal(int id, String ubicacion,int presupuesto,List<Ingrediente> inventario,Empleado[] empleados) {
@@ -344,6 +346,55 @@ public class Sucursal implements Serializable{
     
     public void usarDescuento2(int precioTotal) {
     	this.presupuesto += precioTotal;
+    }
+    public void realizarReservacion(LocalDateTime fechaHora, int cantidadPersonas, int numeroMesa) {
+        Mesa mesa = mesas[numeroMesa - 1];
+        if (!mesa.isReservada() && cantidadPersonas <= mesa.getCapacidad()) {
+            Reservacion reservacion = new Reservacion(fechaHora, cantidadPersonas, mesa);
+            reservaciones.add(reservacion);
+            mesa.reservar();
+            System.out.println("Reservación realizada para " + cantidadPersonas + " personas en la mesa " + mesa.getId());
+        } else {
+            System.out.println("No se puede realizar la reservación. Mesa ocupada o capacidad excedida.");
+        }
+    }
+
+    public void cancelarReservacion(int numeroMesa) {
+        for (Reservacion reservacion : reservaciones) {
+            if (reservacion.getMesa().getId() == numeroMesa) {
+                reservaciones.remove(reservacion);
+                reservacion.getMesa().liberar();
+                System.out.println("Reservación cancelada para la mesa " + numeroMesa);
+                return;
+            }
+        }
+        System.out.println("No se encontró una reservación para la mesa " + numeroMesa);
+    }
+
+    public void aplazarReservacion(int numeroMesa, LocalDateTime nuevaFechaHora) {
+        for (Reservacion reservacion : reservaciones) {
+            if (reservacion.getMesa().getId() == numeroMesa) {
+                reservaciones.remove(reservacion);
+                reservacion.getMesa().liberar();
+                realizarReservacion(nuevaFechaHora, reservacion.getCantidadPersonas(), numeroMesa);
+                return;
+            }
+        }
+        System.out.println("No se encontró una reservación para la mesa " + numeroMesa);
+    }
+
+    public void modificarCantidadPersonas(int numeroMesa, int nuevaCantidad) {
+        for (Reservacion reservacion : reservaciones) {
+            if (reservacion.getMesa().getId() == numeroMesa) {
+                if (nuevaCantidad <= reservacion.getMesa().getCapacidad()) {
+                    reservacion.setCantidadPersonas(nuevaCantidad);
+                    System.out.println("Cantidad de personas modificada a " + nuevaCantidad + " para la mesa " + numeroMesa);
+                } else {
+                    System.out.println("No se puede modificar la cantidad. Excede la capacidad de la mesa.");
+                }
+                return;
+            }
+        }
     }
 	
 }

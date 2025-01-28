@@ -31,9 +31,10 @@ public class Restaurante {
         if (!conEspacio.isEmpty()) { // Encontrar la primera posición vacía
             // Solicitar datos al usuario
             boolean correcto = false;
+            int id = 0;
             System.out.print("Ingrese el ID del mesero: ");
             while (!correcto){
-                int id = scanner.nextInt();
+                id = scanner.nextInt();
                 correcto = dataManager.explorar(id);
                 if(!correcto) {
                     System.out.println("Ese id ya está en uso");
@@ -85,13 +86,13 @@ public class Restaurante {
     // Método para mostrar todos los meseros
     public static void verMeseros() {
         System.out.println("Lista de meseros contratados:");
-        for (int i = 0; i < meseros.length; i++) {
-            if (meseros[i] != null) {
-                System.out.println("- ID: " + meseros[i].getId() +
-                                   ", Nombre: " + meseros[i].getNombre() +
-                                   ", Sucursal: " + meseros[i].getSucursal().getUbicacion() +
-                                   ", Fecha de contratación: " + meseros[i].getFechaDeContratacion()+
-                                   ", sueldo del mesero: " + meseros[i].getSueldo());
+        for (int i = 0; i < meseros.size(); i++) {
+            if (meseros.get(i) != null) {
+                System.out.println("- ID: " + meseros.get(i).getId() +
+                                   ", Nombre: " + meseros.get(i).getNombre() +
+                                   ", Sucursal: " + meseros.get(i).getSucursal().getUbicacion() +
+                                   ", Fecha de contratación: " + meseros.get(i).getFechaDeContratacion()+
+                                   ", sueldo del mesero: " + meseros.get(i).getSueldo());
             }
         }
     }
@@ -101,10 +102,12 @@ public class Restaurante {
         System.out.print("Ingrese el ID del mesero a despedir: ");
         int id = scanner.nextInt();
 
-        for (int i = 0; i < meseros.length; i++) {
-            if (meseros[i] != null && meseros[i].getId() == id) {
-                System.out.println("Mesero despedido: " + meseros[i].getNombre());
-                meseros[i] = null; // Eliminar al mesero del array
+        for (int i = 0; i < meseros.size(); i++) {
+            if (meseros.get(i) != null && meseros.get(i).getId() == id) {
+                System.out.println("Mesero despedido: " + meseros.get(i).getNombre());
+                Sucursal sucursal = meseros.get(i).getSucursal();// Eliminar al mesero del array
+                sucursal.despedir(id);
+                meseros.remove(i);
                 return;
             }
         }
@@ -118,16 +121,16 @@ public static void buscarMesero() {
     System.out.print("Ingrese el ID del mesero que desea buscar: ");
     int id = scanner.nextInt();
 
-    for (int i = 0; i < meseros.length; i++) {
-        if (meseros[i] != null && meseros[i].getId() == id) {
+    for (int i = 0; i < meseros.size(); i++) {
+        if (meseros.get(i) != null && meseros.get(i).getId() == id) {
             System.out.println("\n Mesero encontrado:");
-            System.out.println("ID: " + meseros[i].getId());
-            System.out.println("Nombre: " + meseros[i].getNombre());
-            System.out.println("Dirección: " + meseros[i].getDireccion());
-            System.out.println("Edad: " + meseros[i].getEdad());
-            System.out.println("Sucursal: " + meseros[i].getSucursal().getUbicacion());
-            System.out.println("Fecha de Contratación: " + meseros[i].getFechaDeContratacion());
-            System.out.println("sueldo: " + meseros[i].getSueldo());
+            System.out.println("ID: " + meseros.get(i).getId());
+            System.out.println("Nombre: " + meseros.get(i).getNombre());
+            System.out.println("Dirección: " + meseros.get(i).getDireccion());
+            System.out.println("Edad: " + meseros.get(i).getEdad());
+            System.out.println("Sucursal: " + meseros.get(i).getSucursal().getUbicacion());
+            System.out.println("Fecha de Contratación: " + meseros.get(i).getFechaDeContratacion());
+            System.out.println("sueldo: " + meseros.get(i).getSueldo());
             return; 
         }
     }

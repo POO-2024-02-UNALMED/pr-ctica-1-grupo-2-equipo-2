@@ -32,5 +32,9 @@ public class Reservacion implements Serializable {
     public void setCantidadPersonas(int cantidadPersonas) {
         this.cantidadPersonas = cantidadPersonas;
     }
+
+    public String toString(){
+        return fechaHora + "\nMesa : " + mesa.getId() + "\nCantidad de personas: " + cantidadPersonas;
+    }
 }
 

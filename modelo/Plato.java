@@ -1,4 +1,4 @@
-package ordenFisica;
+package modelo;
 
 import java.io.Serializable;
 import java.util.list;

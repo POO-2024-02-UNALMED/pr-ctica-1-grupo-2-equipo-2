@@ -59,9 +59,9 @@ public class PedidoFisico extends OrdenFisica {
 		
 		System.out.printf(" el total es de %d\n", PrecioTotal);
 		pedido.getSucursal().incrementarPresupuesto(PrecioTotal);
-		
-		(pedido.getCliente()).darCalificacionM(pedido.getMesero());
-		(pedido.getCliente()).darCalificacionC(pedido.getChef());
+
+		(pedido.getCliente()).darCalificacionM(pedido.getMesero(), pedido.getChef());
+
 		
 		if (PrecioTotal <= 20000) {
 			pedido.getCliente().sumarPuntos(1);	

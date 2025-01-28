@@ -1,7 +1,7 @@
 package modelo;
 
-import modelo.Empleado;
-import modelo.Sucursal;
+import ordenFisica.PedidoFisico;
+import ordenFisica.OrdenFisica;
 
 public class Chef extends Empleado {
 	private Sucursal sucursal;

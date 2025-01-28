@@ -30,8 +30,14 @@ public class Restaurante {
 
         if (!conEspacio.isEmpty()) { // Encontrar la primera posición vacía
             // Solicitar datos al usuario
+            boolean correcto = false;
             System.out.print("Ingrese el ID del mesero: ");
-            int id = scanner.nextInt();
+            while (!correcto){
+                int id = scanner.nextInt();
+                correcto = dataManager.explorar(id);
+                if(!correcto){
+                    System.out.println("Ese id ya está en uso");
+            }
             scanner.nextLine(); // Limpiar el buffer de entrada
             System.out.print("Ingrese el nombre del mesero: ");
             String nombre = scanner.nextLine();

@@ -36,6 +36,7 @@ public class Mesero extends Empleado implements Serializable{
         this.sucursal = sucursal;
         this.antiguedad = antiguedad;
         this.fechaDeContratacion = fechaDeContratacion;
+		this.isDisponible = true;
 		if (antiguedad >= 1 && antiguedad < 2) {
             this.sueldo = 1500000;
         } else if (antiguedad >= 2 && antiguedad < 3) {

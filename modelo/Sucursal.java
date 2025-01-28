@@ -310,11 +310,20 @@ public class Sucursal implements Serializable{
     		sb.append(con).append(". ").append(plato.toString()).append("\n");
     	}
     	
-    	String Mmenu= sb.toString();
-    	return Mmenu;
+    	String Menu= sb.toString();
+    	return Menu;
     	
     }
 
+    public void nuevoMesero(Mesero mesero1){
+        for(Mesero mesero: meseros){
+            if (mesero == null){
+                mesero = mesero1;
+                return;
+            }
+        }
+        System.out.println("No hay vacantes");
+    }
     public Mesero[] getMeseros(){return meseros;}
         
     public void incrementarPresupuesto(int incremento) {

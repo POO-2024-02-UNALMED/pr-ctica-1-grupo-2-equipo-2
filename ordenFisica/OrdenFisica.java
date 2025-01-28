@@ -69,40 +69,40 @@ public class OrdenFisica implements Serializable{
 
 	public void HacerPedido(Sucursal sucursal) {
 		
-		System.out.println(sucursal.mostrarMenu());
+
 		
 		boolean verificacion = false;
-    	try (Scanner scanner = new Scanner(System.in)){
+    	try (Scanner scanner1 = new Scanner(System.in)){
 			int CantPer = 0;
 			while (!verificacion) {
 				System.out.println("¿Cuantos platos desea ordenar?");
 				try {
-					CantPer = scanner.nextInt();
+					CantPer = scanner1.nextInt();
 					verificacion= true;
 				} catch (InputMismatchException e){
 					System.out.println("Entrada no válida. Por favor, ingrese un número.");
-					scanner.next();
+					scanner1.next();
 				}
 			}
-			
+
 			if (CantPer <= 0) {
 				while (CantPer <= 0) {
 					boolean verificacion2 = false;
 					while (!verificacion2) {
 						System.out.println("Numero de platos debe ser mayor a 0 ingrese un numero valido");
 						try {
-							CantPer = scanner.nextInt();
+							CantPer = scanner1.nextInt();
 							verificacion2= true;
 						} catch (InputMismatchException e){
 							System.out.println("Entrada no válida. Por favor, ingrese un número.");
-							scanner.next();
+							scanner1.next();
 						}
 					}
 				}
 			}
 		List<Integer> pedido1 = new ArrayList<>();
 		List<Plato> platoF =new ArrayList<>();
-		
+			System.out.println(sucursal.mostrarMenu());
 		if (CantPer < 6 && CantPer>0) {
 			int i = 0;
 			int plato = 0;
@@ -111,10 +111,10 @@ public class OrdenFisica implements Serializable{
 				while (!verificacion2) {
 					System.out.println("¿que plato desea ordenar? ingrese el numero del plato");
 					try {
-						plato = scanner.nextInt();
+						plato = scanner1.nextInt();
 						for (Plato plato2 : sucursal.getMenu() ) {
 							if (plato2.getId() == plato) {
-								System.out.printf("Pedido confirmado de ", plato2.getNombre());
+								System.out.printf("Pedido confirmado de ", plato2);
 								platoF.add(plato2);
 							}
 						}
@@ -122,7 +122,7 @@ public class OrdenFisica implements Serializable{
 						verificacion2= true;
 					} catch (InputMismatchException e){
 						System.out.println("Entrada no válida. Por favor, ingrese el numero del plato");
-						scanner.next();
+						scanner1.next();
 					}
 				}
 				i += 1;		
@@ -139,16 +139,17 @@ public class OrdenFisica implements Serializable{
 			while (!verificacion2) {
 				System.out.println("¿Numero de platos es mayor a 6 por ende solo se dara un plato a todo el grupo, que plato desea?");
 				try {
-					plato = scanner.nextInt();
+					plato = scanner1.nextInt();
 					verificacion2= true;
 					pedido1.add(plato);
 				} catch (InputMismatchException e){
 					System.out.println("Entrada no válida. Por favor, ingrese un número.");
-					scanner.next();
+					scanner1.next();
 			
 		}
 
 			}
+			scanner1.close();
 			}
 
 		PedidoFisico pedido = new PedidoFisico (this.mesa, this.cliente,this.mesero,sucursal, CantPer, Chef.asignar(sucursal), platoF);{

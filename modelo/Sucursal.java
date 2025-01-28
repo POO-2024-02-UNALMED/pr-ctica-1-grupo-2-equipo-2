@@ -5,7 +5,7 @@ import error.Entrada;
 import ordenFisica.Ingrediente;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
 
 public class Sucursal implements Serializable{
     private static final long serialVersionUID = 1L;
@@ -13,15 +13,16 @@ public class Sucursal implements Serializable{
 	private String ubicacion;
 	private double presupuesto;
 	private List<Ingrediente> inventario;
+    private List<Mesero> mesero;
+	private List<Chef> chef;
 	private List<Empleado> empleados;
     private Mesa[] mesas;
     private int[] direccion;
     private double gastoRecursos;
     private List<Plato> menu;
-    private Mesero[] meseros;
 
 
-	public Sucursal(int id, String ubicacion,int presupuesto,List<Ingrediente> inventario,List<Empleado> empleados) {
+	public Sucursal(int id, String ubicacion,int presupuesto,Ingrediente[] inventario,Empleado[] empleados) {
 		this.id=id;
 		this.ubicacion=ubicacion;
 		this.presupuesto=presupuesto;
@@ -39,7 +40,7 @@ public class Sucursal implements Serializable{
         this.meseros = new Mesero[cantidad];
         this.direccion = direccion;
         this.presupuesto = presupuesto;
-        this.empleados = new ArrayList<Empleado>();
+        this.empleados = new Empleado[15];
     }
     public Sucursal(int id, String nombre, int cantidad, int[] direccion, double presupuesto, String auto){
         this(id,nombre,cantidad,direccion,presupuesto);
@@ -312,5 +313,18 @@ public class Sucursal implements Serializable{
     	return Mmenu;
     	
     }
-    public Mesero[] getMeseros(){return meseros;}
+
+        
+    public void incrementarPresupuesto(int incremento) {
+    	this.presupuesto += incremento;
+    }
+    
+    public void usarDescuento1(int precioTotal) {
+    	this.presupuesto -= precioTotal;
+    }
+    
+    public void usarDescuento2(int precioTotal) {
+    	this.presupuesto += precioTotal;
+    }
+	
 }

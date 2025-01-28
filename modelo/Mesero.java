@@ -8,6 +8,7 @@ public class Mesero extends Empleado implements Serializable{
 	private final String fechaDeContratacion;
 	private int ultimaCalificacion;
 	private int pedidosAtendidos;
+	private int pedidoActuales;
 	private int puntaje;
 	private double sueldo;
     private boolean isDisponible;
@@ -16,10 +17,12 @@ public class Mesero extends Empleado implements Serializable{
 	public Mesero(int id,String nombre,String direccion,int edad,Sucursal sucursal,int antiguedad,String fechaDeContratacion,int ultimaCalificacion,boolean isDisponible, double sueldo) {
 		super(id,nombre,direccion,edad);
 		this.sucursal=sucursal;
+		this.setRol(1);
 		this.antiguedad=antiguedad;
 		this.fechaDeContratacion=fechaDeContratacion;
 		this.ultimaCalificacion=ultimaCalificacion;
 		this.pedidosAtendidos=0;
+		this.pedidoActuales=0;
 		this.puntaje=0;
 		this.sueldo=sueldo;
 		this.isDisponible=isDisponible;
@@ -176,6 +179,21 @@ public class Mesero extends Empleado implements Serializable{
 
     	
 }
+	static public Mesero asignar(Sucursal sucursal) {
+		Mesero e = null;
+		 for(Mesero empleado : sucursal.getMesero()) {
+			 int a= empleado.getRol();
+			 if (a == 1 && empleado.isDisponible == true) {
+				 empleado.pedidoActuales += 1;
+				 if (empleado.pedidoActuales > 3) {
+					 empleado.isDisponible = false;
+				 }
+					e = empleado;		 
+				}
+		 }
+		return e;
+
+	}
 
 
 

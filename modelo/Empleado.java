@@ -9,6 +9,7 @@ public class Empleado implements Serializable{
 	private String direccion;
 	private int edad;
     private int sueldo;
+    private int rol;
 
 	
 	public Empleado(int id,String nombre,String direccion,int edad) {
@@ -26,7 +27,14 @@ public class Empleado implements Serializable{
 	public int getId() {
 		return id;
 	}
+    
+    	public int getRol() {
+		return rol;
+	}
 
+	public void setRol(int rol) {
+		this.rol = rol;
+	}
 	public void setId(int id) {
 		this.id = id;
 	}

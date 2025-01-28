@@ -3,6 +3,8 @@ package modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Cliente implements Serializable {
     private int id;
@@ -10,6 +12,7 @@ public class Cliente implements Serializable {
     private String direccion;
     private String telefono;
     private List<Pedido> historialPedidos;
+    private int puntos;
 
     private static final long serialVersionUID = 1L;
 
@@ -18,6 +21,7 @@ public class Cliente implements Serializable {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.puntos = 0;
         this.historialPedidos = new ArrayList<>();
     }
 
@@ -47,6 +51,14 @@ public class Cliente implements Serializable {
 
     public String getTelefono() {
         return telefono;
+    }
+
+        public int getPuntos() {
+        return this.puntos;
+    }
+
+    public void setPuntos(int puntos) {
+        this.puntos = puntos;
     }
 
     public void setTelefono(String telefono) {
@@ -124,4 +136,49 @@ public class Cliente implements Serializable {
 			chef.ganarPuntos(chef, Calificacion);
     }
 	}
+
+        public void sumarPuntos(int suma){
+    	 if (suma == 1) {
+    		 this.puntos +=1;
+    	 }
+    	 if (suma == 2) {
+    		 this.puntos +=2;
+    	 }
+    	 if (suma == 3) {
+    		 this.puntos +=3;
+    	 }
+    }
+
+    
+    public int reclamarPuntos(int precio){
+		boolean verificacion2 = false;
+		int respuesta = 0;
+    	try (Scanner scanner = new Scanner(System.in)){
+		while (!verificacion2) {
+			System.out.println("Tiene un descuento disponible desea reclamarlo? 1)Si 2) No (ingrese el numero)");
+			try {
+				respuesta = scanner.nextInt();
+				if (respuesta == 1 || respuesta == 2) {
+					verificacion2= true;
+				}else {
+					System.out.println("porfavor ingrese el numero 1) Si 2) No");
+				}
+			} catch (InputMismatchException e){
+				System.out.println("Entrada no válida. Por favor, ingrese un número.");
+				scanner.next();
+				
+    }
+	}
+		if (respuesta == 1) {
+			System.out.println("Descuento reclamado");
+			precio -= precio*0.2;
+			this.puntos -= 20;
+			return(precio);
+			
+		}else {
+			System.out.println("Descuento guardado");
+			return(precio);
+		}
+    }
+    }
 }

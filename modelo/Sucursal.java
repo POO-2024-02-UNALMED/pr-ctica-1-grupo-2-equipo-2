@@ -2,7 +2,8 @@ package modelo;
 
 import baseDatos.DataManager;
 import error.Entrada;
-import ordenFisica.Ingrediente;
+import ordenFisica.OrdenFisica;
+import ordenFisica.PedidoFisico;
 
 import java.io.Serializable;
 import java.util.List;

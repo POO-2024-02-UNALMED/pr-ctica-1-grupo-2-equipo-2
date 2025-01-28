@@ -198,6 +198,9 @@ public class Mesero extends Empleado implements Serializable{
 		return e;
 
 	}
+	public String toString(){
+		return nombre + ": " + sueldo ;
+	}
 
 
 

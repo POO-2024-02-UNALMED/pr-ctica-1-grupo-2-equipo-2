@@ -130,9 +130,6 @@ public class Main {
                     Persistencia.guardarDatos(dataManager);
                     running = false;
                     break;
-                case 7:
-                    dataManager.quitarSucursal(dataManager);
-                    break;
                 default:
                     System.out.println("Opción no válida. Intente nuevamente.");
             }

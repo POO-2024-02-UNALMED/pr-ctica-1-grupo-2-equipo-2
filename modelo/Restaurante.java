@@ -54,7 +54,7 @@ public class Restaurante {
             int i = 0;
 
             while(i < conEspacio.size()){
-                System.out.println(i + ". " + conEspacio.get(i));
+                System.out.println(i+1 + ". " + conEspacio.get(i));
                 i++;
             }
             System.out.print("\nIngrese la sucursal del mesero: ");
@@ -141,7 +141,7 @@ public static void buscarMesero() {
 
 
 //menu
-public static void menuAdministrativo() {
+public static void menuAdministrativo(DataManager dataManager) {
     Scanner scanner = new Scanner(System.in);
 
     while (true) {
@@ -155,7 +155,7 @@ public static void menuAdministrativo() {
 
         switch (opcion) {
             case 1:
-                menuRecursosHumanos();
+                menuRecursosHumanos(dataManager);
                 break;
             case 2:
                 System.out.println("Saliendo del sistema...");
@@ -165,9 +165,8 @@ public static void menuAdministrativo() {
         }
     }
 }
-public static void menuRecursosHumanos() {
+public static void menuRecursosHumanos(DataManager dataManager) {
     Scanner scanner = new Scanner(System.in);
-    DataManager dataManager = new DataManager();
     while (true) {
         System.out.println("\nMenú de Recursos Humanos:");
         System.out.println("1. Ver meseros");

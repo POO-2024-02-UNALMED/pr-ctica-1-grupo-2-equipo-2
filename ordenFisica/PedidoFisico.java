@@ -1,5 +1,7 @@
 package ordenFisica;
 
+import java.util.List;
+
 import modelo.Mesa;
 import modelo.Mesero;
 import modelo.Sucursal;
@@ -38,5 +40,46 @@ public class PedidoFisico extends OrdenFisica {
 	
 	public void setPedido(Plato[] pedido) {
 		this.pedido=pedido;
+	}
+
+		public void Facturacion(PedidoFisico pedido) {
+		
+		System.out.printf("Tierra del sabor %s\n", pedido.getSucursal().getUbicacion());
+		System.out.printf("%s\n", pedido.getCliente().getNombre());
+		System.out.printf("%s\n", pedido.getChef().getNombre());
+		System.out.printf("%s\n", pedido.getMesero().getNombre());
+		int PrecioTotal = 0;
+		for(Plato plato : pedido.getPedido()) {
+            System.out.println(plato.getNombre());
+            PrecioTotal += plato.getPrecio();
+		}
+		
+		System.out.printf(" el total es de %d\n", PrecioTotal);
+		pedido.getSucursal().incrementarPresupuesto(PrecioTotal);
+		
+		(pedido.getCliente()).darCalificacionM(pedido.getMesero());
+		(pedido.getCliente()).darCalificacionC(pedido.getChef());
+		
+		if (PrecioTotal <= 20000) {
+			pedido.getCliente().sumarPuntos(1);	
+			}
+		if (PrecioTotal >= 20000 && PrecioTotal <= 100000) {
+			pedido.getCliente().sumarPuntos(2);	
+			}
+		if (PrecioTotal >= 100000) {
+			pedido.getCliente().sumarPuntos(3);	
+			}
+		
+		if (pedido.getCliente().getPuntos() >= 20) {
+			pedido.getSucursal().usarDescuento1(PrecioTotal);
+			PrecioTotal = pedido.getCliente().reclamarPuntos(PrecioTotal);
+    		int numeroRedondeado = (int) Math.round(PrecioTotal);
+			pedido.getSucursal().usarDescuento2(numeroRedondeado);
+			System.out.printf(" el total verificado es de %d\n", numeroRedondeado);
+			
+		}
+		
+		
+		
 	}
 }

@@ -10,12 +10,15 @@ public class Chef extends Empleado {
 	private int ultimaCalificacion;
 	private int puntaje;
 	private int sueldo;
+	private int pedidoActuales;
     private boolean isDisponible;
     private int proximoObjetivo;
 	
 	public Chef(int id,String nombre,String direccion,int edad,Sucursal sucursal,int antiguedad,String fechaDeContratacion,int ultimaCalificacion,boolean isDisponible) {
 		super(id,nombre,direccion,edad);
+		this.setRol(2);
 		this.sucursal=sucursal;
+		this.pedidoActuales = 0;
 		this.antiguedad=antiguedad;
 		this.fechaDeContratacion=fechaDeContratacion;
 		this.ultimaCalificacion=ultimaCalificacion;
@@ -142,5 +145,22 @@ public class Chef extends Empleado {
 	
     	}
 	}
+
+		static public Chef asignar(Sucursal sucursal) {
+		Chef e = null;
+		 for(Chef empleado : sucursal.getChef()) {
+			 int a= empleado.getRol();
+			 if (a == 2 && empleado.isDisponible == true) {
+				 empleado.pedidoActuales += 1;
+				 if (empleado.pedidoActuales > 3) {
+					 empleado.isDisponible = false;
+				 }
+					e = empleado;		 
+				}
+		 }
+		return e;
+
+	}
+
 	}
 

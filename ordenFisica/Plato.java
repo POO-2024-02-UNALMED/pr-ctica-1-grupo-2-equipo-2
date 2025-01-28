@@ -22,6 +22,14 @@ public class Plato implements Serializable{
 	public void setPrecio(float precio) {
 		this.precio=precio;
 	}
+
+		public String getNombre() {
+		return nombre;
+	}
+	
+	public void setNombre(String nombre) {
+		this.nombre=nombre;
+	}
 	
 	public List<Ingrediente> getI_N() {
 		return ingredientesNecesarios;
@@ -29,5 +37,9 @@ public class Plato implements Serializable{
 	
 	public void setI_N(List<Ingrediente> I_N) {
 		this.ingredientesNecesarios=I_N;
+	}
+
+	public String toString() {
+		return nombre;
 	}
 }

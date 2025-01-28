@@ -1,6 +1,10 @@
 package ordenFisica;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 import modelo.Mesa;
 import modelo.Mesero;
@@ -61,7 +65,7 @@ public class OrdenFisica implements Serializable{
 		this.pendiente=pendiente;
 	}
 
-		public void HacerPedido(Sucursal sucursal) {
+	public void HacerPedido(Sucursal sucursal) {
 		
 		System.out.println(sucursal.mostrarMenu());
 		
@@ -79,27 +83,75 @@ public class OrdenFisica implements Serializable{
 				}
 			}
 			
+			if (CantPer <= 0) {
+				while (CantPer <= 0) {
+					boolean verificacion2 = false;
+					while (!verificacion2) {
+						System.out.println("Numero de platos debe ser mayor a 0 ingrese un numero valido");
+						try {
+							CantPer = scanner.nextInt();
+							verificacion2= true;
+						} catch (InputMismatchException e){
+							System.out.println("Entrada no válida. Por favor, ingrese un número.");
+							scanner.next();
+						}
+					}
+				}
+			}
+		List<Integer> pedido1 = new ArrayList<>();
+		List<Plato> platoF =new ArrayList<>();
+		
 		if (CantPer < 6 && CantPer>0) {
 			int i = 0;
-			List<String> pedido1 = new ArrayList<>();
+			int plato = 0;
 			while (i < CantPer) {
 				boolean verficacion2 = false;
 				while (!verficacion2) {
 					System.out.println("¿que plato desea ordenar? ingrese el numero del plato");
 					try {
-						CantPer = scanner.nextInt();
+						plato = scanner.nextInt();
+						for (Plato plato2 : sucursal.getMenu() ) {
+							if (plato2.getId() == plato) {
+								System.out.printf("Pedido confirmado de ", plato2.getNombre());
+								platoF.add(plato2);
+							}
+						}
+						pedido1.add(plato);
 						verificacion= true;
 					} catch (InputMismatchException e){
-						System.out.println("Entrada no válida. Por favor, ingrese un número.");
+						System.out.println("Entrada no válida. Por favor, ingrese el numero del plato");
 						scanner.next();
 					}
 				}
-						}
+				i++;		}
 
-
+			
 			
 						
 					}
+		
+		if(CantPer >= 6) {
+			boolean verificacion2 = false;
+			int plato = 0;
+			while (!verificacion2) {
+				System.out.println("¿Numero de platos es mayor a 6 por ende solo se dara un plato a todo el grupo, que plato desea?");
+				try {
+					plato = scanner.nextInt();
+					verificacion2= true;
+					pedido1.add(plato);
+				} catch (InputMismatchException e){
+					System.out.println("Entrada no válida. Por favor, ingrese un número.");
+					scanner.next();
+			
+		}
+
 			}
 			}
+
+		PedidoFisico pedido = new PedidoFisico (this.mesa, this.cliente,this.mesero,sucursal, CantPer, Chef.asignar(sucursal), platoF);{
+			
+		pedido.Facturacion(pedido);
+		}
+		}
+	}
 }

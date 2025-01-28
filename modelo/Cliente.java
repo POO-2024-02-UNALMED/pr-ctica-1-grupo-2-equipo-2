@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+
+import error.Entrada;
 import ordenFisica.OrdenFisica;
 import ordenFisica.PedidoFisico;
 
@@ -78,8 +80,8 @@ public class Cliente implements Serializable {
     public void agregarPedido(Pedido pedido) {
         this.historialPedidos.add(pedido);
     }
-    
-     public void darCalificacionM(Mesero mesero) {
+
+     public void darCalificacionM(Mesero mesero, Chef chef) {
     	boolean verificacion = false;
     	try (Scanner scanner = new Scanner(System.in)){
 			int Calificacion = 0;
@@ -90,34 +92,39 @@ public class Cliente implements Serializable {
 					verificacion= true;
 				} catch (InputMismatchException e){
 					System.out.println("Entrada no válida. Por favor, ingrese un número.");
-					scanner.next();
+					scanner.nextInt();
 				}
 			}
-			
+
 			if 	(Calificacion < 1) {
 				Calificacion = 1;
 			}
-			
+
 			if(Calificacion > 5) {
 					Calificacion = 5;
 				}
-			
-   
+
+
 			mesero.setUltimaCalificacion(Calificacion);
 			mesero.ganarPuntos(mesero, Calificacion);
+			chef.setUltimaCalificacion(Calificacion);
+			chef.ganarPuntos(chef, Calificacion);
 		}
-    	
-    	
+
+
     }
+
+
     
-    public void darCalificacionC(Chef chef) {
+    /*public void darCalificacionC(Chef chef) {
     	boolean verificacion = false;
     	try (Scanner scanner = new Scanner(System.in)){
-			int Calificacion = 0;
+			scanner.nextLine();
+			int Calificacion1 = 0;
 			while (!verificacion) {
 				System.out.println("ingrese la calificacion que el cliente le dio al chef que lo atendio del 1 al 5");
 				try {
-					Calificacion = scanner.nextInt();
+					Calificacion1 = scanner.nextInt();
 					verificacion= true;
 				} catch (InputMismatchException e){
 					System.out.println("Entrada no válida. Por favor, ingrese un número.");
@@ -125,19 +132,19 @@ public class Cliente implements Serializable {
 				}
 			}
 			
-			if 	(Calificacion < 1) {
-				Calificacion = 1;
+			if 	(Calificacion1 < 1) {
+				Calificacion1 = 1;
 			}
 			
-			if(Calificacion > 5) {
-					Calificacion = 5;
+			if(Calificacion1 > 5) {
+					Calificacion1 = 5;
 				}
 			
    
-			chef.setUltimaCalificacion(Calificacion);
-			chef.ganarPuntos(chef, Calificacion);
+			chef.setUltimaCalificacion(Calificacion1);
+			chef.ganarPuntos(chef, Calificacion1);
     }
-	}
+	}*/
 
         public void sumarPuntos(int suma){
     	 if (suma == 1) {

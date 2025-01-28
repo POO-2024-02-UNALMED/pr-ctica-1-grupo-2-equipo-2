@@ -4,6 +4,7 @@ import baseDatos.DataManager;
 import error.Entrada;
 import ordenFisica.OrdenFisica;
 import ordenFisica.PedidoFisico;
+import java.util.Scanner;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -396,5 +397,8 @@ public class Sucursal implements Serializable{
             }
         }
     }
-	
+	public static void tomarDatosReserva(){
+        System.out.println("Ingrese la fecha de la reservación de la siguiente forma: DD/MM/AA");
+        Scanner scanner =
+    }
 }

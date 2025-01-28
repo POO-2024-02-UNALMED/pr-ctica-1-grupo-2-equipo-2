@@ -355,6 +355,8 @@ public class DataManager implements Serializable {
     public void quitarSucursal() {
     }
 
+    public List<Reservacion> getReserva(){return reservaciones;}
+
     public boolean explorar(int id){
         for(Repartidor repartidor: repartidores){
             if(repartidor == null){continue;}

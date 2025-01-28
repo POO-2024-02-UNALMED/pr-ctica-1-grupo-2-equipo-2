@@ -27,7 +27,7 @@ public class Main {
             System.out.println("2. Contratacion");
             System.out.println("3. Funcionalidad 3");
             System.out.println("4. Pedir Domicilio");
-            System.out.println("5. Funcionalidad 5");
+            System.out.println("5. Realizar reservación");
             System.out.println("6. Finalizar programa");
 
             System.out.print("Seleccione una opción: ");
@@ -77,7 +77,7 @@ public class Main {
                     pedido.realizarPedido();
                     break;
                 case 5:
-                    System.out.println("Funcionalidad 5 en desarrollo.");
+
                     break;
                 case 6:
                     System.out.println("Guardando datos y finalizando programa...");

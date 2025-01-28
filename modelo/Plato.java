@@ -2,6 +2,8 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.list;
+import ordenFisica.OrdenFisica;
+import ordenFisica.PedidoFisico;
 
 public class Plato implements Serializable{
 	private static final long serialVersionUID = 1L;

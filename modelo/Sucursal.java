@@ -50,13 +50,15 @@ public class Sucursal implements Serializable{
         this.presupuesto = presupuesto;
         this.empleados = new Empleado[15];
         this.menu = new ArrayList<Plato>();
+        this.reservaciones = new ArrayList<Reservacion>();
+        this.chef = new ArrayList<Chef>();
         Plato a = new Plato("Hamburguesa", 15000,1);
         Plato b = new Plato("Perro", 14000, 2);
         Plato c = new Plato("Pizza Margarita", 21000,3);
         Plato d = new Plato("Pasta Alfredo", 16000, 4);
-        Plato e = new Plato("Salchipapas", 13000,6);
-        Plato f = new Plato("Hamburgusa vegana", 17000,7);
-        Plato g = new Plato("Picada", 30000, 8);
+        Plato e = new Plato("Salchipapas", 13000,5);
+        Plato f = new Plato("Hamburgusa vegana", 17000,6);
+        Plato g = new Plato("Picada", 30000, 7);
         menu.add(a);
         menu.add(b);
         menu.add(c);
@@ -372,7 +374,6 @@ public class Sucursal implements Serializable{
         if (!mesa.isReservada() && cantidadPersonas <= mesa.getCapacidad()) {
             Reservacion reservacion = new Reservacion(fechaHora, cantidadPersonas, mesa);
             reservaciones.add(reservacion);
-            dataManager.getReserva().add(reservacion);
             mesa.reservar();
             System.out.println("Reservación realizada para " + cantidadPersonas + " personas en la mesa " + mesa.getId());
         } else {
@@ -397,7 +398,6 @@ public class Sucursal implements Serializable{
         for (Reservacion reservacion : reservaciones) {
             if (reservacion.getMesa().getId() == numeroMesa) {
                 reservaciones.remove(reservacion);
-                dataManager.getReserva().remove(reservacion);
                 reservacion.getMesa().liberar();
                 realizarReservacion(nuevaFechaHora, reservacion.getCantidadPersonas(), numeroMesa, dataManager);
                 return;
@@ -422,7 +422,7 @@ public class Sucursal implements Serializable{
 	public static void tomarDatosReserva(DataManager dataManager){
         System.out.println("Ingrese la fecha de la reservación de la siguiente forma: DD/MM/AA");
         Scanner scanner = new Scanner(System.in);
-        String fecha = scanner.toString();
+        String fecha = scanner.nextLine();
         System.out.println("Ingrese la hora en formato militar para la reservación así HH:MM");
         String hora = scanner.nextLine();
         System.out.println("Ingrese la cantidad de personas que asistirán");
@@ -500,10 +500,11 @@ public class Sucursal implements Serializable{
                     Reservacion reservacion = sucursal.reservaciones.get(numero1 - 1);
                     System.out.println("Ingrese la fecha de la reservación de la siguiente forma: DD/MM/AA");
                     Scanner scanner = new Scanner(System.in);
-                    String fecha = scanner.toString();
+                    String fecha = scanner.nextLine();
                     System.out.println("Ingrese la hora en formato militar para la reservación así HH:MM");
                     String hora = scanner.nextLine();
                     sucursal.aplazarReservacion(reservacion.getMesa().getId(),(fecha + " a las " + hora), dataManager);
+                    scanner.close();
                 case 3:
                     i = 0;
                     numero1 = 0;

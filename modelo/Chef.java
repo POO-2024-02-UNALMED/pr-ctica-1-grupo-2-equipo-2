@@ -1,4 +1,4 @@
-package ordenFisica;
+package modelo;
 
 import modelo.Empleado;
 import modelo.Sucursal;

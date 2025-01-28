@@ -1,7 +1,7 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.list;
+import java.util.List;
 import ordenFisica.OrdenFisica;
 import ordenFisica.PedidoFisico;
 

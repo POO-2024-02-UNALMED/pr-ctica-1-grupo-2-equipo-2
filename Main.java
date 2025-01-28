@@ -93,7 +93,6 @@ public class Main {
                     for (Mesa mesa: sucursal.getMesas()){
                         if(mesa.getCapacidad() > cantidad && !mesa.isReservada()){
                             mes = mesa;
-                            mesa.reservar();
                             break;
                         }
                     }
@@ -115,6 +114,9 @@ public class Main {
                     }
                     OrdenFisica orden = new OrdenFisica(mes, cliente, meso, sucursal);
                     orden.HacerPedido(sucursal);
+                    System.out.println("Guardando datos y finalizando programa...");
+                    Persistencia.guardarDatos(dataManager);
+                    running = false;
                     break;
                 case 4:
                     PedirDomicilio pedido = new PedirDomicilio(dataManager);
@@ -129,7 +131,7 @@ public class Main {
                     running = false;
                     break;
                 case 7:
-                    dataManager.quitarSucursal();
+                    dataManager.quitarSucursal(dataManager);
                     break;
                 default:
                     System.out.println("Opción no válida. Intente nuevamente.");

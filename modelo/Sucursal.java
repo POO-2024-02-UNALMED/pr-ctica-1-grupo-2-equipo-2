@@ -5,7 +5,7 @@ import error.Entrada;
 import ordenFisica.Ingrediente;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.*;
 
 public class Sucursal implements Serializable{
     private static final long serialVersionUID = 1L;
@@ -18,9 +18,10 @@ public class Sucursal implements Serializable{
     private int[] direccion;
     private double gastoRecursos;
     private List<Plato> menu;
+    private Mesero[] meseros;
 
 
-	public Sucursal(int id, String ubicacion,int presupuesto,Ingrediente[] inventario,Empleado[] empleados) {
+	public Sucursal(int id, String ubicacion,int presupuesto,List<Ingrediente> inventario,List<Empleado> empleados) {
 		this.id=id;
 		this.ubicacion=ubicacion;
 		this.presupuesto=presupuesto;
@@ -38,7 +39,7 @@ public class Sucursal implements Serializable{
         this.meseros = new Mesero[cantidad];
         this.direccion = direccion;
         this.presupuesto = presupuesto;
-        this.empleados = new Empleado[15];
+        this.empleados = new ArrayList<Empleado>();
     }
     public Sucursal(int id, String nombre, int cantidad, int[] direccion, double presupuesto, String auto){
         this(id,nombre,cantidad,direccion,presupuesto);
@@ -311,4 +312,5 @@ public class Sucursal implements Serializable{
     	return Mmenu;
     	
     }
+    public Mesero[] getMeseros(){return meseros;}
 }

@@ -183,7 +183,7 @@ public class Mesero extends Empleado implements Serializable{
 }
 	static public Mesero asignar(Sucursal sucursal) {
 		Mesero e = null;
-		 for(Mesero empleado : sucursal.getMesero()) {
+		 for(Mesero empleado : sucursal.getMeseros()) {
 			 int a= empleado.getRol();
 			 if (a == 1 && empleado.isDisponible == true) {
 				 empleado.pedidoActuales += 1;

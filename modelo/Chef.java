@@ -27,6 +27,10 @@ public class Chef extends Empleado {
 		this.isDisponible=isDisponible;
 		this.proximoObjetivo=20;
 	}
+
+	public Chef(int id, Sucursal sucursal){
+		this(id, generarNombre(),"CALLE27_CARRERA6",20, sucursal, 1,"28/01/2005",0,true);
+	}
 	
 	public Sucursal getSucursal() {
 		return sucursal;

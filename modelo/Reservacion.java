@@ -1,21 +1,23 @@
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Reservacion {
-    private LocalDateTime fechaHora;
+public class Reservacion implements Serializable {
+    private final static long serialVersionUID = 1L;
+    private String fechaHora;
     private int cantidadPersonas;
     private Mesa mesa;
 
-    public Reservacion(LocalDateTime fechaHora, int cantidadPersonas, Mesa mesa){
+    public Reservacion(String fechaHora, int cantidadPersonas, Mesa mesa){
         this.cantidadPersonas = cantidadPersonas;
         this.mesa = mesa;
         this.fechaHora = fechaHora;
     }
 
-    public LocalDateTime getFechaHora() {
+    public String getFechaHora() {
         return fechaHora;
     }
 

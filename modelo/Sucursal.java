@@ -522,4 +522,5 @@ public class Sucursal implements Serializable{
             }
         }
     }
+    public Mesa[] getMesas(){return mesas;}
 }

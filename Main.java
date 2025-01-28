@@ -4,6 +4,7 @@ import baseDatos.DataManager;
 import baseDatos.Persistencia;
 import error.Entrada;
 import modelo.*;
+import ordenFisica.OrdenFisica;
 
 
 public class Main {
@@ -62,13 +63,59 @@ public class Main {
                         Administrativo admin = Administrativo.getAdmin(ced,dataManager);
                         admin.saludo();
                         Restaurante.menuAdministrativo();
-
                     }
 
                     break;
                 case 3:
                     Cliente cliente = PedirDomicilio.cargarCliente(dataManager);
-                    System.out.println("Funcionalidad 3 en desarrollo.");
+                    int i = 0;
+                    int eleccion = 0;
+                    for( Sucursal sucursal: dataManager.getSucursales()){
+                        i++;
+                        System.out.println(i + ". " + sucursal);
+                    }
+                    System.out.println("Escoja en cuál sucursal se está realizando la orden");
+                    while(eleccion < 1 || eleccion > dataManager.getSucursales().size()){
+                        eleccion = Entrada.input();
+                        if (eleccion < 1 || eleccion > dataManager.getSucursales().size()){
+                            System.out.println("Esa opción no está disponible");
+                        }
+                    }
+                    Sucursal sucursal = dataManager.getSucursales().get(eleccion - 1);
+                    System.out.println("Ingrese la cantidad de personas que se presenta con usted(INcluyéndolo a usted)");
+                    int cantidad = 0;
+                    while (cantidad < 1 || cantidad > 8){
+                        cantidad = Entrada.input();
+                        if(cantidad < 1 || cantidad > 8){
+                            System.out.println("No es posible registrar esa cantidad");
+                        }
+                    }
+                    Mesa mes = null;
+                    for (Mesa mesa: sucursal.getMesas()){
+                        if(mesa.getCapacidad() > cantidad && !mesa.isReservada()){
+                            mes = mesa;
+                            mesa.reservar();
+                            break;
+                        }
+                    }
+                    if(mes == null){
+                        System.out.println("No hay mesas disponibles");
+                        break;
+                    }
+                    Mesero meso = null;
+                    for(Mesero mesero: sucursal.getMeseros()){
+                        if(mesero.getIsDisponible()){
+                            meso = mesero;
+                            mesero.setIsDisponible(false);
+                            break;
+                        }
+                    }
+                    if (meso == null){
+                        System.out.println("No hay nadie que pua atender en este momento");
+                        break;
+                    }
+                    OrdenFisica orden = new OrdenFisica(mes, cliente, meso, sucursal);
+                    orden.HacerPedido(sucursal);
                     break;
                 case 4:
                     PedirDomicilio pedido = new PedirDomicilio(dataManager);

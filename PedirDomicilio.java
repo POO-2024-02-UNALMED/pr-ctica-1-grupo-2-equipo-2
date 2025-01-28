@@ -422,4 +422,10 @@ public class PedirDomicilio {
         return productosSeleccionados;
     }
 
+    public static Cliente cargarCliente(DataManager dataManger){
+        PedirDomicilio punter = new PedirDomicilio(dataManger);
+        Cliente cliente = punter.seleccionarOcrearCliente(new Scanner(System.in));
+        return cliente;
+    }
+
 }

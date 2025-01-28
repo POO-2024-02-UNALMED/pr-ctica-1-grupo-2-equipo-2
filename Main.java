@@ -3,10 +3,7 @@ import java.util.Scanner;
 import baseDatos.DataManager;
 import baseDatos.Persistencia;
 import error.Entrada;
-import modelo.Administrativo;
-import modelo.Empresa;
-import modelo.Restaurante;
-import modelo.Sucursal;
+import modelo.*;
 
 
 public class Main {
@@ -16,7 +13,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         dataManager = Persistencia.cargarDatos();
-
         if (dataManager == null) {
             dataManager = new DataManager();
         }
@@ -26,7 +22,7 @@ public class Main {
             System.out.println("\n=== Menú Principal ===");
             System.out.println("1. Ver sucursales");
             System.out.println("2. Contratacion");
-            System.out.println("3. Funcionalidad 3");
+            System.out.println("3. Pedir orden física");
             System.out.println("4. Pedir Domicilio");
             System.out.println("5. Realizar reservación");
             System.out.println("6. Finalizar programa");
@@ -71,6 +67,7 @@ public class Main {
 
                     break;
                 case 3:
+                    Cliente cliente = PedirDomicilio.cargarCliente(dataManager);
                     System.out.println("Funcionalidad 3 en desarrollo.");
                     break;
                 case 4:
@@ -84,6 +81,9 @@ public class Main {
                     System.out.println("Guardando datos y finalizando programa...");
                     Persistencia.guardarDatos(dataManager);
                     running = false;
+                    break;
+                case 7:
+                    dataManager.quitarSucursal();
                     break;
                 default:
                     System.out.println("Opción no válida. Intente nuevamente.");

@@ -378,6 +378,7 @@ public class Sucursal implements Serializable{
         for (Reservacion reservacion : reservaciones) {
             if (reservacion.getMesa().getId() == numeroMesa) {
                 reservaciones.remove(reservacion);
+                dataManager.getReserva().remove(reservacion);
                 reservacion.getMesa().liberar();
                 realizarReservacion(nuevaFechaHora, reservacion.getCantidadPersonas(), numeroMesa, dataManager);
                 return;
@@ -464,12 +465,32 @@ public class Sucursal implements Serializable{
                         }
                     }
                     Sucursal sucursal = dataManager.getSucursales().get(numero1 - 1);
-                    System.out.println("Escriba el número de la reservación que posee");
                     i = 0;
                     numero1 = 0;
                     for(Reservacion reservacion: sucursal.reservaciones){
                         i++;
                         System.out.println(i + ". " + reservacion);
+                    }
+                    System.out.println("Escoja la reservación que tiene registrada");
+                    while(numero1 < 1 || numero1 > sucursal.reservaciones.size()){
+                        numero1 = Entrada.input();
+                        if(numero1 < 1 || numero1 > sucursal.reservaciones.size()){
+                            System.out.println("Opción no disponible");
+                        }
+                    }
+                    Reservacion reservacion = sucursal.reservaciones.get(numero1 - 1);
+                    System.out.println("Ingrese la fecha de la reservación de la siguiente forma: DD/MM/AA");
+                    Scanner scanner = new Scanner(System.in);
+                    String fecha = scanner.toString();
+                    System.out.println("Ingrese la hora en formato militar para la reservación así HH:MM");
+                    String hora = scanner.nextLine();
+                    sucursal.aplazarReservacion(reservacion.getMesa().getId(),(fecha + " a las " + hora), dataManager);
+                case 3:
+                    i = 0;
+                    numero1 = 0;
+                    for(Sucursal sucursal1: dataManager.getSucursales()){
+                        i++;
+                        System.out.println(i + ". " + sucursal1);
                     }
                     System.out.println("Escoja en qué susucrsal está su reservación");
                     while(numero1 < 1 || numero1 > dataManager.getSucursales().size()){
@@ -478,6 +499,22 @@ public class Sucursal implements Serializable{
                             System.out.println("Opción no disponible");
                         }
                     }
+                    Sucursal sucursal1 = dataManager.getSucursales().get(numero1 - 1);
+                    i = 0;
+                    numero1 = 0;
+                    for(Reservacion reservacion1: sucursal1.reservaciones){
+                        i++;
+                        System.out.println(i + ". " + reservacion1);
+                    }
+                    System.out.println("Escoja la reservación que tiene registrada");
+                    while(numero1 < 1 || numero1 > sucursal1.reservaciones.size()){
+                        numero1 = Entrada.input();
+                        if(numero1 < 1 || numero1 > sucursal1.reservaciones.size()){
+                            System.out.println("Opción no disponible");
+                        }
+                    }
+                    Reservacion reservacion1 = sucursal1.reservaciones.get(numero1 - 1);
+                    sucursal1.cancelarReservacion(reservacion1.getMesa().getId(), dataManager);
                 default:
                     salir = true;
             }

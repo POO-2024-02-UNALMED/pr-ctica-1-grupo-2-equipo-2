@@ -14,16 +14,16 @@ public class Sucursal implements Serializable{
 	private String ubicacion;
 	private double presupuesto;
 	private List<Ingrediente> inventario;
-    private List<Mesero> mesero;
+    private Mesero[] meseros;
 	private List<Chef> chef;
-	private List<Empleado> empleados;
+	private Empleado[] empleados;
     private Mesa[] mesas;
     private int[] direccion;
     private double gastoRecursos;
     private List<Plato> menu;
 
 
-	public Sucursal(int id, String ubicacion,int presupuesto,Ingrediente[] inventario,Empleado[] empleados) {
+	public Sucursal(int id, String ubicacion,int presupuesto,List<Ingrediente> inventario,Empleado[] empleados) {
 		this.id=id;
 		this.ubicacion=ubicacion;
 		this.presupuesto=presupuesto;
@@ -315,6 +315,7 @@ public class Sucursal implements Serializable{
     	
     }
 
+    public Mesero[] getMeseros(){return meseros;}
         
     public void incrementarPresupuesto(int incremento) {
     	this.presupuesto += incremento;

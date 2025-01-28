@@ -107,8 +107,8 @@ public class OrdenFisica implements Serializable{
 			int i = 0;
 			int plato = 0;
 			while (i < CantPer) {
-				boolean verficacion2 = false;
-				while (!verficacion2) {
+				boolean verificacion2 = false;
+				while (!verificacion2) {
 					System.out.println("¿que plato desea ordenar? ingrese el numero del plato");
 					try {
 						plato = scanner.nextInt();

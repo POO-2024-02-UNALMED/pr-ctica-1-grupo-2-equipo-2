@@ -86,7 +86,7 @@ public class Cliente implements Serializable {
     	try (Scanner scanner = new Scanner(System.in)){
 			int Calificacion = 0;
 			while (!verificacion) {
-				System.out.println("ingrese la calificacion que el cliente le dio al mesero que lo atendio del 1 al 5");
+				System.out.println("ingrese la calificacion que el cliente le puso al servicio que lo atendio del 1 al 5");
 				try {
 					Calificacion = scanner.nextInt();
 					verificacion= true;
@@ -115,36 +115,6 @@ public class Cliente implements Serializable {
     }
 
 
-    
-    /*public void darCalificacionC(Chef chef) {
-    	boolean verificacion = false;
-    	try (Scanner scanner = new Scanner(System.in)){
-			scanner.nextLine();
-			int Calificacion1 = 0;
-			while (!verificacion) {
-				System.out.println("ingrese la calificacion que el cliente le dio al chef que lo atendio del 1 al 5");
-				try {
-					Calificacion1 = scanner.nextInt();
-					verificacion= true;
-				} catch (InputMismatchException e){
-					System.out.println("Entrada no válida. Por favor, ingrese un número.");
-					scanner.next();
-				}
-			}
-			
-			if 	(Calificacion1 < 1) {
-				Calificacion1 = 1;
-			}
-			
-			if(Calificacion1 > 5) {
-					Calificacion1 = 5;
-				}
-			
-   
-			chef.setUltimaCalificacion(Calificacion1);
-			chef.ganarPuntos(chef, Calificacion1);
-    }
-	}*/
 
         public void sumarPuntos(int suma){
     	 if (suma == 1) {

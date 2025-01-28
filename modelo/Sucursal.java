@@ -319,6 +319,7 @@ public class Sucursal implements Serializable{
         for(Mesero mesero: meseros){
             if (mesero == null){
                 mesero = mesero1;
+                presupuesto -= mesero.getSueldo() * 12;
                 return;
             }
         }

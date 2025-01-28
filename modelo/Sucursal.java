@@ -329,6 +329,13 @@ public class Sucursal implements Serializable{
     public void incrementarPresupuesto(int incremento) {
     	this.presupuesto += incremento;
     }
+    public void despedir(int id){
+        for (Mesero mesero: meseros){
+            if(mesero.getId() == id){
+                mesero = null;
+            }
+        }
+    }
     
     public void usarDescuento1(int precioTotal) {
     	this.presupuesto -= precioTotal;

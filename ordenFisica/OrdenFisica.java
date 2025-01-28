@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
+import modelo.Cliente;
 import modelo.Mesa;
 import modelo.Mesero;
 import modelo.Sucursal;
+import modelo.Plato;
 
 public class OrdenFisica implements Serializable{
 	private static final long serialVersionUID = 1L;

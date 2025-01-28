@@ -10,6 +10,7 @@ import modelo.Mesa;
 import modelo.Mesero;
 import modelo.Sucursal;
 import modelo.Plato;
+import modelo.Chef;
 
 public class OrdenFisica implements Serializable{
 	private static final long serialVersionUID = 1L;

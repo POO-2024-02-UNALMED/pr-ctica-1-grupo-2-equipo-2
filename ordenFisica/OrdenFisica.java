@@ -119,13 +119,14 @@ public class OrdenFisica implements Serializable{
 							}
 						}
 						pedido1.add(plato);
-						verificacion= true;
+						verificacion2= true;
 					} catch (InputMismatchException e){
 						System.out.println("Entrada no válida. Por favor, ingrese el numero del plato");
 						scanner.next();
 					}
 				}
-				i++;		}
+				i += 1;		
+			}
 
 			
 			

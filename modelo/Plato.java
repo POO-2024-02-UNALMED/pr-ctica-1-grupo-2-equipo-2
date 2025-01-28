@@ -9,10 +9,12 @@ public class Plato implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private float precio;
 	private String nombre;
+	private int id;
 	private  List<Ingrediente> ingredientesNecesarios;
 	
-	public Plato(String nombre,float precio,List<Ingrediente> I_N) {
+	public Plato(String nombre,float precio,List<Ingrediente> I_N, int id) {
 		this.nombre= nombre;
+		this.id =id;
 		this.precio=precio;
 		this.ingredientesNecesarios=I_N;
 	}
@@ -44,6 +46,11 @@ public class Plato implements Serializable{
 	public String toString() {
 		return nombre;
 	}
-
-	public int getId(){return id;}
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id=id;
+	}
 }

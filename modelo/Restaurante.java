@@ -85,30 +85,32 @@ public class Restaurante {
     }
 
     // Método para mostrar todos los meseros
-    public static void verMeseros() {
+    public static void verMeseros(DataManager dataManager) {
         System.out.println("Lista de meseros contratados:");
-        for (int i = 0; i < meseros.size(); i++) {
-            if (meseros.get(i) != null) {
-                System.out.println("- ID: " + meseros.get(i).getId() +
-                                   ", Nombre: " + meseros.get(i).getNombre() +
-                                   ", Sucursal: " + meseros.get(i).getSucursal().getUbicacion() +
-                                   ", Fecha de contratación: " + meseros.get(i).getFechaDeContratacion()+
-                                   ", sueldo del mesero: " + meseros.get(i).getSueldo());
+        for (Sucursal sucursal: dataManager.getSucursales()) {
+            for(Mesero mesero: sucursal.getMeseros()){
+                if (mesero != null) {
+                    System.out.println("- ID: " + mesero.getId() +
+                            ", Nombre: " + mesero.getNombre() +
+                            ", Sucursal: " + mesero.getSucursal().getUbicacion() +
+                            ", Fecha de contratación: " + mesero.getFechaDeContratacion()+
+                            ", sueldo del mesero: " + mesero.getSueldo());
+                }
             }
         }
     }
-    public static void despedirMesero() {
+    public static void despedirMesero(DataManager dataManager) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese el ID del mesero a despedir: ");
         int id = scanner.nextInt();
 
-        for (int i = 0; i < meseros.size(); i++) {
-            if (meseros.get(i) != null && meseros.get(i).getId() == id) {
-                System.out.println("Mesero despedido: " + meseros.get(i).getNombre());
-                Sucursal sucursal = meseros.get(i).getSucursal();// Eliminar al mesero del array
+        for (Sucursal sucursal: dataManager.getSucursales()) {
+            for(Mesero mesero: sucursal.getMeseros())
+                if (mesero != null && mesero.getId() == id) {
+                System.out.println("Mesero despedido: " + mesero.getNombre());// Eliminar al mesero del array
                 sucursal.despedir(id);
-                meseros.remove(i);
+                scanner.close();
                 return;
             }
         }
@@ -116,29 +118,30 @@ public class Restaurante {
     }
 
     // Método para un mesero especifico
-public static void buscarMesero() {
+public static void buscarMesero(DataManager dataManager) {
     Scanner scanner = new Scanner(System.in);
 
     System.out.print("Ingrese el ID del mesero que desea buscar: ");
     int id = scanner.nextInt();
 
-    for (int i = 0; i < meseros.size(); i++) {
-        if (meseros.get(i) != null && meseros.get(i).getId() == id) {
-            System.out.println("\n Mesero encontrado:");
-            System.out.println("ID: " + meseros.get(i).getId());
-            System.out.println("Nombre: " + meseros.get(i).getNombre());
-            System.out.println("Dirección: " + meseros.get(i).getDireccion());
-            System.out.println("Edad: " + meseros.get(i).getEdad());
-            System.out.println("Sucursal: " + meseros.get(i).getSucursal().getUbicacion());
-            System.out.println("Fecha de Contratación: " + meseros.get(i).getFechaDeContratacion());
-            System.out.println("sueldo: " + meseros.get(i).getSueldo());
-            return; 
+    for (Sucursal sucursal : dataManager.getSucursales()) {
+        for (Mesero mesero : sucursal.getMeseros()) {
+            if (mesero != null && mesero.getId() == id) {
+                System.out.println("\n Mesero encontrado:");
+                System.out.println("ID: " + mesero.getId());
+                System.out.println("Nombre: " + mesero.getNombre());
+                System.out.println("Dirección: " + mesero.getDireccion());
+                System.out.println("Edad: " + mesero.getEdad());
+                System.out.println("Sucursal: " + mesero.getSucursal());
+                System.out.println("Fecha de Contratación: " + mesero.getFechaDeContratacion());
+                System.out.println("sueldo: " + mesero.getSueldo());
+                return;
+            }
         }
+
+        System.out.println("\nNo se encontró un mesero con el ID especificado.");
     }
-
-    System.out.println("\nNo se encontró un mesero con el ID especificado.");
 }
-
 
 //menu
 public static void menuAdministrativo(DataManager dataManager) {
@@ -181,16 +184,16 @@ public static void menuRecursosHumanos(DataManager dataManager) {
 
         switch (opcion) {
             case 1:
-                verMeseros();
+                verMeseros(dataManager);
                 break;
             case 2:
-                buscarMesero();
+                buscarMesero(dataManager);
                 break;
             case 3:
                 contratarMesero(dataManager);
                 break;
             case 4:
-                despedirMesero();
+                despedirMesero(dataManager);
                 break;
             case 5:
                 return; // Salir del menú de Recursos Humanos

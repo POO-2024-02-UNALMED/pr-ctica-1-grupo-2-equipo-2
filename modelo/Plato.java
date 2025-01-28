@@ -12,11 +12,11 @@ public class Plato implements Serializable{
 	private int id;
 	private  List<Ingrediente> ingredientesNecesarios;
 	
-	public Plato(String nombre,float precio,List<Ingrediente> I_N, int id) {
+	public Plato(String nombre,float precio/*List<Ingrediente> I_N*/, int id) {
 		this.nombre= nombre;
 		this.id =id;
 		this.precio=precio;
-		this.ingredientesNecesarios=I_N;
+		/*this.ingredientesNecesarios=I_N;*/
 	}
 	
 	public float getPrecio() {

@@ -23,6 +23,7 @@ public class Restaurante {
             for(Mesero mesero: sucursal.getMeseros()){
                 if(mesero == null){
                     conEspacio.add(sucursal);
+                    break;
                 }
             }
         }

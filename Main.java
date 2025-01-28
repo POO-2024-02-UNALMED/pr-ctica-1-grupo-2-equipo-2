@@ -78,7 +78,7 @@ public class Main {
                     pedido.realizarPedido();
                     break;
                 case 5:
-                    Sucursal.tomarDatosReserva(dataManager);
+                    Sucursal.menuReserva(dataManager);
                     break;
                 case 6:
                     System.out.println("Guardando datos y finalizando programa...");

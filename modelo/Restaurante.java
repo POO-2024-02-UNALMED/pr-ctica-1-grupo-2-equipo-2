@@ -35,8 +35,9 @@ public class Restaurante {
             while (!correcto){
                 int id = scanner.nextInt();
                 correcto = dataManager.explorar(id);
-                if(!correcto){
+                if(!correcto) {
                     System.out.println("Ese id ya está en uso");
+                }
             }
             scanner.nextLine(); // Limpiar el buffer de entrada
             System.out.print("Ingrese el nombre del mesero: ");
@@ -58,8 +59,9 @@ public class Restaurante {
             int nombreSucursal = Entrada.input();
             while(nombreSucursal < 1 || nombreSucursal > i){
                 nombreSucursal = Entrada.input();
-                if(nombreSucursal < 1 || nombreSucursal > i){
+                if(nombreSucursal < 1 || nombreSucursal > i) {
                     System.out.println("Opción no disponible");
+                }
             }
 
             Sucursal sucursal = sucursales.get(nombreSucursal-1);
@@ -72,7 +74,7 @@ public class Restaurante {
             String fechaDeContratacion = scanner.nextLine();
 
             // Crear y agregar el mesero al array
-            sucursal = new Mesero(id, nombre, direccion, edad, sucursal, antiguedad, fechaDeContratacion);
+            sucursal.nuevoMesero(new Mesero(id, nombre, direccion, edad, sucursal, antiguedad, fechaDeContratacion));
             System.out.println("Mesero contratado exitosamente");
             return; // Salir después de contratar
         }

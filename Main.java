@@ -61,7 +61,7 @@ public class Main {
                     if (Administrativo.verificarAdmin(ced, dataManager)){
                         Administrativo admin = Administrativo.getAdmin(ced,dataManager);
                         admin.saludo();
-                        Restaurante.menuAdministrativo();
+                        Restaurante.menuAdministrativo(dataManager);
                     }
 
                     break;

@@ -1,56 +1,76 @@
 package modelo;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
-
+import baseDatos.DataManager;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
+import error.Entrada;
 import modelo.Mesero;
 
 
 
 public class Restaurante {
-    private static Mesero[] meseros = new Mesero[10]; // Array para almacenar meseros
+    private static ArrayList<Mesero> meseros = new ArrayList<>(); // Array para almacenar meseros
 
     // Método para contratar un mesero
-    public static void contratarMesero() {
+    public static void contratarMesero(DataManager dataManager) {
         Scanner scanner = new Scanner(System.in); // Crear el Scanner para leer datos del usuario
-
-        // Verificar si hay espacio disponible en el array
-        for (int i = 0; i < meseros.length; i++) {
-            if (meseros[i] == null) { // Encontrar la primera posición vacía
-                // Solicitar datos al usuario
-                System.out.print("Ingrese el ID del mesero: ");
-                int id = scanner.nextInt();
-                scanner.nextLine(); // Limpiar el buffer de entrada
-
-                System.out.print("Ingrese el nombre del mesero: ");
-                String nombre = scanner.nextLine();
-
-                System.out.print("Ingrese la dirección del mesero: ");
-                String direccion = scanner.nextLine();
-
-                System.out.print("Ingrese la edad del mesero: ");
-                int edad = scanner.nextInt();
-                scanner.nextLine(); // Limpiar el buffer de entrada
-
-                
-                System.out.print("\nsucussales disponibles: \nsucursal 1(id) Cisneros\nsucursal 2(id) Robledo\nsucursal 3(id) Sabaneta");
-                System.out.print("\nIngrese la sucursal del mesero: ");
-                String nombreSucursal = scanner.nextLine();
-                Sucursal sucursal = new Sucursal(id,nombreSucursal);
-
-                System.out.print("Ingrese la experiencia del mesero (en años): ");
-                int antiguedad = scanner.nextInt();
-                scanner.nextLine(); // Limpiar el buffer de entrada
-
-                System.out.print("Ingrese la fecha de contratación (YYYY-MM-DD): ");
-                String fechaDeContratacion = scanner.nextLine();
-
-                // Crear y agregar el mesero al array
-                meseros[i] = new Mesero(id, nombre, direccion, edad, sucursal, antiguedad, fechaDeContratacion);
-                System.out.println("Mesero contratado exitosamente");
-                return; // Salir después de contratar 
+        ArrayList<Sucursal> conEspacio = new ArrayList<Sucursal>();
+        List<Sucursal> sucursales = dataManager.getSucursales();
+        for(Sucursal sucursal: sucursales){
+            for(Mesero mesero: sucursal.getMeseros()){
+                if(mesero == null){
+                    conEspacio.add(sucursal);
+                }
             }
         }
+        // Verificar si hay espacio disponible en el array
+
+        if (!conEspacio.isEmpty()) { // Encontrar la primera posición vacía
+            // Solicitar datos al usuario
+            System.out.print("Ingrese el ID del mesero: ");
+            int id = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer de entrada
+            System.out.print("Ingrese el nombre del mesero: ");
+            String nombre = scanner.nextLine();
+            System.out.print("Ingrese la dirección del mesero: ");
+            String direccion = scanner.nextLine();
+
+            System.out.print("Ingrese la edad del mesero: ");
+            int edad = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer de entrada
+
+            int i = 0;
+
+            while(i < conEspacio.size()){
+                System.out.println(i + ". " + conEspacio.get(i));
+                i++;
+            }
+            System.out.print("\nIngrese la sucursal del mesero: ");
+            int nombreSucursal = Entrada.input();
+            while(nombreSucursal < 1 || nombreSucursal > i){
+                nombreSucursal = Entrada.input();
+                if(nombreSucursal < 1 || nombreSucursal > i){
+                    System.out.println("Opción no disponible");
+            }
+
+            Sucursal sucursal = sucursales.get(nombreSucursal-1);
+
+            System.out.print("Ingrese la experiencia del mesero (en años): ");
+            int antiguedad = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer de entrada
+
+            System.out.print("Ingrese la fecha de contratación (YYYY-MM-DD): ");
+            String fechaDeContratacion = scanner.nextLine();
+
+            // Crear y agregar el mesero al array
+            sucursal = new Mesero(id, nombre, direccion, edad, sucursal, antiguedad, fechaDeContratacion);
+            System.out.println("Mesero contratado exitosamente");
+            return; // Salir después de contratar
+        }
+
         System.out.println("No hay espacio disponible para contratar más meseros.");
     }
 
@@ -135,7 +155,7 @@ public static void menuAdministrativo() {
 }
 public static void menuRecursosHumanos() {
     Scanner scanner = new Scanner(System.in);
-
+    DataManager dataManager = new DataManager();
     while (true) {
         System.out.println("\nMenú de Recursos Humanos:");
         System.out.println("1. Ver meseros");
@@ -156,7 +176,7 @@ public static void menuRecursosHumanos() {
                 buscarMesero();
                 break;
             case 3:
-                contratarMesero();
+                contratarMesero(dataManager);
                 break;
             case 4:
                 despedirMesero();

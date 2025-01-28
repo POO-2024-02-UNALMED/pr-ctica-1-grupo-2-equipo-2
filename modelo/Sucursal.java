@@ -25,6 +25,8 @@ public class Sucursal implements Serializable{
     private List<Plato> menu;
     private List<Reservacion> reservaciones;
 
+    public List<Chef> getChef(){return chef;}
+
 
 	public Sucursal(int id, String ubicacion,int presupuesto,List<Ingrediente> inventario,Empleado[] empleados) {
 		this.id=id;

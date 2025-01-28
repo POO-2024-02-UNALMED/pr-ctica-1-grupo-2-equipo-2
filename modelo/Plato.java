@@ -44,4 +44,6 @@ public class Plato implements Serializable{
 	public String toString() {
 		return nombre;
 	}
+
+	public int getId(){return id;}
 }

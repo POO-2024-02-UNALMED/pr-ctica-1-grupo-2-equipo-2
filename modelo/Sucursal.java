@@ -121,11 +121,11 @@ public class Sucursal implements Serializable{
         this.inventario=inventario;
     }
     
-    public List<Empleado> getEmpleado() {
+    public Empleado[] getEmpleado() {
     	return empleados;
     }
     
-    public void setEmpleado(List<Empleado> empleados) {
+    public void setEmpleado(Empleado[] empleados) {
     	this.empleados=empleados;
     }
 

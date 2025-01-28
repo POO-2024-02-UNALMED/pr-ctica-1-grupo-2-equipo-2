@@ -52,9 +52,8 @@ public class Main {
                         Administrativo admin = Administrativo.getAdmin(cedula, dataManager);
                         admin.saludo();
                         Empresa.menuFinanzas(dataManager);
-                    }else{
-                        break;
                     }
+                    break;
                 case 2:
                     System.out.println("iniciar como administrativo");
                     System.out.println("ingrese su numero de cedula");
@@ -82,7 +81,7 @@ public class Main {
                         }
                     }
                     Sucursal sucursal = dataManager.getSucursales().get(eleccion - 1);
-                    System.out.println("Ingrese la cantidad de personas que se presenta con usted(INcluyéndolo a usted)");
+                    System.out.println("Ingrese la cantidad de personas que se presenta con usted(Incluyéndolo a usted)");
                     int cantidad = 0;
                     while (cantidad < 1 || cantidad > 8){
                         cantidad = Entrada.input();

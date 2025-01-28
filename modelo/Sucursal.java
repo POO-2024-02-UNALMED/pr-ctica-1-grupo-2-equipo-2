@@ -348,11 +348,12 @@ public class Sucursal implements Serializable{
     public void usarDescuento2(int precioTotal) {
     	this.presupuesto += precioTotal;
     }
-    public void realizarReservacion(String fechaHora, int cantidadPersonas, int numeroMesa) {
+    public void realizarReservacion(String fechaHora, int cantidadPersonas, int numeroMesa, DataManager dataManager) {
         Mesa mesa = mesas[numeroMesa - 1];
         if (!mesa.isReservada() && cantidadPersonas <= mesa.getCapacidad()) {
             Reservacion reservacion = new Reservacion(fechaHora, cantidadPersonas, mesa);
             reservaciones.add(reservacion);
+            dataManager.getReserva().add(reservacion);
             mesa.reservar();
             System.out.println("Reservación realizada para " + cantidadPersonas + " personas en la mesa " + mesa.getId());
         } else {
@@ -360,10 +361,11 @@ public class Sucursal implements Serializable{
         }
     }
 
-    public void cancelarReservacion(int numeroMesa) {
+    public void cancelarReservacion(int numeroMesa, DataManager dataManager) {
         for (Reservacion reservacion : reservaciones) {
             if (reservacion.getMesa().getId() == numeroMesa) {
                 reservaciones.remove(reservacion);
+                dataManager.getReserva().remove(reservacion);
                 reservacion.getMesa().liberar();
                 System.out.println("Reservación cancelada para la mesa " + numeroMesa);
                 return;
@@ -372,12 +374,12 @@ public class Sucursal implements Serializable{
         System.out.println("No se encontró una reservación para la mesa " + numeroMesa);
     }
 
-    public void aplazarReservacion(int numeroMesa, String nuevaFechaHora) {
+    public void aplazarReservacion(int numeroMesa, String nuevaFechaHora, DataManager dataManager) {
         for (Reservacion reservacion : reservaciones) {
             if (reservacion.getMesa().getId() == numeroMesa) {
                 reservaciones.remove(reservacion);
                 reservacion.getMesa().liberar();
-                realizarReservacion(nuevaFechaHora, reservacion.getCantidadPersonas(), numeroMesa);
+                realizarReservacion(nuevaFechaHora, reservacion.getCantidadPersonas(), numeroMesa, dataManager);
                 return;
             }
         }
@@ -430,6 +432,55 @@ public class Sucursal implements Serializable{
             if (mesa.getCapacidad() < numero){continue;}
             id = mesa.getId();
         }
-        sucursal.realizarReservacion((fecha + " a las " + hora), numero, id);
+        sucursal.realizarReservacion((fecha + " a las " + hora), numero, id, dataManager);
+    }
+
+    public static void menuReserva(DataManager dataManager){
+        boolean salir = false;
+        while(!salir) {
+            System.out.println("=== Menú reservas===");
+            System.out.println("Escoja una opción");
+            System.out.println("1. Realizar reserva");
+            System.out.println("2. Aplazar resreva");
+            System.out.println("3. Cancelar reserva");
+            int eleccion = Entrada.input();
+
+            switch(eleccion){
+                case 1:
+                    tomarDatosReserva(dataManager);
+                    break;
+                case 2:
+                    int i = 0;
+                    int numero1 = 0;
+                    for(Sucursal sucursal: dataManager.getSucursales()){
+                        i++;
+                        System.out.println(i + ". " + sucursal);
+                    }
+                    System.out.println("Escoja en qué susucrsal está su reservación");
+                    while(numero1 < 1 || numero1 > dataManager.getSucursales().size()){
+                        numero1 = Entrada.input();
+                        if(numero1 < 1 || numero1 > dataManager.getSucursales().size()){
+                            System.out.println("Opción no disponible");
+                        }
+                    }
+                    Sucursal sucursal = dataManager.getSucursales().get(numero1 - 1);
+                    System.out.println("Escriba el número de la reservación que posee");
+                    i = 0;
+                    numero1 = 0;
+                    for(Reservacion reservacion: sucursal.reservaciones){
+                        i++;
+                        System.out.println(i + ". " + reservacion);
+                    }
+                    System.out.println("Escoja en qué susucrsal está su reservación");
+                    while(numero1 < 1 || numero1 > dataManager.getSucursales().size()){
+                        numero1 = Entrada.input();
+                        if(numero1 < 1 || numero1 > dataManager.getSucursales().size()){
+                            System.out.println("Opción no disponible");
+                        }
+                    }
+                default:
+                    salir = true;
+            }
+        }
     }
 }

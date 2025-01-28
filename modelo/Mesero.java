@@ -5,6 +5,7 @@ import ordenFisica.OrdenFisica;
 import ordenFisica.PedidoFisico;
 
 public class Mesero extends Empleado implements Serializable{
+	private final  static long serialVersionUID = 1248573422470370687L;
 	private Sucursal sucursal;
 	private int antiguedad;
 	private final String fechaDeContratacion;

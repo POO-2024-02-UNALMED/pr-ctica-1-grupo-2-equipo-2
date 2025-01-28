@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import ordenFisica.OrdenFisica;
+import ordenFisica.PedidoFisico;
 
 public class Cliente implements Serializable {
     private int id;

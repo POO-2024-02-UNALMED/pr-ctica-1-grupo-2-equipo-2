@@ -9,7 +9,7 @@ public class Repartidor implements Serializable {
     private boolean isDisponible;
     private double calificacionPromedio;
     private List<Zona> zonasAsignadas = new ArrayList<>();
-    private List<Barrio> barriosAsignado = new ArrayList<Barrio>();
+    private List<Barrio> barriosAsignados = new ArrayList<Barrio>();
 
     private static final long serialVersionUID = 1L;
 
@@ -17,6 +17,7 @@ public class Repartidor implements Serializable {
         this.id = id;
         this.nombre = nombre;
         this.isDisponible = isDisponible;
+        this.barriosAsignados = new ArrayList<Barrio>();
     }
 
     // Getter y setter para zonasAsignadas
@@ -68,8 +69,8 @@ public class Repartidor implements Serializable {
         this.calificacionPromedio = calificacionPromedio;
     }
 
-    public ArrayList<Barrio> getBarriosAsignados(){return getBarriosAsignados();}
-    public void setBarriosAsignado(ArrayList<Barrio> barriosAsignado){this.barriosAsignado = barriosAsignado;}
+    public List<Barrio> getBarriosAsignados(){return barriosAsignados;}
+    public void setBarriosAsignado(ArrayList<Barrio> barriosAsignado){this.barriosAsignados = barriosAsignado;}
 
     @Override
     public String toString() {

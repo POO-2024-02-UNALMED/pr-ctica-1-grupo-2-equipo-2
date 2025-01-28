@@ -352,48 +352,6 @@ public class DataManager implements Serializable {
 
     public void addSucursal(Sucursal sucursal){sucursales.add(sucursal);}
 
-    public void quitarSucursal(DataManager dataManager) {
-        /*
-        sucursales.remove(2);
-        sucursales.remove(1);
-        sucursales.remove(0);*/
-
-        int[] x = {-3, -3};
-        int[] y = {5, 3};
-        int[] z = {-2, 6};
-        sucursales.add(new Sucursal(1, "Cisneros", 35, x, 57000000, "auto"));
-        sucursales.add(new Sucursal(2, "Robledo", 30, y, 48000000, "auto"));
-        sucursales.add(new Sucursal(3, "Sabaneta", 30, z, 44000000, "auto"));
-        ciudad[9].setSucursal(true);
-        ciudad[4].setSucursal(true);
-        ciudad[1].setSucursal(true);
-
-        // Meseros
-
-        for(Sucursal sucursal: getSucursales()){
-            for(int i = 0; i < 5; i++){
-                boolean correcto = false;
-                while(!correcto){
-                    int cedula = Empleado.generarDocumento();
-                    correcto = explorar(cedula);
-                    sucursal.autoEmpleado(i,cedula);
-                }
-
-            }
-        }
-        for(Sucursal sucursal: getSucursales()){
-            for(int i = 0; i < 5; i++){
-                boolean correcto = false;
-                while(!correcto){
-                    int cedula = Empleado.generarDocumento();
-                    correcto = explorar(cedula);
-                    sucursal.getChef().add(new Chef(cedula,sucursal));
-                }
-
-            }
-        }
-    }
-
     public List<Reservacion> getReserva(){return reservaciones;}
 
     public boolean explorar(int id){
